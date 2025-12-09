@@ -10,10 +10,12 @@
 <body>
 <header class="main-header">
     <div class="logo-container">
-        <a href="{{ url('/') }}"><img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="logo"></a>
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="logo">
+        </a>
     </div>
     <nav class="main-nav">
-        <ul><li><a href="{{ url('/') }}">Retour Accueil</a></li></ul>
+        <ul><li><a href="{{ route('home') }}">Retour Accueil</a></li></ul>
     </nav>
 </header>
 
@@ -26,20 +28,23 @@
 
     <div class="bloc-formulaire">
         <h1 class="titre-connexion">Connexion</h1>
-        <form action="{{ url('/') }}" class="form-connexion" method="POST">
-            @csrf <div class="form-group">
-                <input type="text" name="email" placeholder="Identifiant ou E-mail" required>
+
+        <form action="{{ route('home') }}" class="form-connexion">
+            <div class="form-group">
+                <input type="text" placeholder="Identifiant ou E-mail" required>
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Mot de passe" required>
+                <input type="password" placeholder="Mot de passe" required>
             </div>
             <button type="submit" class="btn-connexion">SE CONNECTER</button>
         </form>
+
         <p style="text-align:center; margin-top:15px;">
-            <a href="#">(Démo: Accès Admin)</a>
+            <a href="{{ route('admin.dashboard') }}">(Démo: Accès Admin)</a>
         </p>
         <p style="text-align:center; margin-top:15px;">
-            Pas encore membre ? <a href="#" style="color:var(--primary-color);">Créez un compte</a>
+            Pas encore membre ?
+            <a href="{{ route('register') }}" style="color:var(--primary-color);">Créez un compte</a>
         </p>
     </div>
 </div>
