@@ -19,8 +19,9 @@
 
     <div class="admin-toolbar">
         <input type="text" placeholder="Rechercher un film...">
-        <button class="cta-login" style="background-color:var(--green-btn);">+ Ajouter Film</button>
-    </div>
+        <a href="{{ route('admin.films.add') }}" class="cta-login" style="background-color:#2ecc71; display:inline-block; text-align:center;">
+            + Ajouter Film
+        </a>    </div>
 
     <div style="background:white; padding:20px; border-radius:8px;">
         <table class="admin-table">
