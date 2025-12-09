@@ -552,7 +552,7 @@ ul { list-style: none; }
 .hero-carousel {
     position: relative;
     width: 100%;
-    height: 50vh; /* Prend 85% de la hauteur de l'écran */
+    height: 85vh; /* Prend 85% de la hauteur de l'écran */
     background-color: #000;
     overflow: hidden;
 }
