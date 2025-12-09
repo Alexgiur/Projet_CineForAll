@@ -47,3 +47,16 @@ Route::get('/admin/films', function () {
 Route::get('/admin/personnes', function () {
     return view('admin-personnes'); // Affiche resources/views/admin-personnes.blade.php
 })->name('admin.personnes');
+
+
+// Page pour afficher le formulaire d'ajout
+Route::get('/admin/films/add', function () {
+    return view('admin-add-film');
+})->name('admin.films.add');
+
+// Route pour traiter le formulaire (Simulation pour l'instant)
+Route::post('/admin/films/store', function () {
+    // Ici, on enregistrerait normalement les données dans la base de données
+    // Pour l'instant, on redirige vers la liste des films
+    return redirect()->route('admin.films');
+})->name('admin.films.store');
