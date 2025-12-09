@@ -6,49 +6,44 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Ajoutez cette route pour la connexion
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
-// Page d'accueil (index.html)
+// Page d'accueil
 Route::get('/', function () {
-    return view('index');
+    return view('index'); // Affiche resources/views/index.blade.php
 })->name('home');
 
-// Page Films (films.html)
+// Page Films
 Route::get('/films', function () {
-    return view('films');
+    return view('films'); // Affiche resources/views/films.blade.php
 })->name('films');
 
-// Page de Connexion (login.html)
+// Page Connexion
 Route::get('/login', function () {
-    return view('login');
+    return view('login'); // Affiche resources/views/login.blade.php
 })->name('login');
 
-// Page d'Inscription (register.html)
+// Page Inscription (Celle qui vous manque)
 Route::get('/register', function () {
-    return view('register');
+    return view('register'); // Affiche resources/views/register.blade.php
 })->name('register');
 
-// Page de Réservation (reservation.html)
+// Page Réservation
 Route::get('/reservation', function () {
-    return view('reservation');
+    return view('reservation'); // Affiche resources/views/reservation.blade.php
 })->name('reservation');
 
-// --- Espace Admin ---
+// --- Section Admin ---
 
-// Dashboard Admin (admin.html)
+// Dashboard Admin (Celle qui vous manque)
 Route::get('/admin', function () {
-    return view('admin');
+    return view('admin'); // Affiche resources/views/admin.blade.php
 })->name('admin.dashboard');
 
-// Gestion Films (admin-films.html)
+// Gestion Films
 Route::get('/admin/films', function () {
-    return view('admin-films');
+    return view('admin-films'); // Affiche resources/views/admin-films.blade.php
 })->name('admin.films');
 
-// Gestion Personnes (admin-personnes.html)
+// Gestion Personnes
 Route::get('/admin/personnes', function () {
-    return view('admin-personnes');
+    return view('admin-personnes'); // Affiche resources/views/admin-personnes.blade.php
 })->name('admin.personnes');
