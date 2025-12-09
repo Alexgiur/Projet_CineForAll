@@ -126,7 +126,10 @@
     <div class="footer-content">
         <img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="footer-logo">
         <p>© 2025 CineForAll - Tous droits réservés.</p>
-        
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+            <a href="#">Facebook</a>
         </div>
     </div>
 </footer>
