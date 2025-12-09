@@ -6,55 +6,50 @@
     <title>CineForAll - Accueil</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="{{ asset('js/carousel.js') }}" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header class="main-header">
     <div class="logo-container">
         <a href="{{ route('home') }}">
-            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
+            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo">
         </a>
     </div>
     <nav class="main-nav">
         <ul>
-            <li><a href="{{ route('home') }}" class="active-link">Accueil</a></li>
-            <li><a href="{{ route('films') }}">Films</a></li>
-            <li><a href="{{ route('reservation') }}" class="cta-reservation">Réservation</a></li>
-            <li><a href="{{ route('login') }}" class="cta-login">Connexion</a></li>
+            <li><a href="{{ route('home') }}">ACCUEIL</a></li>
+            <li><a href="{{ route('films') }}">FILMS</a></li>
+            <li><a href="{{ route('reservation') }}" class="cta-reservation">RÉSERVATION</a></li>
+            <li><a href="{{ route('login') }}" class="cta-login">CONNEXION</a></li>
         </ul>
     </nav>
 </header>
 
 <main>
     <section class="hero-carousel">
-
         <div class="slide active">
-            <img src="{{ asset('img/film1.jpg') }}" alt="Until Dawn"> <div class="slide-content">
-                <span class="tag">À L'AFFICHE</span>
-                <h1>Until Dawn</h1>
-                <p>La peur les gagne alors que la montagne se referme sur eux.</p>
-                <a href="{{ route('reservation') }}" class="btn-hero">Réserver ma séance</a>
+            <img src="{{ asset('img/film1.jpg') }}" alt="Until Dawn">
+            <div class="slide-content">
+                <h1>UNTIL DAWN</h1>
+                <p>Vivez l'horreur ultime sur grand écran.</p>
+                <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
         </div>
-
         <div class="slide">
             <img src="{{ asset('img/film2.jpg') }}" alt="Chainsaw Man">
             <div class="slide-content">
-                <span class="tag">AVANT-PREMIÈRE</span>
-                <h1>Chainsaw Man</h1>
-                <p>Le démon tronçonneuse arrive sur grand écran.</p>
-                <a href="{{ route('reservation') }}" class="btn-hero">Réserver ma séance</a>
+                <h1>CHAINSAW MAN</h1>
+                <p>Le phénomène anime arrive au cinéma.</p>
+                <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
         </div>
-
         <div class="slide">
             <img src="{{ asset('img/film3.jpg') }}" alt="John Wick">
             <div class="slide-content">
-                <span class="tag">ACTION</span>
-                <h1>John Wick</h1>
-                <p>La légende est de retour pour un dernier contrat.</p>
-                <a href="{{ route('reservation') }}" class="btn-hero">Réserver ma séance</a>
+                <h1>JOHN WICK 4</h1>
+                <p>La vengeance a un nom.</p>
+                <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
         </div>
 
@@ -62,79 +57,32 @@
         <button class="next-btn">&#10095;</button>
 
         <div class="carousel-indicators">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
     </section>
 
-    <section class="films-section" id="films-semaine">
-        <div class="section-header">
-            <h2>Films à l'affiche</h2>
-            <a href="{{ route('films') }}" class="see-all">Tout voir →</a>
-        </div>
-
+    <section class="films-section">
+        <h2>À l'affiche cette semaine</h2>
         <div class="film-list">
             <div class="film-card">
-                <div class="card-image-container">
-                    <img src="{{ asset('img/film1.jpg') }}" alt="Until Dawn">
-                    <div class="card-overlay">
-                        <a href="{{ route('reservation') }}" class="btn-overlay">Horaires</a>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <h3>Until Dawn</h3>
-                    <p>Horreur</p>
-                </div>
+                <img src="{{ asset('img/film1.jpg') }}" alt="Film">
+                <h3>Until Dawn</h3>
+                <p>Horreur</p>
             </div>
-
             <div class="film-card">
-                <div class="card-image-container">
-                    <img src="{{ asset('img/film2.jpg') }}" alt="Chainsaw Man">
-                    <div class="card-overlay">
-                        <a href="{{ route('reservation') }}" class="btn-overlay">Horaires</a>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <h3>Chainsaw Man</h3>
-                    <p>Animation</p>
-                </div>
+                <img src="{{ asset('img/film2.jpg') }}" alt="Film">
+                <h3>Chainsaw Man</h3>
+                <p>Animation</p>
             </div>
-
             <div class="film-card">
-                <div class="card-image-container">
-                    <img src="{{ asset('img/film3.jpg') }}" alt="John Wick">
-                    <div class="card-overlay">
-                        <a href="{{ route('reservation') }}" class="btn-overlay">Horaires</a>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <h3>John Wick</h3>
-                    <p>Action</p>
-                </div>
-            </div>
-
-            <div class="film-card">
-                <div class="card-image-container">
-                    <img src="{{ asset('img/film6.jpg') }}" alt="Avengers">
-                    <div class="card-overlay">
-                        <a href="{{ route('reservation') }}" class="btn-overlay">Horaires</a>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <h3>Avengers</h3>
-                    <p>Action</p>
-                </div>
+                <img src="{{ asset('img/film3.jpg') }}" alt="Film">
+                <h3>John Wick</h3>
+                <p>Action</p>
             </div>
         </div>
     </section>
 </main>
-
-<footer>
-    <div class="footer-content">
-        <img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="footer-logo">
-        <p>© 2025 CineForAll - L'expérience cinéma par excellence.</p>
-    </div>
-</footer>
 </body>
 </html>

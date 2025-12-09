@@ -491,3 +491,168 @@ footer p { font-size: 0.9em; }
 
     .hero-content h1 { font-size: 2.5em; }
 }
+
+/* ============================================================ */
+/* 1. GLOBAL VARIABLES & RESET                                  */
+/* ============================================================ */
+:root {
+    --primary-color: #991917; /* VOTRE ROUGE */
+    --primary-dark: #7a1413;
+    --secondary-color: #f4f4f4;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --font-family-logo: 'Lilita One', cursive;
+    --font-family-body: Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-family-body);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+}
+
+h1, h2, h3 { font-family: var(--font-family-logo); }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* ============================================================ */
+/* 2. HEADER (Fixe et transparent)                              */
+/* ============================================================ */
+.main-header {
+    position: absolute; /* Superposé au carrousel */
+    top: 0; left: 0; width: 100%; height: 90px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 5%; z-index: 1000;
+}
+
+.logo-container img { height: 60px; width: auto; border-radius: 5px; }
+
+.main-nav ul { display: flex; gap: 20px; }
+.main-nav a {
+    color: white; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.main-nav a:hover { color: var(--primary-color); }
+
+.cta-login {
+    background-color: var(--primary-color);
+    color: white !important;
+    padding: 10px 20px; border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.cta-login:hover { background-color: var(--primary-dark); transform: scale(1.05); }
+
+/* ============================================================ */
+/* 3. HERO CAROUSEL (C'est ce qui manquait !)                   */
+/* ============================================================ */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 85vh; /* Prend 85% de la hauteur de l'écran */
+    background-color: #000;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity 1s ease-in-out;
+}
+.slide.active { opacity: 1; }
+
+.slide img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.6); /* Assombrit l'image pour lire le texte */
+}
+
+.slide-content {
+    position: absolute; bottom: 20%; left: 5%;
+    color: white; z-index: 10;
+    max-width: 600px;
+    animation: slideUp 1s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.slide-content h1 { font-size: 4rem; margin-bottom: 10px; color: var(--primary-color); text-shadow: 2px 2px 0px #000; }
+.slide-content p { font-size: 1.2rem; margin-bottom: 20px; color: #ddd; }
+
+.btn-hero {
+    display: inline-block;
+    background: white; color: var(--primary-color);
+    padding: 12px 30px; border-radius: 30px;
+    font-weight: bold; font-size: 1rem;
+}
+.btn-hero:hover { background: var(--primary-color); color: white; }
+
+/* Navigation du Carrousel */
+.prev-btn, .next-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.5); color: white; border: none;
+    font-size: 2rem; padding: 20px; cursor: pointer; z-index: 20;
+}
+.prev-btn:hover, .next-btn:hover { background: var(--primary-color); }
+.prev-btn { left: 0; } .next-btn { right: 0; }
+
+.carousel-indicators {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; z-index: 20;
+}
+.dot {
+    width: 12px; height: 12px; background: rgba(255,255,255,0.5);
+    border-radius: 50%; cursor: pointer;
+}
+.dot.active { background: var(--primary-color); transform: scale(1.2); }
+
+/* ============================================================ */
+/* 4. SECTIONS & CARTES                                         */
+/* ============================================================ */
+.films-section { padding: 60px 5%; text-align: center; }
+.films-section h2 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 30px; }
+
+.film-list {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
+}
+
+.film-card {
+    background: white; width: 250px; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s; position: relative;
+    border-bottom: 4px solid var(--primary-color);
+}
+.film-card:hover { transform: translateY(-10px); }
+
+.film-card img { width: 100%; height: 350px; object-fit: cover; }
+.film-card h3 { padding: 15px 10px 5px; font-size: 1.2rem; color: #333; }
+.film-card p { padding: 0 10px 15px; color: #666; font-size: 0.9rem; }
+
+/* ============================================================ */
+/* 5. FORMULAIRES (MODERNISÉS)                                  */
+/* ============================================================ */
+.container-connexion {
+    display: flex; max-width: 900px; margin: 100px auto;
+    background: white; border-radius: 15px; overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.bloc-branding {
+    flex: 1; background: var(--primary-color); color: white;
+    padding: 40px; text-align: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.logo-connexion { width: 120px; border-radius: 50%; margin-bottom: 20px; background: white; padding: 10px; }
+
+.bloc-formulaire { flex: 1.2; padding: 50px; }
+.form-group { margin-bottom: 20px; }
+.form-group input {
+    width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px;
+    background: #f9f9f9; outline: none;
+}
+.form-group input:focus { border-color: var(--primary-color); background: white; }
+
+.btn-connexion {
+    width: 100%; padding: 15px; background: var(--primary-color);
+    color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
+}
+.btn-connexion:hover { background: var(--primary-dark); }
