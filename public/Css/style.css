@@ -449,4 +449,137 @@ footer {
     box-shadow: 0 0 8px rgba(153, 25, 23, 0.2);
 }
 
+/* --- Variables & Reset --- */
+:root {
+    --primary-color: #e50914; /* Rouge CGR/Netflix */
+    --dark-bg: #111;
+    --card-bg: #1a1a1a;
+    --text-color: #fff;
+    --font-title: 'Lilita One', cursive;
+    --font-body: 'Montserrat', sans-serif;
+}
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: var(--dark-bg); color: var(--text-color); font-family: var(--font-body); }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* --- Header --- */
+.main-header {
+    position: absolute; /* Pour flotter au-dessus du carrousel */
+    top: 0; width: 100%; height: 90px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 50px; z-index: 1000;
+}
+.logo-container .logo { height: 60px; border-radius: 5px; }
+
+.main-nav ul { display: flex; gap: 30px; }
+.main-nav a { font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+.main-nav a:hover { color: var(--primary-color); }
+
+.cta-login { background: var(--primary-color); padding: 10px 20px; border-radius: 30px; }
+.cta-login:hover { background: #ff0f1f; }
+.cta-reservation { border: 1px solid white; padding: 10px 20px; border-radius: 30px; }
+.cta-reservation:hover { background: white; color: black; }
+
+
+/* --- HERO CAROUSEL STYLE (Le plus important) --- */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 85vh; /* Hauteur comme CGR */
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; /* Caché par défaut */
+    transition: opacity 1s ease-in-out; /* Animation douce */
+}
+
+.slide.active { opacity: 1; /* Visible si actif */ }
+
+/* L'image de fond */
+.slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6); /* Assombrit l'image pour lire le texte */
+}
+
+/* Le texte sur l'image */
+.slide-content {
+    position: absolute;
+    bottom: 100px; left: 50px;
+    max-width: 600px;
+    z-index: 10;
+    animation: slideUp 1s ease-out;
+}
+
+.slide-content .tag {
+    background: var(--primary-color);
+    padding: 5px 10px; font-weight: bold; font-size: 0.8rem;
+    border-radius: 4px; display: inline-block; margin-bottom: 15px;
+}
+
+.slide-content h1 {
+    font-family: var(--font-title);
+    font-size: 4rem; margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+}
+
+.slide-content p {
+    font-size: 1.2rem; margin-bottom: 30px;
+    color: #ddd;
+}
+
+.btn-hero {
+    background: white; color: black;
+    padding: 15px 35px; border-radius: 50px;
+    font-weight: bold; text-transform: uppercase;
+    transition: 0.3s;
+}
+.btn-hero:hover { background: var(--primary-color); color: white; }
+
+/* Flèches de navigation */
+.prev-btn, .next-btn {
+    position: absolute; top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5); color: white;
+    border: none; font-size: 2rem; padding: 20px;
+    cursor: pointer; z-index: 20; transition: 0.3s;
+}
+.prev-btn:hover, .next-btn:hover { background: var(--primary-color); }
+.prev-btn { left: 0; border-radius: 0 5px 5px 0; }
+.next-btn { right: 0; border-radius: 5px 0 0 5px; }
+
+/* Points (Indicateurs) */
+.carousel-indicators {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%); display: flex; gap: 10px; z-index: 20;
+}
+.dot {
+    width: 12px; height: 12px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%; cursor: pointer;
+}
+.dot.active { background: white; transform: scale(1.2); }
+
+/* Animation du texte */
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* --- Autres Sections --- */
+.films-section { padding: 60px 50px; }
+.section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px;}
+.section-header h2 { font-family: var(--font-title); color: white; font-size: 2rem; }
+.see-all { color: var(--primary-color); font-weight: bold; }
+
+.film-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; }
+
+.film-card { background: transparent; cursor: pointer; transition: 0.
