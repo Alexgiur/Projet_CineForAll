@@ -229,9 +229,9 @@ main { flex: 1; }
 }
 
 
-./* ============================================================ */
-    /* 5. FORMULAIRES (Login / Register / Reservation)              */
-    /* ============================================================ */
+/* ============================================================ */
+/* 5. FORMULAIRES (Login / Register / Reservation)              */
+/* ============================================================ */
 .container-connexion {
     display: flex;
     width: 850px;
@@ -240,8 +240,10 @@ main { flex: 1; }
     border-radius: 8px;
     overflow: hidden;
     background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Ajout d'une ombre pour se démarquer */
 }
 
+/* --- Bloc de Branding (Partie Rouge) --- */
 .bloc-branding {
     flex: 1;
     background-color: var(--primary-color);
@@ -253,21 +255,36 @@ main { flex: 1; }
     justify-content: center;
     align-items: center;
 }
+/* Assurer que les titres utilisent la police du logo ici aussi */
+.bloc-branding h2.titre-bienvenue {
+    font-family: var(--font-family-logo);
+    font-size: 2.2em;
+    margin-top: 10px;
+}
 
 .logo-connexion {
     width: 150px;
-    background-color: #f5d5d4;
+    background-color: #f5d5d4; /* Fond très clair pour le logo */
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
+/* --- Bloc Formulaire (Partie Blanche) --- */
 .bloc-formulaire {
     flex: 1;
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.bloc-formulaire h1.titre-connexion {
+    font-family: var(--font-family-logo);
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2em;
 }
 
 .form-group, .champ-groupe { margin-bottom: 20px; text-align: left; }
@@ -278,6 +295,12 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transition pour le focus */
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(153, 25, 23, 0.2); /* Ombre légère au focus */
+    outline: none; /* Retirer l'outline par défaut du navigateur */
 }
 
 .btn-connexion, .submit-reservation {
@@ -289,7 +312,26 @@ input[type="text"], input[type="password"], input[type="email"], input[type="num
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
 }
+
+.btn-connexion:hover, .submit-reservation:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Styles pour les liens en bas du formulaire (Admin / Inscription) */
+.bloc-formulaire p a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.bloc-formulaire p a:hover {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
 
 /* Reservation Specific */
 .reservation-form-section { padding: 50px 5%; text-align: center; }
@@ -390,7 +432,8 @@ footer p { font-size: 0.9em; }
     .logo-container img { height: 80px; }
     .main-nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
     .container-connexion { flex-direction: column; width: 95%; margin: 20px auto; }
-    .bloc-branding, .bloc-formulaire { padding: 30px; }
+    .bloc-branding { display: none; } /* On cache la partie Branding sur mobile */
+    .bloc-formulaire { padding: 30px; }
     .hero-content h1 { font-size: 2.5em; }
     .modal-body { flex-direction: column; align-items: center; text-align: center; }
 }
