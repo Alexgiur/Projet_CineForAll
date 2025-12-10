@@ -8,32 +8,59 @@
 </head>
 <body>
 
+<header class="main-header">
+    <div class="logo-container">
+        <a href="{{ route('index') }}">
+            <img src="{{ asset('img/logo.jpeg') }}" alt="CineForAll Logo">
+        </a>
+    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="{{ route('index') }}">Accueil</a></li>
+            <li><a href="{{ route('films') }}">Films</a></li>
+            @auth
+                <li><a href="#">Mon Compte</a></li>
+            @else
+                <li><a href="{{ route('login') }}" class="cta-login">Connexion</a></li>
+            @endauth
+        </ul>
+    </nav>
+</header>
+
 <div class="reservation-page-container">
 
     <div class="form-area">
-        <h1>Réservation de Billets</h1>
-        <form id="reservation-form">
+        <h1>Réservation de Séance</h1>
+        <p>Sélectionnez votre film, votre séance et vos places.</p>
+
+        <form id="reservation-form" action="{{ route('reservation.store') }}" method="POST">
+            @csrf
 
             <div class="step-section">
                 <h3>1. Choisir le Film et la Séance</h3>
 
                 <div class="form-group">
-                    <label>Sélectionnez votre Film (Cliquez sur l'affiche) :</label>
+                    <label>Sélectionnez votre Film :</label>
                     <div class="film-selection-grid" id="film-select-grid">
-                        <div class="film-card-select" data-id="Dune2" data-film-title="Dune: Deuxième Partie">
-                            <img src="img/film1.jpeg" alt="Dune: Deuxième Partie">
-                            <h4>Dune: Deuxième Partie</h4>
-                        </div>
-                        <div class="film-card-select" data-id="Oppenheimer" data-film-title="Oppenheimer">
-                            <img src="img/film2.jpg" alt="Oppenheimer">
-                            <h4>Oppenheimer</h4>
-                        </div>
-                        <div class="film-card-select" data-id="Barbie" data-film-title="Barbie">
-                            <img src="img/film3.jpeg" alt="Barbie">
-                            <h4>Barbie</h4>
-                        </div>
+                        @if(isset($films))
+                            @foreach($films as $film)
+                                <div class="film-card-select" data-id="{{ $film->id }}" data-film-title="{{ $film->titre }}">
+                                    <img src="{{ asset('img/' . ($film->image ?? 'film1.jpeg')) }}" alt="{{ $film->titre }}">
+                                    <h4>{{ $film->titre }}</h4>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="film-card-select" data-id="Dune2" data-film-title="Dune: Deuxième Partie">
+                                <img src="{{ asset('img/film1.jpeg') }}" alt="Dune">
+                                <h4>Dune: Deuxième Partie</h4>
+                            </div>
+                            <div class="film-card-select" data-id="Oppenheimer" data-film-title="Oppenheimer">
+                                <img src="{{ asset('img/film2.jpg') }}" alt="Oppenheimer">
+                                <h4>Oppenheimer</h4>
+                            </div>
+                        @endif
                     </div>
-                    <input type="hidden" id="selected-film" name="film" required>
+                    <input type="hidden" id="selected-film" name="film_id" required>
                 </div>
 
                 <div class="form-group">
@@ -43,19 +70,18 @@
             </div>
 
             <div class="step-section">
-                <h3>2. Choisir le Nombre de Places</h3>
-                <p>Prix Adultes/Enfants/Étudiants simulés.</p>
+                <h3>2. Nombre de personnes</h3>
                 <div class="form-group">
-                    <label class="label-ticket" for="tickets-adult">Adultes (12.00 $):</label>
-                    <input type="number" id="tickets-adult" name="adultes" value="0" min="0" data-price="12.00">
+                    <label class="label-ticket" for="tickets-adult">Adultes :</label>
+                    <input type="number" id="tickets-adult" name="adultes" value="0" min="0">
                 </div>
                 <div class="form-group">
-                    <label class="label-ticket" for="tickets-child">Enfants (8.00 $):</label>
-                    <input type="number" id="tickets-child" name="enfants" value="0" min="0" data-price="8.00">
+                    <label class="label-ticket" for="tickets-child">Enfants :</label>
+                    <input type="number" id="tickets-child" name="enfants" value="0" min="0">
                 </div>
                 <div class="form-group">
-                    <label class="label-ticket" for="tickets-student">Étudiants (10.00 $):</label>
-                    <input type="number" id="tickets-student" name="etudiants" value="0" min="0" data-price="10.00">
+                    <label class="label-ticket" for="tickets-student">Étudiants :</label>
+                    <input type="number" id="tickets-student" name="etudiants" value="0" min="0">
                 </div>
             </div>
 
@@ -69,44 +95,39 @@
                     <div id="seat-map-grid" class="seat-map">
                         <div class="row" data-row="A">
                             <span class="row-label">A</span>
-                            <div class="seat available" data-id="A1" data-price="12.00">1</div>
-                            <div class="seat available" data-id="A2" data-price="12.00">2</div>
-                            <div class="seat booked" data-id="A3">3</div>
-                            <div class="seat booked" data-id="A4">4</div>
-                            <div class="seat available" data-id="A5" data-price="12.00">5</div>
+                            <div class="seat available" data-id="A1">1</div>
+                            <div class="seat available" data-id="A2">2</div>
+                            <div class="seat booked" data-id="A3">3</div> <div class="seat booked" data-id="A4">4</div>
+                            <div class="seat available" data-id="A5">5</div>
                         </div>
-
                         <div class="row" data-row="B">
                             <span class="row-label">B</span>
-                            <div class="seat available" data-id="B1" data-price="12.00">1</div>
-                            <div class="seat available" data-id="B2" data-price="12.00">2</div>
-                            <div class="seat available" data-id="B3" data-price="12.00">3</div>
-                            <div class="seat available" data-id="B4" data-price="12.00">4</div>
-                            <div class="seat available" data-id="B5" data-price="12.00">5</div>
+                            <div class="seat available" data-id="B1">1</div>
+                            <div class="seat available" data-id="B2">2</div>
+                            <div class="seat available" data-id="B3">3</div>
+                            <div class="seat available" data-id="B4">4</div>
+                            <div class="seat available" data-id="B5">5</div>
                         </div>
-
-                        <div class="row premium-row" data-row="C">
-                            <span class="row-label">C (Premium)</span>
-                            <div class="seat available premium" data-id="C1" data-price="15.00">1</div>
-                            <div class="seat available premium" data-id="C2" data-price="15.00">2</div>
-                            <div class="seat available premium" data-id="C3" data-price="15.00">3</div>
-                            <div class="seat booked premium" data-id="C4">4</div>
-                            <div class="seat available premium" data-id="C5" data-price="15.00">5</div>
+                        <div class="row" data-row="C">
+                            <span class="row-label">C</span>
+                            <div class="seat available" data-id="C1">1</div>
+                            <div class="seat available" data-id="C2">2</div>
+                            <div class="seat available" data-id="C3">3</div>
+                            <div class="seat available" data-id="C4">4</div>
+                            <div class="seat available" data-id="C5">5</div>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="legend">
                     <div class="legend-item"><div class="seat-icon available"></div> Disponible</div>
-                    <div class="legend-item"><div class="seat-icon selected"></div> Sélectionné</div>
+                    <div class="legend-item"><div class="seat-icon selected"></div> Ma sélection</div>
                     <div class="legend-item"><div class="seat-icon booked"></div> Indisponible</div>
                 </div>
             </div>
 
             <div class="step-section">
                 <h3>4. Vos Informations</h3>
-                <p>Ces informations seront utilisées pour retrouver votre réservation au guichet.</p>
                 <div class="form-group">
                     <label for="nom">Nom :</label>
                     <input type="text" id="nom" name="nom" required>
@@ -120,59 +141,44 @@
                     <input type="email" id="email" name="email" required>
                 </div>
             </div>
-
-            <button type="submit" id="submit-reservation" class="submit-reservation" disabled>
-                Confirmer la Réservation (0 Ticket)
-            </button>
-
         </form>
     </div>
 
     <aside class="summary-panel">
-        <h2>Récapitulatif de Réservation</h2>
+        <h2>Ma Sélection</h2>
 
         <div class="summary-details">
             <p><strong>Film:</strong> <span id="summary-film">Non sélectionné</span></p>
             <p><strong>Séance:</strong> <span id="summary-seance">Non sélectionnée</span></p>
             <hr>
-            <p>Places Sélectionnées:</p>
+            <p><strong>Sièges choisis :</strong></p>
             <ul id="selected-seats-list">
-                <li id="no-seats-selected">Aucun siège sélectionné.</li>
+                <li id="no-seats-selected">Aucun siège.</li>
             </ul>
+            <p><strong>Total places :</strong> <span id="total-count">0</span></p>
         </div>
 
-        <div class="total-breakdown">
-            <p>Total Sièges: <span id="total-seats-price">$0.00</span></p>
-            <p>Frais de Service: <span id="booking-fee">$1.00</span></p>
-            <hr>
-            <p class="grand-total">Total à Payer: <span><span id="grand-total-amount">$1.00</span></span></p>
-        </div>
-
-        <p style="font-size: 0.9em; margin-top: 15px; color: gray;">
-            (Le montant total inclut les frais de service de 1.00 $.)
-        </p>
+        <button type="submit" form="reservation-form" id="submit-reservation" class="submit-reservation" disabled>
+            Valider la Réservation
+        </button>
     </aside>
 
 </div>
 
 <div id="confirmation-display" style="display:none;">
-    <h2>Réservation Confirmée !</h2>
-    <p>Merci pour votre réservation. Voici les détails de votre commande :</p>
+    <h2>Réservation Enregistrée !</h2>
+    <p>Votre demande a bien été prise en compte.</p>
 
     <div class="confirmation-recap" id="final-recap">
     </div>
 
     <div class="confirmation-message">
-        <p><strong>ATTENTION:</strong> Cette plateforme n'inclut pas de fonctionnalité de paiement en ligne.</p>
-        <p>Votre réservation est en attente de paiement.</p>
+        <p>Veuillez vous présenter au guichet avant la séance pour retirer vos billets.</p>
     </div>
 
-    <p class="confirmation-message-retrait">
-        Veuillez vous présenter au guichet du cinéma **au moins 30 minutes avant la séance** pour régler et retirer vos billets.
-    </p>
-
+    <a href="{{ route('index') }}" class="btn-hero" style="margin-top:20px;">Retour à l'accueil</a>
 </div>
 
-<script src="reservation.js"></script>
+<script src="{{ asset('js/reservation.js') }}"></script>
 </body>
 </html>
