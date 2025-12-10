@@ -31,7 +31,7 @@
         <div class="slide active">
             <img src="{{ asset('img/Carousel1.jpg') }}" alt="Games Of Thrones">
             <div class="slide-content">
-                <h1>UNTIL DAWN</h1>
+                <h1>Games Of Thrones</h1>
                 <p>Le phénomène anime arrive au cinéma</p>
                 <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
@@ -39,7 +39,7 @@
         <div class="slide">
             <img src="{{ asset('img/Carousel2.jpg') }}" alt="FNAF">
             <div class="slide-content">
-                <h1>CHAINSAW MAN</h1>
+                <h1>FNAF</h1>
                 <p>Le phénomène anime arrive au cinéma.</p>
                 <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
@@ -47,7 +47,7 @@
         <div class="slide">
             <img src="{{ asset('img/Carousel3.jpg') }}" alt="Chainsaw Man">
             <div class="slide-content">
-                <h1>ChainsSaw Man 4</h1>
+                <h1>ChainsSaw Man </h1>
                 <p>Le phénomène anime arrive au cinéma</p>
                 <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
