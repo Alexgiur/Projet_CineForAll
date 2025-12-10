@@ -395,11 +395,13 @@ footer p { font-size: 0.9em; }
 }
 
 
-/* Ajout de la bordure rouge pour la page films */
-.film-cadre-rouge {
-    border: 3px solid red; /* Épaisseur de 3px, ligne continue, couleur rouge */
-    border-radius: 10px;   /* Optionnel : arrondit légèrement les coins */
-    padding: 10px;         /* Optionnel : ajoute de l'espace entre le contenu et la bordure */
-    margin-bottom: 20px;   /* Optionnel : sépare les films les uns des autres */
-    box-sizing: border-box; /* Assure que la bordure ne casse pas la mise en page */
+.film-card {
+    background-color: var(--primary-color); /* Le fond devient Rouge (#991917) */
+    border: 2px solid var(--primary-dark);  /* Une bordure rouge un peu plus foncée */
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombre un peu plus marquée */
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: white; /* IMPORTANT : Le texte devient blanc */
 }
