@@ -187,6 +187,50 @@ window.onclick = function(event) {
         closePersonModal();
     }
 }
+// ============================================================
+// FONCTIONNALITÉ DE RECHERCHE EN DIRECT
+// ============================================================
 
+// 1. Je sélectionne la barre de recherche HTML par son ID pour pouvoir l'écouter.
+const searchInput = document.getElementById('searchInput');
+
+// 2. Je sélectionne toutes les cartes de films présentes sur la page (div avec class="film-card").
+// Cela crée une liste (NodeList) de tous vos films.
+const allCards = document.querySelectorAll('.film-card');
+
+// 3. J'ajoute un "écouteur d'événement" sur la barre de recherche.
+// L'événement 'input' se déclenche à chaque fois que l'utilisateur tape ou efface une lettre.
+searchInput.addEventListener('input', function(e) {
+
+    // 4. Je récupère le texte écrit par l'utilisateur (la valeur de l'input).
+    // .toLowerCase() sert à tout mettre en minuscules pour ignorer les majuscules (ex: "JOhn" devient "john").
+    // .trim() sert à enlever les espaces inutiles au début et à la fin.
+    const searchTerm = e.target.value.toLowerCase().trim();
+
+    // 5. Je démarre une boucle pour analyser chaque carte de film, une par une.
+    allCards.forEach(card => {
+
+        // 6. Pour la carte en cours, je cherche la balise <h3> qui contient le titre du film.
+        // .innerText permet de récupérer juste le texte (ex: "John Wick").
+        // .toLowerCase() permet de mettre ce titre en minuscules pour la comparaison.
+        const filmTitle = card.querySelector('h3').innerText.toLowerCase();
+
+        // 7. Je vérifie si le titre du film contient (includes) le texte recherché.
+        // Si le terme recherché est présent dans le titre, le résultat est "true", sinon "false".
+        const isMatch = filmTitle.includes(searchTerm);
+
+        // 8. Si c'est un match (correspondance trouvée)...
+        if (isMatch) {
+            // 9. J'affiche la carte en mettant son style display à 'block' (ou 'flex' selon votre CSS).
+            card.style.display = 'block';
+
+            // 10. J'ajoute une petite animation d'apparition pour rendre ça fluide (optionnel mais joli).
+            card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+            // 11. Sinon (si le titre ne correspond pas), je cache la carte.
+            card.style.display = 'none';
+        }
+    });
+});
 
 

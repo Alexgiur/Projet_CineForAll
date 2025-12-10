@@ -468,3 +468,40 @@ footer p { font-size: 0.9em; }
     transform: translateY(-3px); /* Le bouton remonte légèrement */
     box-shadow: 0 8px 25px rgba(153, 25, 23, 0.3); /* L'ombre grandit */
 }
+
+/* ============================================================ */
+/* STYLE DE LA BARRE DE RECHERCHE (A ajouter dans style.css)    */
+/* ============================================================ */
+
+.search-container {
+    text-align: center;         /* Centre la barre horizontalement */
+    margin: 30px 0 50px 0;      /* Ajoute de l'espace autour de la barre */
+    position: relative;         /* Permet de positionner des icônes si besoin */
+}
+
+#searchInput {
+    width: 100%;                /* Prend toute la largeur disponible */
+    max-width: 600px;           /* Mais ne dépasse pas 600px pour rester esthétique */
+    padding: 15px 30px;         /* Espace confortable à l'intérieur du champ */
+    border: 2px solid #ddd;     /* Bordure grise discrète par défaut */
+    border-radius: 50px;        /* Bords très arrondis (pill shape) */
+    font-size: 1.1rem;          /* Texte légèrement plus grand */
+    background-color: #fff;     /* Fond blanc */
+    transition: all 0.3s ease;  /* Animation douce pour le changement d'état */
+    color: var(--text-color);   /* Couleur du texte standard */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Légère ombre pour le relief */
+}
+
+/* L'état "Focus" : Quand l'utilisateur clique dedans */
+#searchInput:focus {
+    outline: none;              /* Enlève le contour bleu moche par défaut */
+    border-color: var(--primary-color); /* La bordure devient Rouge Cinéma */
+    box-shadow: 0 0 15px rgba(153, 25, 23, 0.3); /* Effet de lueur rouge autour */
+    transform: scale(1.02);     /* La barre grossit très légèrement */
+}
+
+/* Style du texte placeholder (le texte d'exemple) */
+#searchInput::placeholder {
+    color: #aaa;                /* Gris clair */
+    font-style: italic;         /* En italique pour le style */
+}
