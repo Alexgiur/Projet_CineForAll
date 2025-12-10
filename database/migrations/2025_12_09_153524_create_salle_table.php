@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('salle', function (Blueprint $table) {
             $table->id('NumSalle');
             $table->integer('Capacite');
-            $table->unsignedBigInteger('IdTypeFilm');
-            $table->foreign('IdProgrammation')
-                ->references('IdProgrammation')
+            $table->unsignedBigInteger('IdProg');
+            $table->foreign('IdProg')
+                ->references('IdProg')
                 ->on('programmation')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('IdCinema');

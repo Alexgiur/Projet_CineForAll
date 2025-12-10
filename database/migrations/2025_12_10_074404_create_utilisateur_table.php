@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id('IdUtilisateur');
             $table->string('LoginUti');
             $table->string('MdpUti');
-            $table->unsignedBigInteger('IdTypeFilm');
-            $table->foreign('IdTypeFilm')
-                ->references('IdTypeFilm')
+            $table->unsignedBigInteger('IdTypeRoleUti');
+            $table->foreign('IdTypeRoleUti')
+                ->references('IdTypeRoleUti')
                 ->on('type_role_uti')
                 ->onDelete('cascade');
             $table->timestamps();
