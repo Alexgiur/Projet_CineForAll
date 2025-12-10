@@ -231,49 +231,162 @@ main { flex: 1; }
 /* ============================================================ */
 /* 5. FORMULAIRES                                               */
 /* ============================================================ */
+./* ============================================================ */
+    /* 5. FORMULAIRES (Login / Register / Reservation)              */
+    /* ============================================================ */
+
+    /* Conteneur principal centré */
 .container-connexion {
-    display: flex; width: 100%; max-width: 900px;
-    margin: 60px auto; background: white; border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); overflow: hidden;
+    display: flex;
+    width: 90%;
+    max-width: 900px;
+    margin: 60px auto;
+    background: white;
+    border-radius: 20px; /* Arrondi plus doux */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Ombre portée plus moderne */
+    overflow: hidden;
+    min-height: 500px;
 }
+
+/* --- Bloc de Gauche (Rouge / Branding) --- */
 .bloc-branding {
     flex: 1;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    padding: 40px; color: white; text-align: center;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .logo-connexion {
-    width: 120px; background-color: white;
-    padding: 15px; border-radius: 50%;
-    margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 120px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+.titre-bienvenue {
+    font-family: var(--font-family-logo); /* Utilise Lilita One */
+    font-size: 2em;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.bloc-branding p {
+    font-size: 1.1em;
+    opacity: 0.9;
+    max-width: 80%;
+}
+
+/* --- Bloc de Droite (Formulaire) --- */
 .bloc-formulaire {
-    flex: 1.2; padding: 50px;
-    display: flex; flex-direction: column; justify-content: center;
+    flex: 1.2;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
 }
-.form-group, .champ-groupe { margin-bottom: 20px; text-align: left; }
-input[type="text"], input[type="password"], input[type="email"], input[type="number"], select, input[type="datetime-local"] {
-    width: 100%; padding: 15px;
-    background-color: #f9f9f9; border: 1px solid #ddd;
-    border-radius: 8px; font-size: 1em; outline: none; transition: 0.3s;
+
+.titre-connexion {
+    font-family: var(--font-family-logo); /* Utilise Lilita One */
+    color: var(--primary-color);
+    font-size: 2.2em;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
+
+.form-connexion {
+    width: 100%;
+}
+
+.form-group, .champ-groupe {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Style des champs input */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+select,
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border: 2px solid transparent; /* Bordure transparente par défaut */
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: 0.3s;
+    font-family: var(--font-family-body);
+}
+
+/* Focus sur les champs (Bordure Rouge) */
 input:focus, select:focus {
-    border-color: var(--primary-color); background-color: white;
-    box-shadow: 0 0 0 3px rgba(153, 25, 23, 0.1);
+    border-color: var(--primary-color);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(153, 25, 23, 0.1);
 }
+
+/* Bouton Se Connecter */
 .btn-connexion, .submit-reservation {
-    width: 100%; padding: 15px;
-    background-color: var(--primary-color); color: white;
-    border: none; border-radius: 8px;
-    font-weight: bold; font-size: 1.1em;
-    cursor: pointer; margin-top: 10px; transition: background-color 0.3s;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px; /* Bouton arrondi style "pilule" */
+    font-weight: 800;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    font-family: var(--font-family-body);
+    letter-spacing: 1px;
 }
-.btn-connexion:hover, .submit-reservation:hover { background-color: var(--primary-dark); }
-.reservation-form-section { padding: 50px 5%; text-align: center; }
-.reservation-form {
-    max-width: 600px; margin: 0 auto; padding: 40px;
-    background-color: white; border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+.btn-connexion:hover, .submit-reservation:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(153, 25, 23, 0.3);
+}
+
+/* Liens en bas du formulaire */
+.bloc-formulaire p a {
+    font-weight: bold;
+    color: #666;
+    transition: 0.3s;
+}
+
+.bloc-formulaire p a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .container-connexion {
+        flex-direction: column;
+        width: 95%;
+        margin: 20px auto;
+        height: auto;
+    }
+    .bloc-branding {
+        padding: 30px 20px;
+    }
+    .bloc-formulaire {
+        padding: 30px 20px;
+    }
 }
 
 /* ============================================================ */
