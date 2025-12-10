@@ -29,15 +29,15 @@
 <main>
     <section class="hero-carousel">
         <div class="slide active">
-            <img src="{{ asset('img/film1.jpg') }}" alt="Until Dawn">
+            <img src="{{ asset('img/Carousel1.jpg') }}" alt="Games Of Thrones">
             <div class="slide-content">
                 <h1>UNTIL DAWN</h1>
-                <p>Vivez l'horreur ultime sur grand écran.</p>
+                <p>Le phénomène anime arrive au cinéma</p>
                 <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
         </div>
         <div class="slide">
-            <img src="{{ asset('img/film2.jpg') }}" alt="Chainsaw Man">
+            <img src="{{ asset('img/Carousel2.jpg') }}" alt="FNAF">
             <div class="slide-content">
                 <h1>CHAINSAW MAN</h1>
                 <p>Le phénomène anime arrive au cinéma.</p>
@@ -45,10 +45,10 @@
             </div>
         </div>
         <div class="slide">
-            <img src="{{ asset('img/film3.jpg') }}" alt="John Wick">
+            <img src="{{ asset('img/Carousel3.jpg') }}" alt="Chainsaw Man">
             <div class="slide-content">
-                <h1>JOHN WICK 4</h1>
-                <p>La vengeance a un nom.</p>
+                <h1>ChainsSaw Man 4</h1>
+                <p>Le phénomène anime arrive au cinéma</p>
                 <a href="{{ route('reservation') }}" class="btn-hero">Réserver</a>
             </div>
         </div>
