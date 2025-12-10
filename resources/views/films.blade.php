@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineForAll - Tous les Films</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/filter.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
+    <script src="{{ asset('Js/filter.js') }}" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -44,7 +44,7 @@
 
         <div class="film-list">
 
-            <div class="film-cardfilm cadre-rouge">" data-category="horreur">
+            <div class="film-card film-cadre-rouge" data-category="horreur">
                 <img src="{{ asset('img/film1.jpeg') }}" alt="Until Dawn" class="film-trigger"
                      data-title="Until Dawn"
                      data-genre="Horreur"
@@ -59,7 +59,7 @@
                 <p>Genre: Horreur</p>
             </div>
 
-            <div class="film-card" data-category="surnaturel">
+            <div class="film-card film-cadre-rouge" data-category="surnaturel">
                 <img src="{{ asset('img/film2.jpg') }}" alt="Chainsaw Man" class="film-trigger"
                      data-title="Chainsaw Man - The Movie"
                      data-genre="Surnaturel"
@@ -74,7 +74,7 @@
                 <p>Genre: Surnaturel</p>
             </div>
 
-            <div class="film-card" data-category="action">
+            <div class="film-card film-cadre-rouge" data-category="action">
                 <img src="{{ asset('img/film3.jpeg') }}" alt="John Wick" class="film-trigger"
                      data-title="John Wick"
                      data-genre="Action"
@@ -89,7 +89,7 @@
                 <p>Genre: Action</p>
             </div>
 
-            <div class="film-card" data-category="horreur">
+            <div class="film-card film-cadre-rouge" data-category="horreur">
                 <img src="{{ asset('img/film4.jpeg') }}" alt="Scream VI" class="film-trigger"
                      data-title="Scream VI"
                      data-genre="Horreur"
@@ -104,7 +104,7 @@
                 <p>Genre: Horreur</p>
             </div>
 
-            <div class="film-card" data-category="animation">
+            <div class="film-card film-cadre-rouge" data-category="animation">
                 <img src="{{ asset('img/film5.jpg') }}" alt="Shrek 5" class="film-trigger"
                      data-title="Shrek 5"
                      data-genre="Animation"
@@ -119,7 +119,7 @@
                 <p>Genre: Animation</p>
             </div>
 
-            <div class="film-card" data-category="action">
+            <div class="film-card film-cadre-rouge" data-category="action">
                 <img src="{{ asset('img/film6.jpg') }}" alt="Avengers Doomsday" class="film-trigger"
                      data-title="Avengers: Doomsday"
                      data-genre="Action"
@@ -134,7 +134,7 @@
                 <p>Genre: Action</p>
             </div>
 
-            <div class="film-card" data-category="animation">
+            <div class="film-card film-cadre-rouge" data-category="animation">
                 <img src="{{ asset('img/film7.jpeg') }}" alt="Spider-Man" class="film-trigger"
                      data-title="Spider-Man: New Generation"
                      data-genre="Animation"
@@ -149,7 +149,7 @@
                 <p>Genre: Animation</p>
             </div>
 
-            <div class="film-card" data-category="horreur">
+            <div class="film-card film-cadre-rouge" data-category="horreur">
                 <img src="{{ asset('img/film8.jpeg') }}" alt="The Conjuring" class="film-trigger"
                      data-title="The Conjuring: Last Rites"
                      data-genre="Horreur"
@@ -164,7 +164,7 @@
                 <p>Genre: Horreur</p>
             </div>
 
-            <div class="film-card" data-category="action">
+            <div class="film-card film-cadre-rouge" data-category="action">
                 <img src="{{ asset('img/film9.jpeg') }}" alt="Gladiator II" class="film-trigger"
                      data-title="Gladiator II"
                      data-genre="Action"
@@ -179,7 +179,7 @@
                 <p>Genre: Action</p>
             </div>
 
-            <div class="film-card" data-category="surnaturel">
+            <div class="film-card film-cadre-rouge" data-category="surnaturel">
                 <img src="{{ asset('img/film10.jpeg') }}" alt="Beetlejuice 2" class="film-trigger"
                      data-title="Beetlejuice Beetlejuice"
                      data-genre="Surnaturel"
@@ -194,7 +194,7 @@
                 <p>Genre: Surnaturel</p>
             </div>
 
-            <div class="film-card" data-category="animation">
+            <div class="film-card film-cadre-rouge" data-category="animation">
                 <img src="{{ asset('img/film11.jpeg') }}" alt="Vice-Versa 2" class="film-trigger"
                      data-title="Vice-Versa 2"
                      data-genre="Animation"
@@ -209,7 +209,7 @@
                 <p>Genre: Animation</p>
             </div>
 
-            <div class="film-card" data-category="action">
+            <div class="film-card film-cadre-rouge" data-category="action">
                 <img src="{{ asset('img/film12.jpeg') }}" alt="Mission Impossible" class="film-trigger"
                      data-title="Mission: Impossible - The Final Reckoning"
                      data-genre="Action"
