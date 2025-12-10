@@ -393,3 +393,13 @@ footer p { font-size: 0.9em; }
     .hero-content h1 { font-size: 2.5em; }
     .modal-body { flex-direction: column; align-items: center; text-align: center; }
 }
+
+
+/* Ajout de la bordure rouge pour la page films */
+.film-cadre-rouge {
+    border: 3px solid red; /* Épaisseur de 3px, ligne continue, couleur rouge */
+    border-radius: 10px;   /* Optionnel : arrondit légèrement les coins */
+    padding: 10px;         /* Optionnel : ajoute de l'espace entre le contenu et la bordure */
+    margin-bottom: 20px;   /* Optionnel : sépare les films les uns des autres */
+    box-sizing: border-box; /* Assure que la bordure ne casse pas la mise en page */
+}
