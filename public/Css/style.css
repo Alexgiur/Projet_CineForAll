@@ -7,14 +7,8 @@
     --secondary-color: #f4f4f4;
     --text-color: #333;
     --light-text-color: #fff;
-    --blue-btn: #3498db;
-    --red-btn: #c0392b;
-    --green-btn: #27ae60;
     --font-family-logo: 'Lilita One', cursive;
     --font-family-body: Arial, sans-serif;
-
-    /* Login/Register specific vars */
-    --couleur-fond-body: #c4c4c4;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,136 +26,197 @@ body {
 
 h1, h2, h3, .logo-container img { font-family: var(--font-family-logo); }
 a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
 
 /* ============================================================ */
-/* 2. HEADER & NAVIGATION                                       */
+/* 2. HEADER & NAVIGATION (Style Grande Affiche)                */
 /* ============================================================ */
 .main-header {
-    background-color: var(--light-text-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Position relative pour qu'il ne flotte pas sur le contenu */
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: #ffffff; /* Fond blanc */
 
-    /* Ajout : Header qui reste fixé en haut */
-    position: sticky;
-    top: 0;
+    /* Centrage vertical des éléments (Logo au-dessus du menu) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 0; /* Espace en haut et en bas */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     z-index: 1000;
 }
 
-.logo { height: 60px; width: auto; }
+/* Conteneur Logo */
+.logo-container {
+    margin-bottom: 25px; /* Espace entre le logo et le menu */
+    text-align: center;
+}
 
+/* Le Logo agrandi */
+.logo-container img {
+    height: 180px; /* Taille agrandie (ajustez selon vos besoins) */
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Navigation */
 .main-nav ul {
-    list-style: none;
     display: flex;
-    gap: 25px;
+    gap: 40px; /* Espace entre les liens */
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .main-nav a {
-    color: var(--text-color);
-    padding: 5px 0;
-    font-weight: bold;
+    color: #333; /* Texte noir sur fond blanc */
+    font-weight: 800; /* Texte gras */
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     position: relative;
+    padding: 5px 0;
 }
 
-/* Petit effet de soulignement au survol */
+/* Soulignement au survol */
 .main-nav a::after {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
+    height: 3px;
     bottom: 0;
     left: 0;
     background-color: var(--primary-color);
     transition: width 0.3s;
 }
+
 .main-nav a:hover { color: var(--primary-color); }
 .main-nav a:hover::after { width: 100%; }
 
+/* Boutons Navigation */
 .cta-login, .cta-reservation {
     background-color: var(--primary-color);
-    color: var(--light-text-color) !important;
-    padding: 10px 20px !important;
-    border-radius: 30px; /* Boutons plus arrondis */
-    transition: background-color 0.3s, transform 0.2s;
+    color: white !important;
+    padding: 10px 25px !important;
+    border-radius: 30px;
+    transition: transform 0.2s, background-color 0.3s;
 }
+.cta-login::after, .cta-reservation::after { display: none; } /* Pas de soulignement */
 
-.cta-login:hover {
+.cta-login:hover, .cta-reservation:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
+    color: white;
 }
-/* On enlève le soulignement pour les boutons */
-.cta-login::after, .cta-reservation::after { display: none; }
 
 /* ============================================================ */
-/* 3. MAIN CONTENT & HERO                                       */
+/* 3. HERO CAROUSEL                                             */
+/* ============================================================ */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Un peu moins haut car le header prend de la place */
+    background-color: #000;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity 1s ease-in-out;
+}
+.slide.active { opacity: 1; }
+
+.slide img {
+    width: 100%; height: 100%; object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.7);
+}
+
+.slide-content {
+    position: absolute; bottom: 20%; left: 5%;
+    color: white; z-index: 10;
+    max-width: 700px;
+    animation: slideUp 1s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.slide-content h1 { font-size: 4rem; margin-bottom: 10px; color: var(--primary-color); text-shadow: 2px 2px 0px #000; }
+.slide-content p { font-size: 1.4rem; margin-bottom: 25px; color: #eee; font-weight: bold; }
+
+.btn-hero {
+    display: inline-block;
+    background: white; color: var(--primary-color);
+    padding: 12px 35px; border-radius: 30px;
+    font-weight: bold; font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.btn-hero:hover { background: var(--primary-color); color: white; }
+
+/* Navigation du Carrousel */
+.prev-btn, .next-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.5); color: white; border: none;
+    font-size: 2rem; padding: 20px; cursor: pointer; z-index: 20;
+    transition: background 0.3s;
+}
+.prev-btn:hover, .next-btn:hover { background: var(--primary-color); }
+.prev-btn { left: 0; } .next-btn { right: 0; }
+
+.carousel-indicators {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; z-index: 20;
+}
+.dot {
+    width: 12px; height: 12px; background: rgba(255,255,255,0.5);
+    border-radius: 50%; cursor: pointer;
+}
+.dot.active { background: var(--primary-color); transform: scale(1.3); }
+
+/* ============================================================ */
+/* 4. MAIN CONTENT & FILMS                                      */
 /* ============================================================ */
 main { flex: 1; }
 
-.hero-section {
-    background-color: var(--primary-color);
-    color: var(--light-text-color);
-    padding: 12vh 5%; /* Un peu plus d'espace */
-    text-align: center;
-
-    /* Ajout d'un dégradé sombre sur l'image pour lisibilité */
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-.hero-content h1 {
-    font-size: 3.5em;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-
-/* ============================================================ */
-/* 4. FILMS GRID & CARDS                                        */
-/* ============================================================ */
 .films-section { padding: 60px 5%; text-align: center; }
 .films-section h2 {
     font-size: 2.5em;
     color: var(--primary-color);
     margin-bottom: 40px;
-    position: relative;
-    display: inline-block;
 }
 
 .film-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Grille responsive automatique */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
     padding: 10px;
 }
 
-/* --- CARTE MODERNE --- */
 .film-card {
-    background-color: white; /* Fond blanc plus propre */
+    background-color: white;
     border-radius: 12px;
-    overflow: hidden; /* Pour que l'image respecte les bords ronds */
+    overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 4px solid var(--primary-color);
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 .film-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(153, 25, 23, 0.2); /* Lueur rouge subtile */
+    box-shadow: 0 15px 30px rgba(153, 25, 23, 0.2);
 }
 
 .film-card img {
     width: 100%;
-    height: 350px; /* Hauteur fixe pour uniformité */
+    height: 350px;
     object-fit: cover;
-    border-bottom: 4px solid var(--primary-color); /* Rappel de couleur */
 }
 
-/* Contenu textuel de la carte */
 .film-card h3 {
     color: var(--text-color);
     font-size: 1.2em;
@@ -172,24 +227,7 @@ main { flex: 1; }
     color: #666;
     font-size: 0.9em;
     margin-bottom: 15px;
-    flex-grow: 1; /* Pousse le bouton vers le bas */
-}
-
-.details-link {
-    display: block;
-    margin: 0 15px 20px;
-    background-color: var(--primary-color);
-    color: var(--light-text-color);
-    padding: 10px 0;
-    border-radius: 6px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    transition: background-color 0.3s;
-}
-
-.details-link:hover {
-    background-color: var(--primary-dark);
+    padding: 0 10px;
 }
 
 /* ============================================================ */
@@ -202,7 +240,6 @@ main { flex: 1; }
     margin: 60px auto;
     background: white;
     border-radius: 15px;
-    /* Remplacement de la grosse bordure par une ombre élégante */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
@@ -221,15 +258,15 @@ main { flex: 1; }
 
 .logo-connexion {
     width: 120px;
-    background-color: rgba(255,255,255,0.2); /* Blanc semi-transparent */
+    background-color: white;
     padding: 15px;
     border-radius: 50%;
     margin-bottom: 20px;
-    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .bloc-formulaire {
-    flex: 1.2; /* Donne un peu plus de place au formulaire */
+    flex: 1.2;
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -273,7 +310,7 @@ input:focus, select:focus {
     background-color: var(--primary-dark);
 }
 
-/* Reservation Specific */
+/* Page Réservation */
 .reservation-form-section { padding: 50px 5%; text-align: center; }
 .reservation-form {
     max-width: 600px;
@@ -285,7 +322,7 @@ input:focus, select:focus {
 }
 
 /* ============================================================ */
-/* 6. ADMIN DASHBOARD & TABLES                                  */
+/* 6. ADMIN DASHBOARD                                           */
 /* ============================================================ */
 .admin-dashboard { text-align: center; padding: 50px 5%; }
 .admin-buttons-grid {
@@ -298,7 +335,7 @@ input:focus, select:focus {
 
 .admin-button {
     background: white;
-    border: none; /* Plus de bordure */
+    border: none;
     border-radius: 12px;
     padding: 40px 20px;
     transition: 0.3s;
@@ -307,16 +344,15 @@ input:focus, select:focus {
     display: block;
 }
 
-.admin-button h2 { color: var(--text-color); margin-bottom: 10px; }
-.admin-button p { color: #888; }
-
 .admin-button:hover {
     background-color: var(--primary-color);
     transform: translateY(-5px);
 }
+.admin-button h2 { color: var(--text-color); margin-bottom: 10px; }
+.admin-button p { color: #888; }
 .admin-button:hover h2, .admin-button:hover p { color: white; }
 
-/* Tables */
+/* Tables Admin */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
@@ -326,27 +362,14 @@ input:focus, select:focus {
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.admin-table th { background-color: var(--primary-color); color: white; padding: 18px; text-transform: uppercase; font-size: 0.9em; }
-.admin-table td { padding: 15px; border-bottom: 1px solid #f0f0f0; color: #555; vertical-align: middle; }
-.mini-img { width: 50px; height: 75px; object-fit: cover; border-radius: 4px; }
-
-/* Admin Toolbar */
-.admin-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 20px 30px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
+.admin-table th { background-color: var(--primary-color); color: white; padding: 15px; }
+.admin-table td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
 
 /* ============================================================ */
 /* 7. FOOTER                                                    */
 /* ============================================================ */
 footer {
-    background-color: #222; /* Un peu plus doux que le noir pur */
+    background-color: #222;
     color: #aaa;
     text-align: center;
     padding: 40px 5%;
@@ -355,8 +378,9 @@ footer {
 footer p { font-size: 0.9em; }
 
 /* ============================================================ */
-/* 8. PAGE CATALOGUE & FILTRES                                  */
+/* 8. MODAL & EXTRAS                                            */
 /* ============================================================ */
+/* Filtres */
 .filter-container {
     display: flex;
     justify-content: center;
@@ -364,297 +388,50 @@ footer p { font-size: 0.9em; }
     margin-bottom: 40px;
     flex-wrap: wrap;
 }
-
 .filter-btn {
     padding: 8px 25px;
     border: 2px solid var(--primary-color);
-    background-color: transparent;
-    color: var(--primary-color);
-    font-weight: bold;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: var(--font-family-body);
-    font-size: 0.95em;
+    background: transparent; color: var(--primary-color);
+    border-radius: 30px; cursor: pointer; font-weight: bold;
+    transition: 0.3s;
 }
-
 .filter-btn:hover, .filter-btn.active {
     background-color: var(--primary-color);
-    color: var(--light-text-color);
-    box-shadow: 0 5px 15px rgba(153, 25, 23, 0.3);
+    color: white;
 }
 
-/* Barre de recherche */
-.search-container {
-    text-align: center;
-    margin: 20px 0 40px 0;
-}
-
-#searchInput {
-    width: 100%;
-    max-width: 500px;
-    padding: 15px 25px;
-    border: 2px solid #ddd;
-    border-radius: 50px;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-#searchInput:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(153, 25, 23, 0.15);
-}
-
-/* ============================================================ */
-/* 9. MODAL & ANIMATIONS                                        */
-/* ============================================================ */
-
-/* Animation d'apparition des films */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.film-card {
-    animation: fadeIn 0.6s ease-out forwards;
-}
-
-/* Modal Styling */
+/* Modal */
 .modal-overlay {
-    visibility: hidden;
-    opacity: 0;
-    position: fixed;
-    top: 0; left: 0;
+    visibility: hidden; opacity: 0;
+    position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(5px);
     z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    display: flex; justify-content: center; align-items: center;
+    transition: 0.3s;
 }
-
 .modal-overlay.active { visibility: visible; opacity: 1; }
 
 .modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 800px;
-    position: relative;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    transform: scale(0.9);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: white; padding: 40px; border-radius: 15px;
+    width: 90%; max-width: 800px; position: relative;
+    transform: scale(0.9); transition: 0.3s;
 }
-
 .modal-overlay.active .modal-content { transform: scale(1); }
 
-.modal-body {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    text-align: left;
-}
-
-.modal-body img {
-    width: 220px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
+.modal-body { display: flex; gap: 40px; align-items: flex-start; }
+.modal-body img { width: 200px; border-radius: 10px; }
 .close-btn {
-    position: absolute;
-    top: 20px; right: 25px;
-    font-size: 35px;
-    cursor: pointer;
-    color: #ccc;
-    transition: color 0.3s;
-    line-height: 0.7;
+    position: absolute; top: 15px; right: 20px;
+    font-size: 30px; cursor: pointer; color: #ccc;
 }
 .close-btn:hover { color: var(--primary-color); }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .container-connexion { flex-direction: column; margin: 20px auto; width: 95%; }
-    .bloc-branding { padding: 30px; }
-    .bloc-formulaire { padding: 30px; }
-
-    .main-header { flex-direction: column; gap: 15px; padding: 15px; }
-    .main-nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
-
-    .modal-body { flex-direction: column; align-items: center; text-align: center; }
-    .modal-body img { width: 180px; margin-bottom: 20px; }
-
+    .container-connexion { flex-direction: column; width: 95%; }
+    .main-nav ul { gap: 15px; }
     .hero-content h1 { font-size: 2.5em; }
+    .modal-body { flex-direction: column; align-items: center; text-align: center; }
 }
-
-/* ============================================================ */
-/* 1. GLOBAL VARIABLES & RESET                                  */
-/* ============================================================ */
-:root {
-    --primary-color: #991917; /* VOTRE ROUGE */
-    --primary-dark: #7a1413;
-    --secondary-color: #f4f4f4;
-    --text-color: #333;
-    --light-text-color: #fff;
-    --font-family-logo: 'Lilita One', cursive;
-    --font-family-body: Arial, sans-serif;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: var(--font-family-body);
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-}
-
-h1, h2, h3 { font-family: var(--font-family-logo); }
-a { text-decoration: none; color: inherit; transition: 0.3s; }
-ul { list-style: none; }
-
-/* ============================================================ */
-/* 2. HEADER (Fixe et transparent)                              */
-/* ============================================================ */
-.main-header {
-    position: absolute; /* Superposé au carrousel */
-    top: 0; left: 0; width: 100%; height: 90px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 5%; z-index: 1000;
-}
-
-.logo-container img { height: 60px; width: auto; border-radius: 5px; }
-
-.main-nav ul { display: flex; gap: 20px; }
-.main-nav a {
-    color: white; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.main-nav a:hover { color: var(--primary-color); }
-
-.cta-login {
-    background-color: var(--primary-color);
-    color: white !important;
-    padding: 10px 20px; border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-.cta-login:hover { background-color: var(--primary-dark); transform: scale(1.05); }
-
-/* ============================================================ */
-/* 3. HERO CAROUSEL (C'est ce qui manquait !)                   */
-/* ============================================================ */
-.hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 85vh; /* Prend 85% de la hauteur de l'écran */
-    background-color: #000;
-    overflow: hidden;
-}
-
-.slide {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0; transition: opacity 1s ease-in-out;
-}
-.slide.active { opacity: 1; }
-
-.slide img {
-    width: 100%; height: 100%; object-fit: cover;
-    object-position: center top;
-    filter: brightness(0.6); /* Assombrit l'image pour lire le texte */
-
-}
-
-.slide-content {
-    position: absolute; bottom: 20%; left: 5%;
-    color: white; z-index: 10;
-    max-width: 600px;
-    animation: slideUp 1s ease-out;
-}
-@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-.slide-content h1 { font-size: 4rem; margin-bottom: 10px; color: var(--primary-color); text-shadow: 2px 2px 0px #000; }
-.slide-content p { font-size: 1.2rem; margin-bottom: 20px; color: #ddd; }
-
-.btn-hero {
-    display: inline-block;
-    background: white; color: var(--primary-color);
-    padding: 12px 30px; border-radius: 30px;
-    font-weight: bold; font-size: 1rem;
-}
-.btn-hero:hover { background: var(--primary-color); color: white; }
-
-/* Navigation du Carrousel */
-.prev-btn, .next-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(0,0,0,0.5); color: white; border: none;
-    font-size: 2rem; padding: 20px; cursor: pointer; z-index: 20;
-}
-.prev-btn:hover, .next-btn:hover { background: var(--primary-color); }
-.prev-btn { left: 0; } .next-btn { right: 0; }
-
-.carousel-indicators {
-    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 10px; z-index: 20;
-}
-.dot {
-    width: 12px; height: 12px; background: rgba(255,255,255,0.5);
-    border-radius: 50%; cursor: pointer;
-}
-.dot.active { background: var(--primary-color); transform: scale(1.2); }
-
-/* ============================================================ */
-/* 4. SECTIONS & CARTES                                         */
-/* ============================================================ */
-.films-section { padding: 60px 5%; text-align: center; }
-.films-section h2 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 30px; }
-
-.film-list {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 25px;
-}
-
-.film-card {
-    background: white; width: 250px; border-radius: 10px; overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s; position: relative;
-    border-bottom: 4px solid var(--primary-color);
-}
-.film-card:hover { transform: translateY(-10px); }
-
-.film-card img { width: 100%; height: 350px; object-fit: cover; }
-.film-card h3 { padding: 15px 10px 5px; font-size: 1.2rem; color: #333; }
-.film-card p { padding: 0 10px 15px; color: #666; font-size: 0.9rem; }
-
-/* ============================================================ */
-/* 5. FORMULAIRES (MODERNISÉS)                                  */
-/* ============================================================ */
-.container-connexion {
-    display: flex; max-width: 900px; margin: 100px auto;
-    background: white; border-radius: 15px; overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-.bloc-branding {
-    flex: 1; background: var(--primary-color); color: white;
-    padding: 40px; text-align: center;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
-.logo-connexion { width: 120px; border-radius: 50%; margin-bottom: 20px; background: white; padding: 10px; }
-
-.bloc-formulaire { flex: 1.2; padding: 50px; }
-.form-group { margin-bottom: 20px; }
-.form-group input {
-    width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px;
-    background: #f9f9f9; outline: none;
-}
-.form-group input:focus { border-color: var(--primary-color); background: white; }
-
-.btn-connexion {
-    width: 100%; padding: 15px; background: var(--primary-color);
-    color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
-}
-.btn-connexion:hover { background: var(--primary-dark); }
