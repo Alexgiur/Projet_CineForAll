@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservation', function (Blueprint $table) {
-            $table->id();
+            $table->id('IdRes');
             $table->date('DateDeRes');
+            $table->unsignedBigInteger('IdProg');
+            $table->foreign('IdProg')
+                ->references('IdProg')
+                ->on('programmation')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -11,14 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('programmation', function (Blueprint $table) {
-            $table->id('IdProg');
-            $table->date('DateProg');
-            $table->time('HeureProg');
+        Schema::create('noter', function (Blueprint $table) {
+            $table->integer('note');
+            //clé étrangère de film
             $table->unsignedBigInteger('IdFilm');
             $table->foreign('IdFilm')
                 ->references('IdFilm')
                 ->on('films')
+                ->onDelete('cascade');
+            //clé étrangère d'utilisateur
+            $table->unsignedBigInteger('IdUtilisateur');
+            $table->foreign('IdUtilisateur')
+                ->references('IdUtilisateur')
+                ->on('Utilisateurs')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programmation');
+        Schema::dropIfExists('noter');
     }
 };

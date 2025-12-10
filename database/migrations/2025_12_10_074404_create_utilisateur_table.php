@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('programmation', function (Blueprint $table) {
-            $table->id('IdProg');
-            $table->date('DateProg');
-            $table->time('HeureProg');
-            $table->unsignedBigInteger('IdFilm');
-            $table->foreign('IdFilm')
-                ->references('IdFilm')
-                ->on('films')
+        Schema::create('utilisateur', function (Blueprint $table) {
+            $table->id('IdUtilisateur');
+            $table->string('LoginUti');
+            $table->string('MdpUti');
+            $table->unsignedBigInteger('IdTypeFilm');
+            $table->foreign('IdTypeFilm')
+                ->references('IdTypeFilm')
+                ->on('type_role_uti')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programmation');
+        Schema::dropIfExists('utilisateur');
     }
 };

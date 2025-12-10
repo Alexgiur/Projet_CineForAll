@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('film', function (Blueprint $table) {
-            $table->id();
+            $table->id('IdFilm');
             $table->string('TitreFilm');
             $table->integer('LongeurFilm');
             $table->DATE('DateSortieFilm');
@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('LangueFilm');
             $table->boolean('3DOuNon');
             $table->string('AfficheFilm');
+            //clé étrangère de genre film
+            $table->unsignedBigInteger('IdGenreFilm');
+            $table->foreign('IdGenreFilm')
+                ->references('IdGenreFilm')
+                ->on('genre_film')
+                ->onDelete('cascade');
             $table->timestamps();
         });
 
