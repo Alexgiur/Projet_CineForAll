@@ -19,7 +19,7 @@
             <li><a href="{{ route('index') }}">Accueil</a></li>
             <li><a href="{{ route('films') }}">Films</a></li>
             @auth
-                <li><a href="#">Mon Compte</a></li>
+                <li><a href="#" class="cta-login">Mon Compte</a></li>
             @else
                 <li><a href="{{ route('login') }}" class="cta-login">Connexion</a></li>
             @endauth
@@ -97,7 +97,8 @@
                             <span class="row-label">A</span>
                             <div class="seat available" data-id="A1">1</div>
                             <div class="seat available" data-id="A2">2</div>
-                            <div class="seat booked" data-id="A3">3</div> <div class="seat booked" data-id="A4">4</div>
+                            <div class="seat booked" data-id="A3">3</div>
+                            <div class="seat available" data-id="A4">4</div>
                             <div class="seat available" data-id="A5">5</div>
                         </div>
                         <div class="row" data-row="B">
@@ -121,7 +122,7 @@
 
                 <div class="legend">
                     <div class="legend-item"><div class="seat-icon available"></div> Disponible</div>
-                    <div class="legend-item"><div class="seat-icon selected"></div> Ma sélection</div>
+                    <div class="legend-item"><div class="seat-icon selected"></div> Sélectionné</div>
                     <div class="legend-item"><div class="seat-icon booked"></div> Indisponible</div>
                 </div>
             </div>
@@ -148,13 +149,14 @@
         <h2>Ma Sélection</h2>
 
         <div class="summary-details">
-            <p><strong>Film:</strong> <span id="summary-film">Non sélectionné</span></p>
-            <p><strong>Séance:</strong> <span id="summary-seance">Non sélectionnée</span></p>
+            <p><strong>Film :</strong> <span id="summary-film">Non sélectionné</span></p>
+            <p><strong>Séance :</strong> <span id="summary-seance">Non sélectionnée</span></p>
             <hr>
             <p><strong>Sièges choisis :</strong></p>
             <ul id="selected-seats-list">
                 <li id="no-seats-selected">Aucun siège.</li>
             </ul>
+            <hr>
             <p><strong>Total places :</strong> <span id="total-count">0</span></p>
         </div>
 
@@ -173,10 +175,10 @@
     </div>
 
     <div class="confirmation-message">
-        <p>Veuillez vous présenter au guichet avant la séance pour retirer vos billets.</p>
+        <p><strong>Rappel :</strong> Aucun paiement en ligne. Veuillez régler vos billets au guichet.</p>
     </div>
 
-    <a href="{{ route('index') }}" class="btn-hero" style="margin-top:20px;">Retour à l'accueil</a>
+    <a href="{{ route('index') }}" class="btn-hero" style="margin-top:20px; display:inline-block; background-color:#991917; color:white; padding:10px 20px; border-radius:30px; text-decoration:none;">Retour à l'accueil</a>
 </div>
 
 <script src="{{ asset('js/reservation.js') }}"></script>
