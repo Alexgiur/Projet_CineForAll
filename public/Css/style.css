@@ -437,3 +437,34 @@ footer p { font-size: 0.9em; }
     .hero-content h1 { font-size: 2.5em; }
     .modal-body { flex-direction: column; align-items: center; text-align: center; }
 }
+
+/* ============================================================ */
+/* STYLE DU BOUTON RÉSERVER DANS LA MODALE                      */
+/* ============================================================ */
+
+/* On cible spécifiquement le bouton dans .modal-info pour ne pas toucher au menu */
+.modal-info .cta-reservation {
+    background-color: var(--primary-color); /* Fond rouge */
+    color: white;
+    padding: 12px 35px;       /* Espace intérieur pour le rendre plus gros */
+    border-radius: 50px;      /* Bords très arrondis (style pilule) */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;      /* Espacement léger entre les lettres */
+    box-shadow: 0 4px 15px rgba(153, 25, 23, 0.4); /* Ombre portée rouge */
+    transition: all 0.3s ease; /* Animation douce */
+    border: 2px solid var(--primary-color);
+    text-align: center;
+    /* Note: Le display: inline-block et margin-top sont déjà dans votre HTML,
+       mais c'est mieux de les avoir ici si vous voulez nettoyer le HTML plus tard */
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* Effet au survol de la souris */
+.modal-info .cta-reservation:hover {
+    background-color: white;  /* Le fond devient blanc */
+    color: var(--primary-color); /* Le texte devient rouge */
+    transform: translateY(-3px); /* Le bouton remonte légèrement */
+    box-shadow: 0 8px 25px rgba(153, 25, 23, 0.3); /* L'ombre grandit */
+}
