@@ -44,7 +44,7 @@
 
         <div class="film-list">
 
-            <div class="film-card" data-category="horreur">
+            <div class="film-cardfilm cadre-rouge">" data-category="horreur">
                 <img src="{{ asset('img/film1.jpeg') }}" alt="Until Dawn" class="film-trigger"
                      data-title="Until Dawn"
                      data-genre="Horreur"
