@@ -72,7 +72,7 @@
                 <p>Horreur</p>
             </div>
             <div class="film-card">
-                <img src="{{ asset('img/film2.jpeg') }}" alt="Film">
+                <img src="{{ asset('img/film2.jpg') }}" alt="Film">
                 <h3>Chainsaw Man</h3>
                 <p>Animation</p>
             </div>

@@ -45,7 +45,7 @@
         <div class="film-list">
 
             <div class="film-card" data-category="horreur">
-                <img src="{{ asset('img/film1.jpg') }}" alt="Until Dawn" class="film-trigger"
+                <img src="{{ asset('img/film1.jpeg') }}" alt="Until Dawn" class="film-trigger"
                      data-title="Until Dawn"
                      data-genre="Horreur"
                      data-synopsis="Huit amis retournent dans le chalet isolé où deux membres de leur groupe ont disparu un an plus tôt. La peur les gagne alors que la montagne semble se refermer sur eux."
@@ -75,7 +75,7 @@
             </div>
 
             <div class="film-card" data-category="action">
-                <img src="{{ asset('img/film3.jpg') }}" alt="John Wick" class="film-trigger"
+                <img src="{{ asset('img/film3.jpeg') }}" alt="John Wick" class="film-trigger"
                      data-title="John Wick"
                      data-genre="Action"
                      data-synopsis="Un ancien tueur à gages légendaire sort de sa retraite pour traquer les gangsters qui lui ont tout pris, déclenchant une guerre sans merci au cœur de la pègre."
