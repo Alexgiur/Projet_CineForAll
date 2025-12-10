@@ -67,17 +67,17 @@
         <h2>À l'affiche cette semaine</h2>
         <div class="film-list">
             <div class="film-card">
-                <img src="{{ asset('img/film1.jpg') }}" alt="Film">
+                <img src="{{ asset('img/film1.jpeg') }}" alt="Film">
                 <h3>Until Dawn</h3>
                 <p>Horreur</p>
             </div>
             <div class="film-card">
-                <img src="{{ asset('img/film2.jpg') }}" alt="Film">
+                <img src="{{ asset('img/film2.jpeg') }}" alt="Film">
                 <h3>Chainsaw Man</h3>
                 <p>Animation</p>
             </div>
             <div class="film-card">
-                <img src="{{ asset('img/film3.jpg') }}" alt="Film">
+                <img src="{{ asset('img/film3.jpeg') }}" alt="Film">
                 <h3>John Wick</h3>
                 <p>Action</p>
             </div>
