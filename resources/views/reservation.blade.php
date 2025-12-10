@@ -1,98 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Seats - Cineplex</title>
-    <link rel="stylesheet" href="styles.css"> </head>
+    <title>Réservation - CineForAll</title>
+    <link rel="stylesheet" href="reservation.css">
+</head>
 <body>
 
-<div class="reservation-container">
+<div class="reservation-page-container">
 
-    <header class="booking-context">
-        <h1>Select Your Seats</h1>
-        <p><strong>Movie:</strong> Dune: Part Two | <strong>Time:</strong> 19:30 | <strong>Screen:</strong> 4</p>
-        <div id="timer-display" class="booking-timer">
-            Time remaining: <span>09:55</span>
-        </div>
-    </header>
+    <div class="form-area">
+        <h1>Réservation de Billets</h1>
+        <form id="reservation-form">
 
-    <main class="seat-selection-area">
+            <div class="step-section">
+                <h3>1. Choisir le Film et la Séance</h3>
 
-        <div class="seat-map-wrapper">
-            <div class="screen-area">
-                <p>SCREEN</p>
+                <div class="form-group">
+                    <label>Sélectionnez votre Film (Cliquez sur l'affiche) :</label>
+                    <div class="film-selection-grid" id="film-select-grid">
+                        <div class="film-card-select" data-id="Dune2" data-film-title="Dune: Deuxième Partie">
+                            <img src="img/film1.jpeg" alt="Dune: Deuxième Partie">
+                            <h4>Dune: Deuxième Partie</h4>
+                        </div>
+                        <div class="film-card-select" data-id="Oppenheimer" data-film-title="Oppenheimer">
+                            <img src="img/film2.jpg" alt="Oppenheimer">
+                            <h4>Oppenheimer</h4>
+                        </div>
+                        <div class="film-card-select" data-id="Barbie" data-film-title="Barbie">
+                            <img src="img/film3.jpeg" alt="Barbie">
+                            <h4>Barbie</h4>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selected-film" name="film" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="seance-date-time">Date et Heure de la Séance:</label>
+                    <input type="datetime-local" id="seance-date-time" name="seance" required>
+                </div>
             </div>
 
-            <div id="seat-map-grid" class="seat-map">
-                <div class="row" data-row="A">
-                    <span class="row-label">A</span>
-                    <div class="seat available" data-id="A1" data-price="12.00">1</div>
-                    <div class="seat available" data-id="A2" data-price="12.00">2</div>
-                    <div class="seat booked" data-id="A3" data-price="12.00">3</div>
-                    <div class="seat booked" data-id="A4" data-price="12.00">4</div>
-                    <div class="seat available" data-id="A5" data-price="12.00">5</div>
+            <div class="step-section">
+                <h3>2. Choisir le Nombre de Places</h3>
+                <p>Prix Adultes/Enfants/Étudiants simulés.</p>
+                <div class="form-group">
+                    <label class="label-ticket" for="tickets-adult">Adultes (12.00 $):</label>
+                    <input type="number" id="tickets-adult" name="adultes" value="0" min="0" data-price="12.00">
                 </div>
-
-                <div class="row" data-row="B">
-                    <span class="row-label">B</span>
-                    <div class="seat held" data-id="B1" data-price="12.00">1</div>
-                    <div class="seat available" data-id="B2" data-price="12.00">2</div>
-                    <div class="seat available" data-id="B3" data-price="12.00">3</div>
-                    <div class="seat available" data-id="B4" data-price="12.00">4</div>
-                    <div class="seat available" data-id="B5" data-price="12.00">5</div>
+                <div class="form-group">
+                    <label class="label-ticket" for="tickets-child">Enfants (8.00 $):</label>
+                    <input type="number" id="tickets-child" name="enfants" value="0" min="0" data-price="8.00">
                 </div>
-
-                <div class="row" data-row="C">
-                    <span class="row-label">C</span>
-                    <div class="seat available" data-id="C1" data-price="12.00">1</div>
-                    <div class="seat available" data-id="C2" data-price="12.00">2</div>
-                    <div class="seat selected" data-id="C3" data-price="12.00">3</div> <div class="seat selected" data-id="C4" data-price="12.00">4</div> <div class="seat available" data-id="C5" data-price="12.00">5</div>
+                <div class="form-group">
+                    <label class="label-ticket" for="tickets-student">Étudiants (10.00 $):</label>
+                    <input type="number" id="tickets-student" name="etudiants" value="0" min="0" data-price="10.00">
                 </div>
-
-                <div class="row premium-row" data-row="D">
-                    <span class="row-label">D (Premium)</span>
-                    <div class="seat available premium" data-id="D1" data-price="15.00">1</div>
-                    <div class="seat available premium" data-id="D2" data-price="15.00">2</div>
-                    <div class="seat available premium" data-id="D3" data-price="15.00">3</div>
-                    <div class="seat booked premium" data-id="D4" data-price="15.00">4</div>
-                    <div class="seat available premium" data-id="D5" data-price="15.00">5</div>
-                </div>
-
             </div>
-        </div>
 
-        <div class="legend">
-            <div class="legend-item"><div class="seat-icon available"></div> Available</div>
-            <div class="legend-item"><div class="seat-icon selected"></div> Selected</div>
-            <div class="legend-item"><div class="seat-icon booked"></div> Booked/Unavailable</div>
-            <div class="legend-item"><div class="seat-icon held"></div> Held by Another User</div>
-        </div>
+            <div class="step-section">
+                <h3>3. Sélectionner les Sièges</h3>
+                <div class="seat-map-wrapper">
+                    <div class="screen-area">
+                        <p>ÉCRAN</p>
+                    </div>
 
-    </main>
+                    <div id="seat-map-grid" class="seat-map">
+                        <div class="row" data-row="A">
+                            <span class="row-label">A</span>
+                            <div class="seat available" data-id="A1" data-price="12.00">1</div>
+                            <div class="seat available" data-id="A2" data-price="12.00">2</div>
+                            <div class="seat booked" data-id="A3">3</div>
+                            <div class="seat booked" data-id="A4">4</div>
+                            <div class="seat available" data-id="A5" data-price="12.00">5</div>
+                        </div>
+
+                        <div class="row" data-row="B">
+                            <span class="row-label">B</span>
+                            <div class="seat available" data-id="B1" data-price="12.00">1</div>
+                            <div class="seat available" data-id="B2" data-price="12.00">2</div>
+                            <div class="seat available" data-id="B3" data-price="12.00">3</div>
+                            <div class="seat available" data-id="B4" data-price="12.00">4</div>
+                            <div class="seat available" data-id="B5" data-price="12.00">5</div>
+                        </div>
+
+                        <div class="row premium-row" data-row="C">
+                            <span class="row-label">C (Premium)</span>
+                            <div class="seat available premium" data-id="C1" data-price="15.00">1</div>
+                            <div class="seat available premium" data-id="C2" data-price="15.00">2</div>
+                            <div class="seat available premium" data-id="C3" data-price="15.00">3</div>
+                            <div class="seat booked premium" data-id="C4">4</div>
+                            <div class="seat available premium" data-id="C5" data-price="15.00">5</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item"><div class="seat-icon available"></div> Disponible</div>
+                    <div class="legend-item"><div class="seat-icon selected"></div> Sélectionné</div>
+                    <div class="legend-item"><div class="seat-icon booked"></div> Indisponible</div>
+                </div>
+            </div>
+
+            <div class="step-section">
+                <h3>4. Vos Informations</h3>
+                <p>Ces informations seront utilisées pour retrouver votre réservation au guichet.</p>
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-reservation" class="submit-reservation" disabled>
+                Confirmer la Réservation (0 Ticket)
+            </button>
+
+        </form>
+    </div>
 
     <aside class="summary-panel">
-        <h2>Booking Summary</h2>
+        <h2>Récapitulatif de Réservation</h2>
 
         <div class="summary-details">
-            <p>Selected Seats:</p>
+            <p><strong>Film:</strong> <span id="summary-film">Non sélectionné</span></p>
+            <p><strong>Séance:</strong> <span id="summary-seance">Non sélectionnée</span></p>
+            <hr>
+            <p>Places Sélectionnées:</p>
             <ul id="selected-seats-list">
-                <li>C3 (Adult - $12.00)</li>
-                <li>C4 (Adult - $12.00)</li>
+                <li id="no-seats-selected">Aucun siège sélectionné.</li>
             </ul>
         </div>
 
         <div class="total-breakdown">
-            <p>Subtotal: $24.00</p>
-            <p>Booking Fee: $1.00</p>
+            <p>Total Sièges: <span id="total-seats-price">$0.00</span></p>
+            <p>Frais de Service: <span id="booking-fee">$1.00</span></p>
             <hr>
-            <p class="grand-total">Total: <span>$25.00</span></p>
+            <p class="grand-total">Total à Payer: <span><span id="grand-total-amount">$1.00</span></span></p>
         </div>
 
-        <button id="checkout-btn" class="checkout-button">
-            Continue to Payment (2 Tickets)
-        </button>
+        <p style="font-size: 0.9em; margin-top: 15px; color: gray;">
+            (Le montant total inclut les frais de service de 1.00 $.)
+        </p>
     </aside>
+
+</div>
+
+<div id="confirmation-display" style="display:none;">
+    <h2>Réservation Confirmée !</h2>
+    <p>Merci pour votre réservation. Voici les détails de votre commande :</p>
+
+    <div class="confirmation-recap" id="final-recap">
+    </div>
+
+    <div class="confirmation-message">
+        <p><strong>ATTENTION:</strong> Cette plateforme n'inclut pas de fonctionnalité de paiement en ligne.</p>
+        <p>Votre réservation est en attente de paiement.</p>
+    </div>
+
+    <p class="confirmation-message-retrait">
+        Veuillez vous présenter au guichet du cinéma **au moins 30 minutes avant la séance** pour régler et retirer vos billets.
+    </p>
 
 </div>
 
