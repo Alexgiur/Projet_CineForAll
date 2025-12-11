@@ -18,7 +18,7 @@
     <nav class="main-nav">
         <ul>
             <li><a href="{{ route('home') }}">Accueil</a></li>
-            <li><a href="{{ route('films') }}" class="active" style="color:var(--primary-color);">Nos Films</a></li>
+            <li><a href="{{ route('films') }}" class="active" style="color:var(--primary-color);">Films</a></li>
             <li><a href="{{ route('reservation') }}" class="cta-reservation">Réservation</a></li>
             <li><a href="{{ route('login') }}" class="cta-login">Connexion</a></li>
         </ul>
