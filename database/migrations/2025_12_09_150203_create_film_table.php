@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('film', function (Blueprint $table) {
             $table->id('IdFilm');
             $table->string('TitreFilm');
-            $table->integer('LongeurFilm');
+            $table->integer('LongueurFilm');
             $table->DATE('DateSortieFilm');
             $table->text('ResumeFilm');
             $table->string('LangueFilm');
-            $table->boolean('3DOuNon');
+            $table->boolean('TroisDOuNon');
             $table->string('AfficheFilm');
             //clé étrangère de genre film
             $table->unsignedBigInteger('IdGenreFilm');
