@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('film', function (Blueprint $table) {
+        Schema::create('films', function (Blueprint $table) {
             $table->id('IdFilm');
             $table->string('TitreFilm');
-            $table->integer('LongeurFilm');
+            $table->integer('LongueurFilm');
             $table->DATE('DateSortieFilm');
             $table->text('ResumeFilm');
             $table->string('LangueFilm');
-            $table->boolean('3DOuNon');
+            $table->boolean('TroisDOuNon');
             $table->string('AfficheFilm');
             //clé étrangère de genre film
             $table->unsignedBigInteger('IdGenreFilm');
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('film');
+        Schema::dropIfExists('films');
     }
 };

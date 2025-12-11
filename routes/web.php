@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FilmController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -60,3 +61,6 @@ Route::post('/admin/films/store', function () {
     // Pour l'instant, on redirige vers la liste des films
     return redirect()->route('admin.films');
 })->name('admin.films.store');
+
+
+Route::get('/films', [FilmController::class, 'index']);
