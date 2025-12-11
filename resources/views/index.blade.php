@@ -27,8 +27,7 @@
 </header>
 
 <div class="red-divider">
-    Bienvenue sur CineForAll
-    Réservez vos places de cinéma en un clic.
+    LES NOUVEAUTÉS DU MOMENT
 </div>
 
 <main>
@@ -75,23 +74,74 @@
                 <img src="{{ asset('img/film1.jpeg') }}" alt="Film">
                 <h3>Until Dawn</h3>
                 <p>Horreur</p>
+                <a href="#" class="details-link">Voir détails</a>
             </div>
             <div class="film-card">
                 <img src="{{ asset('img/film2.jpg') }}" alt="Film">
                 <h3>Chainsaw Man</h3>
                 <p>Animation</p>
+                <a href="#" class="details-link">Voir détails</a>
             </div>
             <div class="film-card">
                 <img src="{{ asset('img/film3.jpeg') }}" alt="Film">
                 <h3>John Wick</h3>
                 <p>Action</p>
+                <a href="#" class="details-link">Voir détails</a>
             </div>
         </div>
     </section>
+
+    <section class="upcoming-section">
+        <h2>Prochaines sorties au cinéma</h2>
+
+        <div class="film-list">
+            <div class="film-card">
+                <img src="{{ asset('img/film4.jpeg') }}" alt="Film">
+                <h3>Mufasa</h3>
+                <p>Aventure / Famille</p>
+                <span class="tag-coming-soon">Bientôt</span>
+            </div>
+
+            <div class="film-card">
+                <img src="{{ asset('img/film5.jpg') }}" alt="Film">
+                <h3>Sonic 3</h3>
+                <p>Action / Jeunesse</p>
+                <span class="tag-coming-soon">Bientôt</span>
+            </div>
+
+            <div class="film-card">
+                <img src="{{ asset('img/film6.jpg') }}" alt="Film">
+                <h3>Captain America</h3>
+                <p>Action / Marvel</p>
+                <span class="tag-coming-soon">Bientôt</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <h2>NE RATEZ AUCUN FILM !</h2>
+        <p>Inscrivez-vous à notre newsletter pour recevoir les offres spéciales et les avant-premières.</p>
+
+        <form action="#">
+            <input type="email" placeholder="Votre email...">
+            <button type="submit">S'INSCRIRE</button>
+        </form>
+    </section>
+
 </main>
-</body>
-</html>
 
 <footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
+    <div class="footer-content">
+        <h3>CineForAll</h3>
+        <p>Votre destination cinéma préférée. Réservez vos places en ligne simplement.</p>
+        <div class="social-icons">
+            <span>Facebook</span> <span>Twitter</span> <span>Instagram</span>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 CineForAll. Tous droits réservés.</p>
+    </div>
 </footer>
+
+</body>
+</html>

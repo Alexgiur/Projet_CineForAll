@@ -636,3 +636,103 @@ body { padding: 20px 5%; }
     letter-spacing: 2px;
     text-transform: uppercase;
 }
+
+/* ============================================================ */
+/* 10. NOUVELLES SECTIONS (ACCUEIL)                             */
+/* ============================================================ */
+
+/* --- Section Prochaines Sorties --- */
+.upcoming-section {
+    background-color: #f4f4f4; /* Fond gris clair */
+    padding: 60px 5%;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.upcoming-section h2 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.tag-coming-soon {
+    margin-top: 10px;
+    display: inline-block;
+    border: 2px solid white;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* --- Section Newsletter --- */
+.newsletter-section {
+    background-color: var(--primary-color);
+    padding: 50px 5%;
+    text-align: center;
+    color: white;
+}
+
+.newsletter-section h2 {
+    font-family: var(--font-family-logo);
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.newsletter-section p {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+.newsletter-section form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.newsletter-section input {
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    width: 350px;
+    font-size: 1rem;
+}
+
+.newsletter-section button {
+    background-color: #222;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.newsletter-section button:hover {
+    background-color: #444;
+}
+
+/* --- Mises à jour du Footer --- */
+.footer-content h3 {
+    font-family: var(--font-family-logo);
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.social-icons {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    word-spacing: 15px;
+    color: white;
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
