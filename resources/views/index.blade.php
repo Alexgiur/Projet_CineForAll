@@ -91,3 +91,7 @@
 </main>
 </body>
 </html>
+
+<footer>
+    <p>© 2025 CineForAll - Tous droits réservés.</p>
+</footer>
