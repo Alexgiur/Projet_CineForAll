@@ -12,16 +12,16 @@
 
 <header class="main-header">
     <div class="logo-container">
-        <a href="{{ route('home') }}">
+
             <img src="{{ asset('img/logo.jpeg') }}" alt="Logo">
         </a>
     </div>
     <nav class="main-nav">
         <ul>
-            <li><a href="{{ route('home') }}">ACCUEIL</a></li>
-            <li><a href="{{ route('films') }}">FILMS</a></li>
-            <li><a href="{{ route('reservation') }}" class="cta-reservation">RÉSERVATION</a></li>
-            <li><a href="{{ route('login') }}" class="cta-login">CONNEXION</a></li>
+
+
+
+
         </ul>
     </nav>
 </header>
