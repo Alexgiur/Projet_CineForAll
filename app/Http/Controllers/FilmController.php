@@ -11,6 +11,10 @@ class FilmController extends Controller
         $films = film::all();
         return view('films.index', compact('films'));
     }
+    public function show(Film $film){
+        return view('films.show', compact('film'));
+    }
+
 }
 
 

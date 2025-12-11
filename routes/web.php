@@ -64,3 +64,5 @@ Route::post('/admin/films/store', function () {
 
 
 Route::get('/films', [FilmController::class, 'index']);
+Route::get('/films/{film}', [FilmController::class, 'show']);
+
