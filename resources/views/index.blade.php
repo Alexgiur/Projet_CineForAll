@@ -26,6 +26,8 @@
     </nav>
 </header>
 
+<div class="red-divider"></div>
+
 <main>
     <section class="hero-carousel">
         <div class="slide active">
