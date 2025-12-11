@@ -614,14 +614,25 @@ body { padding: 20px 5%; }
 }
 
 /* ============================================================ */
-/* BARRE DE SÉPARATION ROUGE                                    */
+/* BARRE DE SÉPARATION ROUGE AVEC TEXTE                         */
 /* ============================================================ */
 .red-divider {
     width: 100%;
-    height: 400px; /* Tu peux changer l'épaisseur ici (ex: 8px ou 12px) */
     background-color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-dark); /* Une petite bordure foncée pour le relief */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Une petite ombre portée */
+    border-bottom: 2px solid var(--primary-dark);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     position: relative;
-    z-index: 900; /* Pour s'assurer qu'elle passe au-dessus du carrousel si besoin */
+    z-index: 900;
+
+    /* Styles pour le texte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0; /* Plus d'espace pour le texte */
+
+    color: var(--light-text-color);
+    font-family: var(--font-family-logo); /* Utilise la police 'Lilita One' */
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }

@@ -26,7 +26,9 @@
     </nav>
 </header>
 
-<div class="red-divider"></div>
+<div class="red-divider">
+    LES NOUVEAUTÉS DU MOMENT
+</div>
 
 <main>
     <section class="hero-carousel">
