@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('travailler', function (Blueprint $table) {
-            $table->id();
             //clé étrangère de film
             $table->unsignedBigInteger('IdFilm');
             $table->foreign('IdFilm')
@@ -26,10 +25,10 @@ return new class extends Migration
                 ->on('role_personne')
                 ->onDelete('cascade');
             //clé étrangère de personne
-            $table->unsignedBigInteger('IdPers');
-            $table->foreign('IdPers')
-                ->references('IdPers')
-                ->on('personnes')
+            $table->unsignedBigInteger('IdPer');
+            $table->foreign('IdPer')
+                ->references('IdPer')
+                ->on('personne')
                 ->onDelete('cascade');
 
             $table->timestamps();

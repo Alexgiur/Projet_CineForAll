@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('PrePer');
             $table->date('DateNaissancePer');
             $table->string('NationalitePer');
+            $table->string('BiographiePer');
             $table->timestamps();
         });
     }
