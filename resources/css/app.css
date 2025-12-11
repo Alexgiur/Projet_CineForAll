@@ -1,0 +1,738 @@
+/* ============================================================ */
+/* 1. VARIABLES GLOBALES & RESET                                */
+/* ============================================================ */
+:root {
+    --primary-color: #991917; /* Rouge cinéma */
+    --primary-dark: #7a1413;
+    --secondary-color: #f4f4f4;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --font-family-logo: 'Lilita One', cursive;
+    --font-family-body: Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-family-body);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+h1, h2, h3, .logo-container img { font-family: var(--font-family-logo); }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* ============================================================ */
+/* 2. COMPOSANTS BOUTONS UNIFIÉS (NOUVEAU)                      */
+/* ============================================================ */
+
+/* Style 1 : Bouton Principal (Rouge plein)
+   Appliqué à : Login, Réservation, Connexion, Hero, Modale */
+.btn-primary,
+.cta-login,
+.cta-reservation,
+.btn-connexion,
+.submit-reservation,
+.btn-hero {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--light-text-color) !important;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px; /* Arrondi standard */
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover,
+.cta-login:hover,
+.cta-reservation:hover,
+.btn-connexion:hover,
+.submit-reservation:hover,
+.btn-hero:hover {
+    background-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.submit-reservation:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Style 2 : Bouton Outline (Transparent avec bordure)
+   Appliqué à : Filtres */
+.btn-outline,
+.filter-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 20px; /* Arrondi prononcé style "pilule" */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-family-body);
+}
+
+.btn-outline:hover,
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+/* ============================================================ */
+/* 3. HEADER & NAVIGATION                                       */
+/* ============================================================ */
+.main-header {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+    min-height: 130px;
+}
+
+/* --- LE LOGO --- */
+.logo-container { flex-shrink: 0; }
+.logo-container img {
+    height: 120px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+.logo-container img:hover { transform: scale(1.05); }
+
+/* --- LE MENU --- */
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    color: #333;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    position: relative;
+    padding: 10px 0;
+    font-family: var(--font-family-body);
+    letter-spacing: 0.5px;
+}
+
+/* Ligne sous le lien au survol (sauf pour les boutons) */
+.main-nav a:not(.cta-login):not(.cta-reservation)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.main-nav a:not(.cta-login):not(.cta-reservation):hover { color: var(--primary-color); }
+.main-nav a:not(.cta-login):not(.cta-reservation):hover::after { width: 100%; }
+
+/* Les boutons login/resa utilisent maintenant la classe partagée .btn-primary */
+
+/* ============================================================ */
+/* 4. HERO CAROUSEL                                             */
+/* ============================================================ */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    background-color: #000;
+    overflow: hidden;
+}
+.slide {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity 1s ease-in-out;
+}
+.slide.active { opacity: 1; }
+.slide img {
+    width: 100%; height: 100%; object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.7);
+}
+.slide-content {
+    position: absolute; bottom: 20%; left: 5%;
+    color: white; z-index: 10;
+    max-width: 600px;
+    animation: slideUp 1s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.slide-content h1 {
+    font-size: 4rem; margin-bottom: 10px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0px #000;
+}
+.slide-content p {
+    font-size: 1.3rem; margin-bottom: 25px;
+    color: #eee; font-weight: bold;
+}
+
+/* .btn-hero utilise maintenant le style partagé */
+
+.prev-btn, .next-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.5); color: white; border: none;
+    font-size: 2rem; padding: 20px; cursor: pointer; z-index: 20;
+    transition: background 0.3s;
+}
+.prev-btn:hover, .next-btn:hover { background: var(--primary-color); }
+.prev-btn { left: 0; } .next-btn { right: 0; }
+.carousel-indicators {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 10px; z-index: 20;
+}
+.dot {
+    width: 12px; height: 12px; background: rgba(255,255,255,0.5);
+    border-radius: 50%; cursor: pointer;
+}
+.dot.active { background: var(--primary-color); transform: scale(1.3); }
+
+/* ============================================================ */
+/* 5. SECTIONS & CARTES FILMS                                   */
+/* ============================================================ */
+main { flex: 1; }
+
+.films-section { padding: 60px 5%; text-align: center; }
+.films-section h2 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.film-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+/* --- CARTE FILM STYLE ROUGE --- */
+.film-card {
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; flex-direction: column;
+}
+
+.film-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(153, 25, 23, 0.4);
+}
+
+.film-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.film-card h3 {
+    color: white;
+    font-size: 1.2em;
+    margin: 10px 0 5px;
+}
+
+.film-card p {
+    color: #f0f0f0;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
+
+/* Bouton spécifique "Détails" (Doit rester blanc car sur fond rouge) */
+.details-link {
+    display: block; margin: 0 15px 10px;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 10px 0;
+    border-radius: 5px; /* Harmonisé avec btn-primary */
+    font-weight: bold; text-transform: uppercase;
+    font-size: 0.9em;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+.details-link:hover {
+    background-color: #eee;
+    transform: translateY(-2px);
+}
+
+/* ============================================================ */
+/* 6. FORMULAIRES (Login / Register / Reservation)              */
+/* ============================================================ */
+.container-connexion {
+    display: flex;
+    width: 850px;
+    margin: 50px auto;
+    border: 3px solid var(--primary-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* --- Bloc de Branding --- */
+.bloc-branding {
+    flex: 1;
+    background-color: var(--primary-color);
+    padding: 40px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloc-branding h2.titre-bienvenue {
+    font-family: var(--font-family-logo);
+    font-size: 2.2em;
+    margin-top: 10px;
+}
+
+.logo-connexion {
+    width: 150px;
+    background-color: #f5d5d4;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* --- Bloc Formulaire --- */
+.bloc-formulaire {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bloc-formulaire h1.titre-connexion {
+    font-family: var(--font-family-logo);
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.form-group, .champ-groupe { margin-bottom: 20px; text-align: left; }
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], select, input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(153, 25, 23, 0.2);
+    outline: none;
+}
+
+/* .btn-connexion et .submit-reservation sont gérés dans le bloc 2 (COMPOSANTS) */
+
+.bloc-formulaire p a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.bloc-formulaire p a:hover {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+/* Reservation Specific */
+.reservation-form-section { padding: 50px 5%; text-align: center; }
+.reservation-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ============================================================ */
+/* 7. ADMIN DASHBOARD                                           */
+/* ============================================================ */
+.admin-dashboard { text-align: center; padding: 50px 5%; }
+.admin-buttons-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px; max-width: 1000px; margin: 0 auto;
+}
+.admin-button {
+    background: white; border: none; border-radius: 12px;
+    padding: 40px 20px; transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); cursor: pointer; display: block;
+}
+.admin-button:hover { background-color: var(--primary-color); transform: translateY(-5px); }
+.admin-button h2 { color: var(--text-color); margin-bottom: 10px; }
+.admin-button p { color: #888; }
+.admin-button:hover h2, .admin-button:hover p { color: white; }
+.admin-table {
+    width: 100%; border-collapse: collapse; margin-top: 20px;
+    background: white; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.admin-table th { background-color: var(--primary-color); color: white; padding: 15px; }
+.admin-table td { padding: 15px; border-bottom: 1px solid #f0f0f0; }
+.mini-img { width: 50px; height: 75px; object-fit: cover; border-radius: 4px; }
+.admin-toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: white; padding: 20px 30px; border-radius: 8px;
+    margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ============================================================ */
+/* 8. FOOTER                                                    */
+/* ============================================================ */
+footer {
+    background-color: #222; color: #aaa; text-align: center;
+    padding: 40px 5%; margin-top: auto;
+}
+footer p { font-size: 0.9em; }
+
+/* ============================================================ */
+/* 9. MODAL & FILTRES & RECHERCHE                               */
+/* ============================================================ */
+.filter-container {
+    display: flex; justify-content: center; gap: 10px;
+    margin-bottom: 40px; flex-wrap: wrap;
+}
+
+/* .filter-btn est géré dans le bloc 2 (COMPOSANTS) */
+
+.search-container {
+    text-align: center;
+    margin: 30px 0 50px 0;
+    position: relative;
+}
+
+#searchInput {
+    width: 100%; max-width: 600px; padding: 15px 30px;
+    border: 2px solid #ddd; border-radius: 50px;
+    font-size: 1.1rem; background-color: #fff;
+    transition: all 0.3s ease; color: var(--text-color);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(153, 25, 23, 0.3);
+    transform: scale(1.02);
+}
+
+#searchInput::placeholder { color: #aaa; font-style: italic; }
+
+.modal-overlay {
+    visibility: hidden; opacity: 0;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+    z-index: 2000; display: flex; justify-content: center; align-items: center;
+    transition: 0.3s;
+}
+.modal-overlay.active { visibility: visible; opacity: 1; }
+.modal-content {
+    background: white; padding: 40px; border-radius: 15px;
+    width: 90%; max-width: 800px; position: relative;
+    transform: scale(0.9); transition: 0.3s;
+}
+.modal-overlay.active .modal-content { transform: scale(1); }
+.modal-body { display: flex; gap: 40px; align-items: flex-start; text-align: left; }
+.modal-body img { width: 220px; border-radius: 10px; }
+.close-btn {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 35px; cursor: pointer; color: #ccc;
+}
+.close-btn:hover { color: var(--primary-color); }
+
+/* Ajustement spécifique pour le bouton dans la modale (qui utilise aussi .cta-reservation) */
+.modal-info .cta-reservation {
+    /* Hérite des styles .btn-primary, on ajoute juste de l'espace au dessus */
+    margin-top: 20px;
+}
+
+/* ============================================================ */
+/* 10. PAGES DE RÉSERVATION                                     */
+/* ============================================================ */
+body { padding: 20px 5%; }
+
+.reservation-page-container {
+    max-width: 1200px; margin: 40px auto;
+    background: white; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex; flex-wrap: wrap;
+}
+.form-area { flex: 3; padding: 40px; min-width: 60%; }
+.form-area h2 {
+    font-size: 2em; color: var(--primary-color); margin-bottom: 25px;
+    border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;
+}
+.step-section {
+    margin-bottom: 40px; padding: 20px;
+    border: 1px solid #ddd; border-radius: 8px; background: #fff;
+}
+.step-section h3 { color: var(--primary-dark); margin-top: 0; margin-bottom: 20px; }
+.label-ticket { display: block; margin-bottom: 5px; font-weight: bold; }
+
+.film-selection-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px; margin-bottom: 20px;
+}
+.film-card-select {
+    background-color: #f0f0f0; border: 3px solid transparent;
+    border-radius: 8px; padding: 10px; text-align: center;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.film-card-select:hover { background-color: #e0e0e0; }
+.film-card-select.selected {
+    border-color: var(--primary-color); background-color: #f5d5d4;
+    box-shadow: 0 0 10px rgba(153, 25, 23, 0.5); transform: scale(1.02);
+}
+.film-card-select img {
+    width: 100%; height: 250px; object-fit: cover;
+    border-radius: 4px; margin-bottom: 10px;
+}
+.film-card-select h4 { font-size: 1em; margin: 0; color: var(--text-color); }
+
+.seat-map-wrapper { max-width: 400px; margin: 30px auto; text-align: center; }
+.screen-area {
+    background-color: #333; color: white; padding: 10px;
+    border-radius: 5px 5px 0 0; margin-bottom: 20px; font-weight: bold;
+}
+.seat-map { display: flex; flex-direction: column; gap: 5px; }
+.row { display: flex; justify-content: center; gap: 5px; }
+.row-label {
+    width: 25px; display: flex; align-items: center; justify-content: center;
+    font-weight: bold; color: #888;
+}
+.seat {
+    width: 30px; height: 30px; display: flex; align-items: center;
+    justify-content: center; border-radius: 4px; font-size: 0.8em;
+    cursor: pointer; transition: transform 0.1s;
+}
+.seat.available { background-color: #e0e0e0; border: 1px solid #ccc; }
+.seat.available:hover { transform: scale(1.1); background-color: #ccc; }
+.seat.selected { background-color: var(--primary-color); color: white; border: 1px solid var(--primary-dark); }
+.seat.booked, .seat.held { background-color: #888; color: white; cursor: not-allowed; }
+.seat.premium { border: 2px dashed orange; }
+
+.legend {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; font-size: 0.9em;
+}
+.legend-item { display: flex; align-items: center; }
+.seat-icon { width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; }
+.seat-icon.available { background-color: #e0e0e0; border: 1px solid #ccc; }
+.seat-icon.selected { background-color: var(--primary-color); }
+.seat-icon.booked { background-color: #888; }
+
+.summary-panel {
+    flex: 1; padding: 40px 30px; background-color: #f8f8f8;
+    border-left: 1px solid #eee; min-width: 300px;
+}
+.summary-panel h2 { color: var(--text-color); margin-bottom: 20px; border-bottom: none; }
+.summary-details ul { padding-left: 20px; margin-bottom: 20px; }
+.total-breakdown { padding-top: 15px; border-top: 1px solid #ccc; }
+.grand-total { font-size: 1.5em; font-weight: bold; color: var(--primary-color); }
+.grand-total span { float: right; }
+
+#confirmation-display {
+    padding: 50px; text-align: center; background: #fff;
+    border-radius: 12px; max-width: 800px; margin: 50px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+#confirmation-display h2 { color: green; font-size: 2.5em; }
+.confirmation-recap {
+    text-align: left; margin: 30px 0; padding: 20px;
+    background-color: #f9f9f9; border-left: 5px solid var(--primary-color);
+}
+.confirmation-recap p { font-size: 1.1em; margin-bottom: 10px; }
+.confirmation-message {
+    margin-top: 40px; padding: 20px; background-color: #fff3cd;
+    color: #856404; border: 1px solid #ffeeba; border-radius: 5px; font-weight: bold;
+}
+.confirmation-message-retrait {
+    margin-top: 15px; color: var(--primary-color); font-size: 1.1em;
+}
+
+/* 11. RESPONSIVE */
+@media (max-width: 768px) {
+    .main-header { flex-direction: column; gap: 15px; padding: 20px; }
+    .logo-container img { height: 80px; }
+    .main-nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .container-connexion { flex-direction: column; width: 95%; margin: 20px auto; }
+    .bloc-branding { display: none; }
+    .bloc-formulaire { padding: 30px; }
+    .hero-content h1 { font-size: 2.5em; }
+    .modal-body { flex-direction: column; align-items: center; text-align: center; }
+
+    /* Responsive Reservation */
+    .reservation-page-container { flex-direction: column; margin: 20px auto; }
+    .form-area, .summary-panel { min-width: 100%; padding: 30px; border-left: none; }
+    .summary-panel { border-top: 1px solid #eee; }
+    .film-selection-grid { grid-template-columns: 1fr 1fr; }
+    .film-card-select img { height: 180px; }
+    .seat-map-wrapper { width: 100%; }
+}
+
+/* ============================================================ */
+/* BARRE DE SÉPARATION ROUGE AVEC TEXTE                         */
+/* ============================================================ */
+.red-divider {
+    width: 100%;
+    background-color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-dark);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 900;
+
+    /* Styles pour le texte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0; /* Plus d'espace pour le texte */
+
+    color: var(--light-text-color);
+    font-family: var(--font-family-logo); /* Utilise la police 'Lilita One' */
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ============================================================ */
+/* 10. NOUVELLES SECTIONS (ACCUEIL)                             */
+/* ============================================================ */
+
+/* --- Section Prochaines Sorties --- */
+.upcoming-section {
+    background-color: #f4f4f4; /* Fond gris clair */
+    padding: 60px 5%;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+.upcoming-section h2 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.tag-coming-soon {
+    margin-top: 10px;
+    display: inline-block;
+    border: 2px solid white;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* --- Section Newsletter --- */
+.newsletter-section {
+    background-color: var(--primary-color);
+    padding: 50px 5%;
+    text-align: center;
+    color: white;
+}
+
+.newsletter-section h2 {
+    font-family: var(--font-family-logo);
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.newsletter-section p {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+.newsletter-section form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.newsletter-section input {
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    width: 350px;
+    font-size: 1rem;
+}
+
+.newsletter-section button {
+    background-color: #222;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.newsletter-section button:hover {
+    background-color: #444;
+}
+
+/* --- Mises à jour du Footer --- */
+.footer-content h3 {
+    font-family: var(--font-family-logo);
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.social-icons {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    word-spacing: 15px;
+    color: white;
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
