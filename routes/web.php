@@ -60,3 +60,6 @@ Route::post('/admin/films/store', function () {
     // Pour l'instant, on redirige vers la liste des films
     return redirect()->route('admin.films');
 })->name('admin.films.store');
+
+Route::get('/films', [FilmController::class, 'index']);
+Route::get('/films/{film}', [FilmController::class, 'show']);
