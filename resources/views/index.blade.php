@@ -27,7 +27,8 @@
 </header>
 
 <div class="red-divider">
-    LES NOUVEAUTÉS DU MOMENT
+    Bienvenue sur CineForAll
+    Réservez vos places de cinéma en un clic.
 </div>
 
 <main>
