@@ -11,12 +11,14 @@ class FilmController extends Controller
         $films = film::all();
         return view('films.index', compact('films'));
     }
+    public function create(){
+        return view('films.create');
+    }
+
     public function show(Film $film){
         return view('films.show', compact('film'));
     }
 
-    public function create(){
-        return view('films.create');
-    }
+
 
 }

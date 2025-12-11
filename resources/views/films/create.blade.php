@@ -10,14 +10,6 @@
     <title>Un film</title>
 </head>
 <body>
-<h1>Le film {{$film->IdFilm}}</h1>
-<p>Title : {{$film->TitreFilm}}</p>
-<p>Longueur :{{$film->LongueurFilm}}</p>
-<p>Date de sortie :{{$film->DateSortieFilm}}</p>
-<p>Résumé :{{$film->ResumeFilm}}</p>
-<p>Langue film :{{$film->LangueFilm}}</p>
-<p>3D ou pas :{{$film->TroisDOuNon}}</p>
-<p>Affiche film :<img src="{{$film->AfficheFilm}}" width="100" height="150"></p>
-<p>Genre :{{$film->IdGenreFilm}}</p>
+<h1>Créer un article</h1>
 </body>
 </html>
