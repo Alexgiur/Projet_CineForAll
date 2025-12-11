@@ -74,19 +74,16 @@
                 <img src="{{ asset('img/film1.jpeg') }}" alt="Film">
                 <h3>Until Dawn</h3>
                 <p>Horreur</p>
-                <a href="#" class="details-link">Voir détails</a>
             </div>
             <div class="film-card">
                 <img src="{{ asset('img/film2.jpg') }}" alt="Film">
                 <h3>Chainsaw Man</h3>
                 <p>Animation</p>
-                <a href="#" class="details-link">Voir détails</a>
             </div>
             <div class="film-card">
                 <img src="{{ asset('img/film3.jpeg') }}" alt="Film">
                 <h3>John Wick</h3>
                 <p>Action</p>
-                <a href="#" class="details-link">Voir détails</a>
             </div>
         </div>
     </section>
