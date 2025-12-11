@@ -1,3 +1,4 @@
+@extends('layout')
 
 <?php use App\Http\Controllers\FilmController; ?>
 
