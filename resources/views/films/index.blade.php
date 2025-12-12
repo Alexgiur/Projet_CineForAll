@@ -1,4 +1,3 @@
-@extends('layout')
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,6 +10,9 @@
 </head>
 <body>
 <h1>Tous les Films</h1>
+<a href="/films/create">
+    <button type="button">Créer un nouveau film</button>
+</a>
 <table class="table table-striped">
     <tr>
         <th>Title</th>
