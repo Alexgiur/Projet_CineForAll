@@ -15,7 +15,7 @@ class Film extends Model
         'DateSortieFilm',
         'ResumeFilm',
         'LangueFilm',
-        '3DOuNon',
+        'TroisDOuNon',
         'AfficheFilm',
         'IdGenreFilm'
     ];
