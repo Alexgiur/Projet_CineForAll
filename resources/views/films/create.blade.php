@@ -1,6 +1,4 @@
-
-
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +8,14 @@
     <title>Un film</title>
 </head>
 <body>
-<h1>Créer un article</h1>
+<h1>Créer un film</h1>
+<form action="/films" method="Post">
+    @csrf
+    <input @error('title') style="border-color: red" @enderror type="text" name="title" placeholder="Titre" value="{{ old('title') }}"><br>
+    @error('title')
+    <p style="color: red">{{ $message }}</p>
+    @enderror
+
+</form>
 </body>
 </html>

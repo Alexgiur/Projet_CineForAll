@@ -6,8 +6,7 @@ use App\Models\Film;
 
 class FilmController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         $films = film::all();
         return view('films.index', compact('films'));
     }

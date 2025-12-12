@@ -17,11 +17,7 @@
         </a>
     </div>
     <nav class="main-nav">
-        <ul>
-
-
-
-
+        <u
         </ul>
     </nav>
 </header>
