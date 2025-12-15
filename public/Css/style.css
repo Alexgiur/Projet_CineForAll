@@ -1,102 +1,182 @@
 /* ============================================================ */
-/* VARIABLES NÉCESSAIRES (à garder si pas déjà présentes)       */
+/* 1. VARIABLES & RESET                                         */
 /* ============================================================ */
 :root {
-    --primary-color: #991917; /* Rouge cinéma */
+    --primary-color: #991917; /* Rouge CineForAll */
     --primary-dark: #7a1413;
+    --secondary-color: #f4f4f4;
     --text-color: #333;
+    --light-text-color: #fff;
+    --font-family-logo: 'Lilita One', cursive;
     --font-family-body: Arial, sans-serif;
 }
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-family-body);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a { text-decoration: none; color: inherit; }
+
 /* ============================================================ */
-/* HEADER & NAVIGATION                                          */
+/* 2. HEADER & NAVIGATION                                       */
 /* ============================================================ */
 .main-header {
-    background-color: #ffffff;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 5%;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    z-index: 1000;
-    min-height: 130px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* --- LE LOGO --- */
-.logo-container { flex-shrink: 0; }
+.logo-container img { height: 80px; width: auto; }
 
-.logo-container img {
-    height: 120px;
-    width: auto;
-    display: block;
-    object-fit: contain;
-    transition: transform 0.3s;
-}
-
-.logo-container img:hover { transform: scale(1.05); }
-
-/* --- LE MENU --- */
 .main-nav ul {
+    list-style: none;
     display: flex;
-    gap: 30px;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style: none; /* Sécurité pour enlever les puces */
+    gap: 20px;
 }
 
 .main-nav a {
-    color: #333;
-    font-weight: 800;
-    font-size: 1.1rem;
+    font-weight: bold;
     text-transform: uppercase;
-    position: relative;
-    padding: 10px 0;
-    font-family: var(--font-family-body);
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    transition: 0.3s;
+    transition: color 0.3s;
 }
 
-/* Ligne sous le lien au survol (Animation) */
-/* Note : exclut les boutons cta-login/reservation s'ils ont cette classe */
-.main-nav a:not(.cta-login):not(.cta-reservation)::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: 0;
-    left: 0;
-    background-color: var(--primary-color);
-    transition: width 0.3s;
-}
+.main-nav a:hover { color: var(--primary-color); }
 
-.main-nav a:not(.cta-login):not(.cta-reservation):hover {
+/* ============================================================ */
+/* 3. CONTENU PRINCIPAL                                         */
+/* ============================================================ */
+main { flex: 1; padding: 40px 5%; }
+
+h1, h2 {
+    font-family: var(--font-family-logo);
     color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.main-nav a:not(.cta-login):not(.cta-reservation):hover::after {
+/* ============================================================ */
+/* 4. GRILLE DES FILMS (INDEX)                                  */
+/* ============================================================ */
+.film-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.film-card {
+    background-color: var(--primary-color);
+    width: 250px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: white;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.film-card:hover { transform: translateY(-5px); }
+
+.film-card img {
     width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #555; /* Fond gris si pas d'image */
+}
+
+.film-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: white;
+    font-family: var(--font-family-logo);
+}
+
+.film-info {
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #f0f0f0;
 }
 
 /* ============================================================ */
-/* RESPONSIVE (Mobile)                                          */
+/* 5. FORMULAIRE (CREATE)                                       */
 /* ============================================================ */
-@media (max-width: 768px) {
-    .main-header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
-    }
+.reservation-form-section {
+    display: flex;
+    justify-content: center;
+}
 
-    .logo-container img {
-        height: 80px;
-    }
+.reservation-form {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    border-top: 5px solid var(--primary-color);
+}
 
-    .main-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
+.form-group { margin-bottom: 20px; text-align: left; }
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+    display: inline-block;
+}
+
+.btn-primary:hover { background-color: var(--primary-dark); }
+
+/* ============================================================ */
+/* 6. FOOTER                                                    */
+/* ============================================================ */
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
 }
