@@ -68,16 +68,15 @@ class FilmController extends Controller
             'genre' => 'required|integer|exists:genre_film,IdGenreFilm',
         ]);
 
-        $f = Film::findOrFail($film);
-        $f->TitreFilm = request('titre');
-        $f->LongueurFilm = request('longueur');
-        $f->DateSortieFilm = request('datedesortie');
-        $f->ResumeFilm = request('resume');
-        $f->LangueFilm = request('langue');
-        $f->TroisDOuNon = request('troisD', 0);
-        $f->AfficheFilm = request('affiche');
-        $f->IdGenreFilm = request('genre');
-        $f->save();
+        $film->TitreFilm = request('titre');
+        $film->LongueurFilm = request('longueur');
+        $film->DateSortieFilm = request('datedesortie');
+        $film->ResumeFilm = request('resume');
+        $film->LangueFilm = request('langue');
+        $film->TroisDOuNon = request('troisD', 0);
+        $film->AfficheFilm = request('affiche');
+        $film->IdGenreFilm = request('genre');
+        $film->save();
         return redirect('/films/'. $film->IdFilm);
     }
 
