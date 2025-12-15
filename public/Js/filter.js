@@ -1,97 +1,56 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
 
-    // --- PARTIE 1 : VOS FILTRES EXISTANTS (Je les garde) ---
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const filmCards = document.querySelectorAll('.film-card');
+    // Éléments principaux
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.film-card');
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const filterValue = button.getAttribute('data-filter');
+    // Éléments de la Modale
+    const modal = document.getElementById('globalModal');
+    const closeBtn = document.querySelector('.close-btn');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalGenre = document.getElementById('modalGenre');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalDate = document.getElementById('modalDate');
+    const modalDuration = document.getElementById('modalDuration');
+    const modalRating = document.getElementById('modalRating');
+    const modalDirector = document.getElementById('modalDirector');
+    const modalWriter = document.getElementById('modalWriter');
+    const modalActors = document.getElementById('modalActors');
 
-            filmCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filterValue === 'all' || filterValue === category) {
+    // 1. RECHERCHE
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function (e) {
+            const searchText = e.target.value.toLowerCase();
+
+            cards.forEach(card => {
+                // On cherche le titre dans le <h3> de la carte
+                const titleElement = card.querySelector('h3');
+                const title = titleElement ? titleElement.textContent.toLowerCase() : '';
+
+                if (title.includes(searchText)) {
                     card.style.display = 'block';
-                    card.style.animation = 'none';
-                    card.offsetHeight; /* trigger reflow */
-                    card.style.animation = 'fadeIn 0.5s ease-in-out';
                 } else {
                     card.style.display = 'none';
                 }
             });
         });
-    });
+    }
 
-    // --- PARTIE 2 : LE POP-UP FLUIDE (NOUVEAU) ---
+    // 2. FILTRES
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
 
-    const modal = document.getElementById('globalModal');
-    const closeBtn = document.querySelector('.close-btn');
+            const filterValue = this.getAttribute('data-filter');
 
-    // Éléments à remplir dans le modal
-    const mImg = document.getElementById('modalImg');
-    const mTitle = document.getElementById('modalTitle');
-    const mGenre = document.getElementById('modalGenre');
-    const mDesc = document.getElementById('modalDesc');
-
-    // On sélectionne toutes les images qui ont la classe 'film-trigger'
-    // (Pensez à ajouter class="film-trigger" sur vos images de films)
-    const triggers = document.querySelectorAll('.film-card img');
-
-    triggers.forEach(img => {
-        img.style.cursor = "pointer"; // Change le curseur en main
-
-        img.addEventListener('click', (e) => {
-            // 1. Récupération des données
-            // Si l'attribut data existe, on le prend, sinon on cherche dans le HTML parent
-            const src = img.src;
-            const title = img.getAttribute('data-title') || img.parentElement.querySelector('h3').innerText;
-            const genre = img.getAttribute('data-genre') || img.parentElement.querySelector('p').innerText;
-
-            // Texte par défaut si pas de synopsis
-            const synopsis = img.getAttribute('data-synopsis') || "Aucun résumé disponible pour ce film actuellement.";
-
-            // 2. Remplissage du modal
-            mImg.src = src;
-            mTitle.innerText = title;
-            mGenre.innerText = genre;
-            mDesc.innerText = synopsis;
-
-            // 3. Affichage fluide (ajout de la classe CSS)
-            modal.classList.add('active');
-        });
-    });
-
-    // Fermeture avec la croix
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-
-    // Fermeture en cliquant en dehors de la boîte
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- 1. FILTRES (Code existant) ---
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const filmCards = document.querySelectorAll('.film-card');
-
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            const filterValue = button.getAttribute('data-filter');
-
-            filmCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filterValue === 'all' || filterValue === category) {
+            cards.forEach(card => {
+                // Si 'all', on montre tout, sinon on compare la catégorie
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
                     card.style.display = 'block';
+                    // Animation
                     card.style.animation = 'none';
                     card.offsetHeight;
                     card.style.animation = 'fadeIn 0.5s ease-in-out';
@@ -102,135 +61,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-
-
-
-
-
-
-    // --- 2. POP-UP DÉTAILLÉ SANS EMOJI ---
-    const modal = document.getElementById('globalModal');
-    const closeBtn = document.querySelector('.close-btn');
-
-    // Éléments du modal à remplir
-    const mImg = document.getElementById('modalImg');
-    const mTitle = document.getElementById('modalTitle');
-    const mGenre = document.getElementById('modalGenre');
-    const mDesc = document.getElementById('modalDesc');
-
-    // Nouveaux champs techniques
-    const mDate = document.getElementById('modalDate');
-    const mDuration = document.getElementById('modalDuration');
-    const mRating = document.getElementById('modalRating');
-    const mDirector = document.getElementById('modalDirector');
-    const mWriter = document.getElementById('modalWriter');
-    const mActors = document.getElementById('modalActors');
-
+    // 3. MODALE (POP-UP)
     const triggers = document.querySelectorAll('.film-trigger');
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', function () {
+            modalImg.src = this.src;
+            modalTitle.textContent = this.getAttribute('data-title');
+            modalGenre.textContent = "Genre : " + this.getAttribute('data-genre');
+            modalDesc.textContent = this.getAttribute('data-synopsis');
 
-    triggers.forEach(img => {
-        // Change le curseur pour montrer que c'est cliquable
-        img.style.cursor = "pointer";
+            modalDate.textContent = this.getAttribute('data-release');
+            modalDuration.textContent = this.getAttribute('data-duration');
+            modalRating.textContent = this.getAttribute('data-rating');
+            modalDirector.textContent = this.getAttribute('data-director');
+            modalWriter.textContent = this.getAttribute('data-writer');
+            modalActors.textContent = this.getAttribute('data-actors');
 
-        img.addEventListener('click', () => {
-            // Récupération des données depuis les attributs data-*
-            mImg.src = img.src;
-            mTitle.innerText = img.getAttribute('data-title');
-            mGenre.innerText = img.getAttribute('data-genre');
-            mDesc.innerText = img.getAttribute('data-synopsis');
-
-            // Remplissage des nouvelles infos (avec valeurs par défaut si vide)
-            mDate.innerText = img.getAttribute('data-release') || "Non communiqué";
-            mDuration.innerText = img.getAttribute('data-duration') || "--";
-            mRating.innerText = img.getAttribute('data-rating') || "N/A";
-            mDirector.innerText = img.getAttribute('data-director') || "Non communiqué";
-            mWriter.innerText = img.getAttribute('data-writer') || "Non communiqué";
-            mActors.innerText = img.getAttribute('data-actors') || "Non communiqué";
-
-            // Affichage du modal
             modal.classList.add('active');
         });
     });
 
-    // Fermeture avec la croix
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+            modal.classList.remove('active');
+        });
+    }
 
-    // Fermeture en cliquant en dehors de la boîte
-    modal.addEventListener('click', (e) => {
+    window.addEventListener('click', function (e) {
         if (e.target === modal) {
             modal.classList.remove('active');
         }
     });
 });
-
-
-const modal = document.getElementById('personModal');
-
-function openPersonModal() {
-    modal.classList.add('active');
-    modal.style.visibility = 'visible';
-    modal.style.opacity = '1';
-}
-
-function closePersonModal() {
-    modal.classList.remove('active');
-    modal.style.visibility = 'hidden';
-    modal.style.opacity = '0';
-}
-
-// Fermer si on clique dehors
-window.onclick = function(event) {
-    if (event.target == modal) {
-        closePersonModal();
-    }
-}
-// ============================================================
-// FONCTIONNALITÉ DE RECHERCHE EN DIRECT
-// ============================================================
-
-// 1. Je sélectionne la barre de recherche HTML par son ID pour pouvoir l'écouter.
-const searchInput = document.getElementById('searchInput');
-
-// 2. Je sélectionne toutes les cartes de films présentes sur la page (div avec class="film-card").
-// Cela crée une liste (NodeList) de tous vos films.
-const allCards = document.querySelectorAll('.film-card');
-
-// 3. J'ajoute un "écouteur d'événement" sur la barre de recherche.
-// L'événement 'input' se déclenche à chaque fois que l'utilisateur tape ou efface une lettre.
-searchInput.addEventListener('input', function(e) {
-
-    // 4. Je récupère le texte écrit par l'utilisateur (la valeur de l'input).
-    // .toLowerCase() sert à tout mettre en minuscules pour ignorer les majuscules (ex: "JOhn" devient "john").
-    // .trim() sert à enlever les espaces inutiles au début et à la fin.
-    const searchTerm = e.target.value.toLowerCase().trim();
-
-    // 5. Je démarre une boucle pour analyser chaque carte de film, une par une.
-    allCards.forEach(card => {
-
-        // 6. Pour la carte en cours, je cherche la balise <h3> qui contient le titre du film.
-        // .innerText permet de récupérer juste le texte (ex: "John Wick").
-        // .toLowerCase() permet de mettre ce titre en minuscules pour la comparaison.
-        const filmTitle = card.querySelector('h3').innerText.toLowerCase();
-
-        // 7. Je vérifie si le titre du film contient (includes) le texte recherché.
-        // Si le terme recherché est présent dans le titre, le résultat est "true", sinon "false".
-        const isMatch = filmTitle.includes(searchTerm);
-
-        // 8. Si c'est un match (correspondance trouvée)...
-        if (isMatch) {
-            // 9. J'affiche la carte en mettant son style display à 'block' (ou 'flex' selon votre CSS).
-            card.style.display = 'block';
-
-            // 10. J'ajoute une petite animation d'apparition pour rendre ça fluide (optionnel mais joli).
-            card.style.animation = 'fadeIn 0.5s ease';
-        } else {
-            // 11. Sinon (si le titre ne correspond pas), je cache la carte.
-            card.style.display = 'none';
-        }
-    });
-});
-
-
