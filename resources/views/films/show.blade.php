@@ -24,6 +24,11 @@
 </header>
 
 <main>
+    <form action="/films/{{ $film->IdFilm }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button class="btn btn-danger">Supprimer</button>
+    </form>
     <div style="max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; gap: 30px; align-items: flex-start;">
 
         <div style="flex: 1;">
