@@ -27,7 +27,7 @@ class LoginController extends Controller
         $user = Login::where('LoginUti', request('email'))->first();
 
         // Vérifier si l'utilisateur existe et si le mot de passe est correct
-        if ($user::check(request('password'), $user->MdpUti)) {
+        if ($user && Hash::check(request('password'), $user->MdpUti)) {
             Auth::login($user);
             return redirect('/')->with('success', 'Connexion réussie !');
         }
