@@ -4,76 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $film->TitreFilm }} - Détails</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header class="main-header">
     <div class="logo-container">
-        <a href="/films">
-            <img src="{{ asset('img/logo.jpeg') }}" alt="CineForAll Logo">
+        <a href="/">
+            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
         </a>
     </div>
     <nav class="main-nav">
         <ul>
-            <li><a href="/films">Accueil Films</a></li>
-            <li><a href="/films/create">Ajouter un film</a></li>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/films">Nos Films</a></li>
+            <li><a href="/films/create">Ajouter</a></li>
+            <li><a href="#" class="cta-login">Connexion</a></li>
         </ul>
     </nav>
 </header>
 
-<main>
-    <form action="/films/{{ $film->IdFilm }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button class="btn btn-danger">Supprimer</button>
-    </form>
-    <div style="max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; gap: 30px; align-items: flex-start;">
+<main class="show-section">
+    <div class="film-details-card">
 
-        <div style="flex: 1;">
+        <div class="film-poster-side">
             @if($film->AfficheFilm)
-                <img src="{{ $film->AfficheFilm }}" alt="Affiche {{ $film->TitreFilm }}" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset($film->AfficheFilm) }}"
+                     alt="Affiche {{ $film->TitreFilm }}">
             @else
-                <div style="width: 100%; height: 300px; background: #eee; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="color: #999;">Pas d'affiche</span>
+                <div style="height: 100%; display:flex; align-items:center; justify-content:center; background:#ddd; color:#777;">
+                    Pas d'affiche
                 </div>
             @endif
         </div>
 
-        <div style="flex: 2;">
-            <h1 style="text-align: left; margin-bottom: 10px;">{{ $film->TitreFilm }}</h1>
+        <div class="film-info-side">
 
-            <div style="margin-bottom: 20px;">
+            <h1 class="film-title-hero">{{ $film->TitreFilm }}</h1>
+
+            <div class="badges-container">
+                <span class="badge badge-genre">Genre ID: {{ $film->IdGenreFilm }}</span>
+
                 @if($film->TroisDOuNon)
-                    <span style="background-color: #ffd700; color: #000; padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">★ En 3D</span>
+                    <span class="badge badge-3d">★ Disponible en 3D</span>
                 @endif
             </div>
 
-            <p style="margin-bottom: 10px;"><strong>Date de sortie :</strong> {{ $film->DateSortieFilm }}</p>
-            <p style="margin-bottom: 10px;"><strong>Durée :</strong> {{ $film->LongueurFilm }} minutes</p>
-            <p style="margin-bottom: 10px;"><strong>Langue :</strong> {{ $film->LangueFilm }}</p>
-            <p style="margin-bottom: 10px;"><strong>Genre (ID) :</strong> {{ $film->IdGenreFilm }}</p>
+            <div class="film-meta-grid">
+                <div class="meta-item">
+                    <strong>Date de sortie</strong>
+                    <span>{{ $film->DateSortieFilm }}</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Durée</strong>
+                    <span>{{ $film->LongueurFilm }} min</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Langue</strong>
+                    <span>{{ $film->LangueFilm }}</span>
+                </div>
+            </div>
 
-            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-                <h3 style="font-family: var(--font-family-body); color: #333; margin-bottom: 10px;">Résumé</h3>
-                <p style="line-height: 1.6; color: #555;">
+            <div class="synopsis-section">
+                <h3>Synopsis</h3>
+                <p class="synopsis-content">
                     {{ $film->ResumeFilm }}
                 </p>
             </div>
 
-            <div style="margin-top: 30px;">
-                <a href="/films" class="btn-primary" style="text-decoration: none; background-color: #555;">
-                    ← Retour à la liste
-                </a>
-            </div>
-        </div>
+            <div class="action-buttons">
+                <a href="/films" class="btn-back">← Retour</a>
 
+                <form action="/films/{{ $film->IdFilm }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-delete-action">Supprimer le film</button>
+                </form>
+            </div>
+
+        </div>
     </div>
 </main>
 
 <footer>
-    <p>2024 CineForAll - Tous droits réservés</p>
+    <p>© 2025 CineForAll - Tous droits réservés.</p>
 </footer>
 
 </body>
