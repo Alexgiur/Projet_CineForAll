@@ -76,10 +76,12 @@
             <div class="action-buttons">
                 <a href="/films" class="btn-back">← Retour</a>
 
+                <a href="/films/{{ $film->IdFilm }}/edit" class="btn-edit">Modifier</a>
+
                 <form action="/films/{{ $film->IdFilm }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn-delete-action">Supprimer le film</button>
+                    <button type="submit" class="btn-delete-action">Supprimer</button>
                 </form>
             </div>
 

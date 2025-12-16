@@ -664,3 +664,24 @@ textarea {
         font-size: 2em;
     }
 }
+
+/* ============================================================ */
+/* 11. BOUTON MODIFIER                                          */
+/* ============================================================ */
+.btn-edit {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--blue-btn); /* Bleu défini dans :root */
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background 0.3s;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9; /* Un bleu un peu plus foncé au survol */
+    color: white;
+}
