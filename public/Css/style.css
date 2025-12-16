@@ -388,3 +388,300 @@ footer {
     .modal-body { flex-direction: column; align-items: center; text-align: center; }
     .modal-body img { width: 150px; margin-bottom: 20px; }
 }
+
+/* ============================================================ */
+/* 9. PAGE CREATE (FORMULAIRE)                                  */
+/* ============================================================ */
+.create-section {
+    padding: 50px 5%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--secondary-color);
+}
+
+.form-container {
+    background-color: white;
+    width: 100%;
+    max-width: 600px; /* Largeur max pour ne pas être trop étiré */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid var(--primary-color); /* Rappel du rouge */
+}
+
+.form-container h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+/* Style des labels pour qu'ils soient propres */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Ajout du style pour textarea qui manquait */
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: var(--font-family-body);
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Style spécifique pour la checkbox "3D" */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.checkbox-group input {
+    width: auto; /* Annule le 100% par défaut */
+    transform: scale(1.2);
+}
+
+/* Bouton de soumission */
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Messages d'erreur */
+.error-message {
+    color: #c0392b;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* ============================================================ */
+/* 10. PAGE SHOW (DÉTAILS FILM)                                 */
+/* ============================================================ */
+
+/* Section principale */
+.show-section {
+    padding: 60px 5%;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Carte conteneur principale */
+.film-details-card {
+    background-color: white;
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    border-top: 5px solid var(--primary-color);
+}
+
+/* Colonne GAUCHE : Affiche */
+.film-poster-side {
+    flex: 1;
+    max-width: 400px;
+    background-color: #000;
+    position: relative;
+}
+
+.film-poster-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.95;
+}
+
+/* Colonne DROITE : Informations */
+.film-info-side {
+    flex: 2;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Titre du film */
+.film-title-hero {
+    font-family: var(--font-family-logo); /* Lilita One */
+    font-size: 3em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Badges (3D, Genre, etc.) */
+.badges-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.badge {
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge-3d {
+    background-color: #ffd700; /* Or */
+    color: #000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.badge-genre {
+    background-color: #333;
+    color: white;
+}
+
+/* Grille d'informations techniques */
+.film-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.meta-item strong {
+    display: block;
+    color: #777;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.meta-item span {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Synopsis */
+.synopsis-section h3 {
+    font-family: var(--font-family-logo);
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.synopsis-content {
+    font-size: 1.05em;
+    line-height: 1.8;
+    color: #444;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+
+/* Actions (Boutons) */
+.action-buttons {
+    margin-top: auto;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #555;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #333;
+    color: white;
+}
+
+.btn-delete-action {
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-delete-action:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Responsive : Mobile */
+@media (max-width: 900px) {
+    .film-details-card {
+        flex-direction: column;
+    }
+
+    .film-poster-side {
+        max-width: 100%;
+        height: 400px;
+    }
+
+    .film-info-side {
+        padding: 25px;
+    }
+
+    .film-title-hero {
+        font-size: 2em;
+    }
+}
+
+/* ============================================================ */
+/* 11. BOUTON MODIFIER                                          */
+/* ============================================================ */
+.btn-edit {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--blue-btn); /* Bleu défini dans :root */
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background 0.3s;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9; /* Un bleu un peu plus foncé au survol */
+    color: white;
+}
