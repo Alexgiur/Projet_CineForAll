@@ -93,3 +93,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+/* --- public/Js/countdown.js --- */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Date de lancement (Exemple: dans 10 jours à partir de maintenant)
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 10);
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        // Calculs du temps
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Affichage dans les éléments HTML
+        // On vérifie que les éléments existent pour éviter les erreurs
+        if(document.getElementById("days")) {
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+    }
+
+    // Mise à jour chaque seconde
+    setInterval(updateCountdown, 1000);
+    // Appel initial immédiat
+    updateCountdown();
+});

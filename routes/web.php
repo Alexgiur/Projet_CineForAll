@@ -12,3 +12,13 @@ Route::get('/films/{film}', [FilmController::class, 'show']);
 Route::post('/films', [FilmController::class, 'store']);
 */
 
+
+
+
+// Cette route gère la page d'accueil
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Vos autres routes existantes...
+// Route::resource('films', App\Http\Controllers\FilmController::class);
