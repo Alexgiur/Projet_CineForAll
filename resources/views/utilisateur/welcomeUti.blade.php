@@ -17,7 +17,7 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="#">Films (Demo)</a></li>
             <li><a href="#" class="cta-reservation">Réservation</a></li>
-            <li><a href="/login" class="cta-login">Connexion</a></li>
+            <li>Mon compte</li>
         </ul>
     </nav>
 </header>
