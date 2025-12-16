@@ -51,4 +51,38 @@ class FilmController extends Controller
         $f->save();
         return redirect('/films/'.$f->IdFilm);
     }
+
+    public function edit(Film $film){
+        return view('films.edit', compact('film'));
+    }
+
+    public function update(Film $film){
+        request()->validate([
+            'titre' => 'required|min:5|max:50',
+            'longueur' => 'required|integer|min:30',
+            'datedesortie' => 'required|date',
+            'resume' => 'required|min:5|max:250',
+            'langue' => 'required',
+            'troisD' => 'nullable|boolean',
+            'affiche' => 'nullable',
+            'genre' => 'required|integer|exists:genre_film,IdGenreFilm',
+        ]);
+
+        $film->TitreFilm = request('titre');
+        $film->LongueurFilm = request('longueur');
+        $film->DateSortieFilm = request('datedesortie');
+        $film->ResumeFilm = request('resume');
+        $film->LangueFilm = request('langue');
+        $film->TroisDOuNon = request('troisD', 0);
+        $film->AfficheFilm = request('affiche');
+        $film->IdGenreFilm = request('genre');
+        $film->save();
+        return redirect('/films/'. $film->IdFilm);
+    }
+
+    public function destroy(Film $film){
+        $film->delete();
+        return redirect('/films');
+    }
+
 }
