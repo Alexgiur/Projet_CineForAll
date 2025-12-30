@@ -685,3 +685,88 @@ textarea {
     background-color: #2980b9; /* Un bleu un peu plus foncé au survol */
     color: white;
 }
+
+/* Extrait de la Section 9 du fichier style.css */
+.create-section {
+    padding: 50px 5%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--secondary-color);
+}
+
+.form-container {
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid var(--primary-color); /* Liseré rouge */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Extrait de la Section 10 du fichier style.css */
+.show-section {
+    padding: 60px 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.film-details-card {
+    background-color: white;
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-top: 5px solid var(--primary-color);
+    padding: 40px;
+}
+
+.film-title-hero {
+    font-family: var(--font-family-logo); /* Lilita One */
+    font-size: 3em;
+    color: var(--primary-color);
+}
+
+.film-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.synopsis-section h3 {
+    color: var(--primary-dark);
+    margin-top: 20px;
+}

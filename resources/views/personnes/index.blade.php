@@ -1,41 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Toutes les peronnes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineForAll - Liste des Personnes</title>
+    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
+<header class="main-header">
+    <div class="logo-container">
+        <a href="/"><img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="logo"></a>
+    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/films">Films</a></li>
+            <li><a href="/personnes" style="color:var(--primary-color);">Personnes</a></li>
+            <li><a href="/login" class="cta-login">Connexion</a></li>
+        </ul>
+    </nav>
+</header>
 
-<h1>Toutes les personnes</h1>
+<main class="admin-dashboard">
+    <h1>Gestion des Personnes</h1>
+    <div class="admin-toolbar">
+        <a href="/personnes/create" class="btn-edit" style="background-color: var(--green-btn);">+ Ajouter une personne</a>
+    </div>
 
-<table class="tableper">
-    <tr>
-        <th>Prénom</th>
-        <th>Nom</th>
-        <th>Date de Naissance</th>
-        <th>Nationalite</th>
-        <th>Biographie</th>
-        <th>Modifier</th>
-        <th>Supprimer</th>
-    </tr>
-    @foreach($personnes as $personne)
+    <table class="admin-table">
+        <thead>
         <tr>
-            <td>{{ $personne->PrePer }}</td>
-            <td>{{ $personne->NomPer }}</td>
-            <td>{{ $personne->DateNaissancePer }}</td>
-            <td> {{$personne->NationalitePer }}</td>
-            <td>{{ $personne->BiographiePer }}</td>
-            <td><a href="/personnes/{{ $personne->Idper }}/edit">Modifier</a></td>
-            <td><form action="/personnes/{{ $personne->Idper }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Supprimer</button>
-                </form></td>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Nationalité</th>
+            <th>Actions</th>
         </tr>
-    @endforeach
-</table>
-
-
-
+        </thead>
+        <tbody>
+        @foreach($personnes as $personne)
+            <tr>
+                <td>{{ $personne->PrePer }}</td>
+                <td>{{ $personne->NomPer }}</td>
+                <td>{{ $personne->NationalitePer }}</td>
+                <td style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="/personnes/{{ $personne->Idper }}" class="details-link" style="margin:0;">Voir</a>
+                    <a href="/personnes/{{ $personne->Idper }}/edit" class="btn-edit">Modifier</a>
+                    <form action="/personnes/{{ $personne->Idper }}" method="POST" onsubmit="return confirm('Supprimer ?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete-action">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</main>
 </body>
 </html>

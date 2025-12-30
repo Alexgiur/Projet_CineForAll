@@ -1,75 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <title>Créer une personne</title>
-    <style>
-        .error-message {
-            color: red;
-            font-size: 0.9em;
-        }
-        .error-input {
-            border: 2px solid red;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>CineForAll - Ajouter une Personne</title>
+    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
+<header class="main-header">
+    <div class="logo-container"><a href="/"><img src="{{ asset('img/logo.jpeg') }}" class="logo"></a></div>
+</header>
 
-<h1>Créer une personne</h1>
+<main class="create-section">
+    <div class="form-container">
+        <h1>Nouvelle Personne</h1>
 
-<form action="/personnes" method="POST">
-    @csrf
+        @if ($errors->any())
+            <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <input type="text"
-           id="prenom"
-           name="prenom"
-           placeholder="Prénom de la personne"
-           value="{{ old('prenom') }}"
-           @error('prenom') class="error-input" @enderror>
-    @error('prenom')
-    <span class="error-message">{{ $message }}</span>
-    @enderror
-    <br><br>
-
-    <input type="text"
-           name="nom"
-           placeholder="Nom de la personne"
-           value="{{ old('nom') }}"
-           @error('nom') class="error-input" @enderror>
-    @error('nom')
-    <span class="error-message">{{ $message }}</span>
-    @enderror
-    <br><br>
-
-    <input type="date"
-           name="datedenaissance"
-           value="{{ old('datedenaissance') }}"
-           @error('datedenaissance') class="error-input" @enderror>
-    @error('datedenaissance')
-    <span class="error-message">{{ $message }}</span>
-    @enderror
-    <br><br>
-
-    <input type="text"
-           name="nationalite"
-           placeholder="Nationalité de la personne"
-           value="{{ old('nationalite') }}"
-           @error('nationalite') class="error-input" @enderror>
-    @error('nationalite')
-    <span class="error-message">{{ $message }}</span>
-    @enderror
-    <br><br>
-
-    <p>Biographie de la personne</p>
-    <textarea name="biographie"
-              @error('biographie') class="error-input" @enderror>{{ old('biographie') }}</textarea>
-    @error('biographie')
-    <span class="error-message">{{ $message }}</span>
-    @enderror
-    <br><br>
-
-    <button name="btnCreatePer" type="submit">Créer</button>
-</form>
-
+        <form action="/personnes" method="POST">
+            @csrf
+            <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" name="prenom" value="{{ old('prenom') }}" required>
+            </div>
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text" name="nom" value="{{ old('nom') }}" required>
+            </div>
+            <div class="form-group">
+                <label>Date de Naissance</label>
+                <input type="date" name="datedenaissance" value="{{ old('datedenaissance') }}" required
+                       style="width:100%; padding:12px; border:1px solid #ccc; border-radius:5px;">
+            </div>
+            <div class="form-group">
+                <label>Nationalité</label>
+                <input type="text" name="nationalite" value="{{ old('nationalite') }}" required>
+            </div>
+            <div class="form-group">
+                <label>Biographie</label>
+                <textarea name="biographie" required placeholder="Minimum 5 caractères...">{{ old('biographie') }}</textarea>
+            </div>
+            <button type="submit" class="btn-submit">Enregistrer la personne</button>
+            <a href="/personnes" style="display:block; text-align:center; margin-top:15px; color:#777;">Retour à la liste</a>
+        </form>
+    </div>
+</main>
 </body>
 </html>
