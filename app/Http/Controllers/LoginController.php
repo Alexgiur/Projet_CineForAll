@@ -9,13 +9,11 @@ use App\Models\Login;
 
 class LoginController extends Controller
 {
-    // Affiche le formulaire de connexion
     public function show()
     {
         return view('login');
     }
 
-    // Traite la connexion
     public function login()
     {
         request()->validate([
@@ -23,10 +21,8 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Récupérer l'utilisateur par LoginUti
         $user = Login::where('LoginUti', request('email'))->first();
 
-        // Vérifier si l'utilisateur existe et si le mot de passe est correct
         if ($user && Hash::check(request('password'), $user->MdpUti)) {
             Auth::login($user);
             return redirect('/')->with('success', 'Connexion réussie !');
@@ -35,7 +31,31 @@ class LoginController extends Controller
         return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
     }
 
-    // Déconnexion
+    // Affiche le formulaire d'inscription
+    public function showRegister()
+    {
+        return view('register');
+    }
+
+    // Traite l'inscription
+    public function register(Request $request)
+    {
+        $request->validate([
+            'login' => 'required|min:3|unique:utilisateur,LoginUti',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = Login::create([
+            'LoginUti' => $request->login,
+            'MdpUti' => Hash::make($request->password),
+            'IdTypeRoleUti' => 1, // /!\ Vérifiez que l'ID 1 existe dans votre table type_role_uti
+        ]);
+
+        Auth::login($user);
+
+        return redirect('/')->with('success', 'Compte créé avec succès !');
+    }
+
     public function logout()
     {
         Auth::logout();

@@ -7,32 +7,26 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Login extends Authenticatable
 {
     protected $table = 'utilisateur';
-
     protected $primaryKey = 'IdUtilisateur';
-
-    public $timestamps = false;
+    public $timestamps = true; // La migration contient timestamps()
 
     protected $fillable = [
         'LoginUti',
         'MdpUti',
+        'IdTypeRoleUti', // Ajouté pour permettre l'inscription
     ];
 
     protected $hidden = [
         'MdpUti',
     ];
 
-    // Dire à Laravel quel champ utiliser pour le username
     public function getAuthIdentifierName()
     {
         return 'IdUtilisateur';
     }
 
-    // Dire à Laravel quel champ utiliser pour le password
     public function getAuthPassword()
     {
         return $this->MdpUti;
     }
-
-    // IMPORTANT: Laravel cherche par défaut un champ 'email'
-    // On crée une méthode pour chercher par 'LoginUti' à la place
 }

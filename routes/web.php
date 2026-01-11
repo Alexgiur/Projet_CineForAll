@@ -41,3 +41,18 @@ Route::get('/', function () {
 
 // Vos autres routes existantes...
 // Route::resource('films', App\Http\Controllers\FilmController::class);
+
+
+// ... autres routes ...
+
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Nouvelles routes d'inscription
+Route::get('/register', [LoginController::class, 'showRegister'])->name('register');
+Route::post('/register', [LoginController::class, 'register'])->name('register.submit');
+
+Route::get('/', function () {
+    return view('welcome');
+});
