@@ -20,9 +20,24 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="/films" class="active" style="color:var(--primary-color);">Nos Films</a></li>
-            <li><a href="/films/create">Ajouter un film</a></li>
+            @auth
+                @if(Auth::user()->IdTypeRoleUti == 1)
+                    <a href="/films/create">Ajouter un film</a>
+                @endif
+            @endauth
+            <li></li>
             <li><a href="#" class="cta-reservation">Réservation</a></li>
-            <li><a href="#" class="cta-login">Connexion</a></li>
+            @guest
+                <li><a href="/login" class="cta-login">Connexion</a></li>
+            @endguest
+            @auth
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="cta-login">Déconnexion</button>
+                    </form>
+                </li>
+            @endauth
         </ul>
     </nav>
 </header>

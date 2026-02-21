@@ -15,9 +15,16 @@
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="#">Films (Demo)</a></li>
+            <li><a href="/films">Films (Demo)</a></li>
+            <li><a href="/personnes">Personnes (Demo)</a></li>
             <li><a href="#" class="cta-reservation">Réservation</a></li>
-            <li><a href="#" class="cta-login">Connexion</a></li>
+            <li>
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit;">
+                        Déconnexion
+                    </button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>

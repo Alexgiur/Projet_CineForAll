@@ -20,7 +20,20 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="/films">Nos Films</a></li>
             <li><a href="/films/create" class="active" style="color:var(--primary-color);">Ajouter</a></li>
-            <li><a href="#" class="cta-login">Connexion</a></li>
+            @guest
+                <li><a href="/login" class="cta-login">Connexion</a></li>
+            @endguest
+
+            @auth
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit; background: none;">
+                            Déconnexion
+                        </button>
+                    </form>
+                </li>
+            @endauth
         </ul>
     </nav>
 </header>

@@ -1,58 +1,47 @@
 <?php
 
-use App\Http\Controllers\PersonneController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\PersonneController;
 use App\Http\Controllers\LoginController;
+use App\Http\Middleware\IsAdmin;
 
-Route::resource('films', FilmController::class);
-
-/*
-Route::get('/films', [FilmController::class, 'index']);
-Route::get('/films/create', [FilmController::class, 'create']);
-Route::post('/films', [FilmController::class, 'store']);
-Route::get('/films/{id}/edit', [FilmController::class, 'edit']);
-Route::patch('/films/{id}', [FilmController::class, 'update']);
-Route::get('/films/{id}', [FilmController::class, 'show']);
-*/
-
-Route::resource('personnes', PersonneController::class);
-/*
-Route::get('/personnes', [PersonneController::class, 'index']);
-Route::get('/personnes/create', [PersonneController::class, 'create']);
-Route::post('/personnes', [PersonneController::class, 'store']);
-Route::get('/personnes/{personne}', [PersonneController::class, 'show']);
-*/
-
-
-
-/*
-Route::resource('login', LoginController::class);
-*/
-Route::get('/login', [LoginController::class, 'show'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-// Cette route gère la page d'accueil
+/* 1. Page d'accueil */
 Route::get('/', function () {
+    if (Auth::check()) {
+        $user = Auth::user();
+        if ($user->IdTypeRoleUti == 1) {
+            return view('admin.welcomeAdmin');
+        } else {
+            return view('utilisateur.welcomeUti');
+        }
+    }
     return view('welcome');
+})->name('home');
+
+
+/* 2. Routes Administrateur (Uniquement rôle = 1)*/
+Route::middleware(['auth', IsAdmin::class])->group(function () {
+    // Génère les routes create, store, edit, update, destroy
+    Route::resource('films', FilmController::class)->except(['index', 'show']);
+    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
 
-// Vos autres routes existantes...
-// Route::resource('films', App\Http\Controllers\FilmController::class);
+
+/* 3. Routes Publiques (Lecture uniquement) */
+// Tout le monde peut voir la liste (index) et les détails (show)
+Route::resource('films', FilmController::class)->only(['index', 'show']);
+Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
 
 
-// ... autres routes ...
-
+/* 4. Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Nouvelles routes d'inscription
 Route::get('/register', [LoginController::class, 'showRegister'])->name('register');
 Route::post('/register', [LoginController::class, 'register'])->name('register.submit');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

@@ -16,9 +16,9 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
+            <li><a href="{{ route('personnes.index') }}">Personnes</a></li>
             <li><a href="#" class="cta-reservation">Réservation</a></li>
             <li><a href="/login" class="cta-login">Connexion</a></li>
-            <li><a href="{{ route('personnes.index') }}">Personnes</a></li>
         </ul>
     </nav>
 </header>
