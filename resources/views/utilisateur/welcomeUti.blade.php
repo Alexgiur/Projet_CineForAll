@@ -19,6 +19,8 @@
             <li>Mon compte</li>
             <li><a href="#" class="cta-reservation">Réservation</a></li>
             @guest
+
+
                 <li><a href="/login" class="cta-login">Connexion</a></li>
             @endguest
             @auth
