@@ -41,10 +41,10 @@
     <div class="form-container">
         <h1>Modifier le Film</h1>
 
-        <form action="/films/{{ $film->IdFilm }}" method="POST">
+        <form action="{{route('films.update')}}" method="POST">
             @csrf
-            @method('PUT')
-
+            @method('PATCH')
+            <input hidden name="id" value="{{$film->IdFilm}}">
             <div class="form-group">
                 <label for="titre">Titre du film</label>
                 <input type="text" id="titre" name="titre" value="{{ old('titre', $film->TitreFilm) }}"
@@ -56,7 +56,7 @@
 
             <div class="form-group">
                 <label for="longueur">Durée (minutes)</label>
-                <input type="number" id="longueur" name="longueur" value="{{ old('longueur', $film->LongueurFilm) }}">
+                    <input type="number" id="longueur" name="longueur" value="{{ old('longueur', $film->LongueurFilm) }}">
                 @error('longueur')
                 <span class="error-message">{{ $message }}</span>
                 @enderror
@@ -100,7 +100,7 @@
                 <select id="genre" name="genre" value="{{ old('genre') }}">
                     <option value="">--Veuillez choisir une option--</option>
                     @foreach($genres as $genre)
-                        <option value="{{ $genre->IdGenreFilm }}">{{ $genre->LibGenreFilm }}</option>
+                        <option @if($film->IdGenreFilm == $genre->IdGenreFilm) selected @endif value="{{ $genre->IdGenreFilm }}">{{ $genre->LibGenreFilm }}</option>
                     @endforeach
                 </select>
                 @error('genre')

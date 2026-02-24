@@ -42,7 +42,7 @@
     <div class="form-container">
         <h1>Ajouter un Film</h1>
 
-        <form action="/films" method="POST">
+        <form action="{{route("films.store")}}" method="POST">
             @csrf
 
             <div class="form-group">

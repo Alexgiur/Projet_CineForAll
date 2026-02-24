@@ -1,11 +1,13 @@
-{{-- On choisit le layout dynamiquement selon le rôle et l'état de connexion --}}
+{{-- On choisit le layout dynamiquement selon le rôle et l'état de connexion
 @extends(
     Auth::check()
         ? (Auth::user()->IdTypeRoleUti == 1 ? 'layouts.admin' : 'layouts.user')
         : 'layouts.guest'
 )
-
+ --}}
+@extends('layouts.user')
 @section('content')
+
     <main class="show-section">
         <div class="film-details-card">
 

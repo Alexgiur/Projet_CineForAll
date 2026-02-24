@@ -15,13 +15,13 @@ use App\Http\Middleware\IsAdmin;
 Route::middleware(['auth', IsAdmin::class])->group(function () {
     // Génère les routes create, store, edit, update, destroy
     Route::get('/', function () {return view('welcome');})->name('home');
-    Route::get('films', FilmController::class)->except(['index', 'show']);
-    Route::get('film/{:id}', FilmController::class)->except(['index', 'show']);
-    Route::get('createfilm/{:id}', FilmController::class)->except(['index', 'show']);
-    Route::get('store/film/{:id}', FilmController::class)->except(['index', 'show']);
-    Route::get('editfilm/{:id}', FilmController::class)->except(['index', 'show']);
-    Route::get('update/film/{:id}', FilmController::class)->except(['index', 'show']);
-    Route::get('delete/film/{:id}', FilmController::class)->except(['index', 'show']);
+    Route::get('films', [FilmController::class, 'index'])->name('films.index');
+    Route::get('films/{id}', [FilmController::class, 'show'])->name('films.show');
+    Route::get('createfilm', [FilmController::class, 'create'])->name('films.create');
+    Route::post('store/film', [FilmController::class, 'store'])->name('films.store');
+    Route::get('/films/{id}/edit', [FilmController::class, 'edit'])->name('films.edit');
+    Route::patch('update/film', [FilmController::class, 'update'])->name('films.update');
+    Route::delete('destroy/film/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
 //    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
 
@@ -50,6 +50,6 @@ Route::middleware(['auth', IsAdmin::class])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::resource('films', FilmController::class)->except(['index', 'show']);
+    //Route::resource('films', FilmController::class)->except(['index', 'show']);
     Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
