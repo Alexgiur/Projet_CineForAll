@@ -15,7 +15,7 @@
     </div>
     <nav class="main-nav">
         <ul>
-            <li><a href="/">Retour au site</a></li>
+            <li><a href="/">Accueil</a></li>
             <li>
                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                     @csrf

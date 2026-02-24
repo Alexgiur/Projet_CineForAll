@@ -15,13 +15,10 @@
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="/films">Films</a></li>
-            <li><a href="/personnes">Personnes</a></li>
-            <li><a href="#" class="cta-reservation">Réservation</a></li>
-
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
                 <li><a href="{{ route('admin.dashboard') }}" style="color: red; font-weight: bold;">Administration</a></li>
             @endif
+            <li><a href="#" class="cta-reservation">Réservation</a></li>
 
             <li>
                 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
