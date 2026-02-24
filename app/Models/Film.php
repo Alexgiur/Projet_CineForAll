@@ -19,4 +19,8 @@ class Film extends Model
         'AfficheFilm',
         'IdGenreFilm'
     ];
+
+    public function genre_film() {
+        return $this->belongsTo(GenreFilm::class, 'IdGenreFilm', 'IdGenreFilm');
+    }
 }

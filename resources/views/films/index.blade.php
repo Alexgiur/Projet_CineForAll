@@ -66,7 +66,7 @@
                 @foreach($films as $f)
                     @php
                         // Récupération du genre (affiche 'Non classé' si vide)
-                        $genreLib = $f->genre ? $f->genre->LibGenreFilm : 'Non classé';
+                        $genreLib = $f->genre_film ? $f->genre_film->LibGenreFilm : 'Non classé';
                         $genreSlug = strtolower($genreLib);
                     @endphp
 
