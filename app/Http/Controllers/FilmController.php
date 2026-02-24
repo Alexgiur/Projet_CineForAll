@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Film;
@@ -12,11 +13,15 @@ class FilmController extends Controller
         return view('films.index', compact('films'));
     }
     public function create(){
-        return view('films.create');
+        //return view('films.create');
+        $genres = DB::table('genre_film')->get();
+            return view('films.create', compact('genres'));
     }
 
     public function show(Film $film){
-        return view('films.show', compact('film'));
+        //return view('films.show', compact('film'));
+        $genres = DB::table('genre_film')->get();
+            return view('films.edit',  compact('film', 'genres'));
     }
 
     public function store(){
