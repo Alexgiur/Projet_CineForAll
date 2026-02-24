@@ -1,43 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineForAll - Accueil</title>
-    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-</head>
-<body>
-<header class="main-header">
-    <div class="logo-container">
-        <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
-    </div>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/films">Films</a></li>
-            <li>Mon compte</li>
-            <li><a href="#" class="cta-reservation">Réservation</a></li>
-            @guest
+@extends('layouts.user')
 
-
-                <li><a href="/login" class="cta-login">Connexion</a></li>
-            @endguest
-            @auth
-                <li>
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit;">
-                            Déconnexion
-                        </button>
-                    </form>
-                </li>
-            @endauth
-        </ul>
-    </nav>
-</header>
-
-<main>
+@section('content')
     <section class="hero-section">
         <div class="hero-content">
             <h1>Bienvenue sur CineForAll</h1>
@@ -86,10 +49,4 @@
             </div>
         </div>
     </section>
-</main>
-
-<footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
-</footer>
-</body>
-</html>
+@endsection

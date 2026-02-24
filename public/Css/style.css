@@ -770,3 +770,48 @@ input[type="text"], textarea {
     color: var(--primary-dark);
     margin-top: 20px;
 }
+/* ============================================================ */
+/* UNIFICATION DE TOUS LES BOUTONS DU SITE                      */
+/* ============================================================ */
+button,
+input[type="submit"],
+input[type="button"],
+.cta-login,
+.cta-reservation,
+.cta-logout,
+.btn-reservation,
+.btn-menu-uniforme {
+    background-color: var(--primary-color) !important; /* Ton rouge #991917 */
+    color: var(--light-text-color) !important;         /* Ton blanc */
+    padding: 8px 15px !important;                      /* L'espacement de tes boutons de menu */
+    border-radius: 5px;
+    font-family: var(--font-family-body);              /* Arial, sans-serif */
+    font-size: 16px;
+    font-weight: bold;                                 /* Texte en gras comme dans ton menu */
+    text-decoration: none;
+    text-align: center;
+
+    /* On nettoie les styles moches des vrais boutons */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: inline-block;
+    appearance: none;
+    -webkit-appearance: none;
+    line-height: normal;
+    margin: 0;
+
+    transition: background-color 0.3s ease;
+}
+
+/* L'effet au survol avec ton rouge foncé */
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.cta-login:hover,
+.cta-reservation:hover,
+.cta-logout:hover,
+.btn-reservation:hover,
+.btn-menu-uniforme:hover {
+    background-color: var(--primary-dark) !important; /* Ton rouge #7a1413 */
+}

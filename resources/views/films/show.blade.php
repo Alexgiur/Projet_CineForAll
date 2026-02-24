@@ -1,109 +1,84 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $film->TitreFilm }} - Détails</title>
-    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-</head>
-<body>
+{{-- On choisit le layout dynamiquement selon le rôle et l'état de connexion --}}
+@extends(
+    Auth::check()
+        ? (Auth::user()->IdTypeRoleUti == 1 ? 'layouts.admin' : 'layouts.user')
+        : 'layouts.guest'
+)
 
-<header class="main-header">
-    <div class="logo-container">
-        <a href="/">
-            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
-        </a>
-    </div>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/films">Nos Films</a></li>
-            <li><a href="/films/create">Ajouter</a></li>
-            @guest
-                <li><a href="/login" class="cta-login">Connexion</a></li>
-            @endguest
-            @auth
-                <li>
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit; background: none;">
-                            Déconnexion
-                        </button>
-                    </form>
-                </li>
-            @endauth
-        </ul>
-    </nav>
-</header>
+@section('content')
+    <main class="show-section">
+        <div class="film-details-card">
 
-<main class="show-section">
-    <div class="film-details-card">
-
-        <div class="film-poster-side">
-            @if($film->AfficheFilm)
-                <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset($film->AfficheFilm) }}"
-                     alt="Affiche {{ $film->TitreFilm }}">
-            @else
-                <div style="height: 100%; display:flex; align-items:center; justify-content:center; background:#ddd; color:#777;">
-                    Pas d'affiche
-                </div>
-            @endif
-        </div>
-
-        <div class="film-info-side">
-
-            <h1 class="film-title-hero">{{ $film->TitreFilm }}</h1>
-
-            <div class="badges-container">
-                <span class="badge badge-genre">Genre ID: {{ $film->IdGenreFilm }}</span>
-
-                @if($film->TroisDOuNon)
-                    <span class="badge badge-3d">★ Disponible en 3D</span>
+            <div class="film-poster-side">
+                @if($film->AfficheFilm)
+                    <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset($film->AfficheFilm) }}"
+                         alt="Affiche {{ $film->TitreFilm }}">
+                @else
+                    <div style="height: 100%; display:flex; align-items:center; justify-content:center; background:#ddd; color:#777;">
+                        Pas d'affiche
+                    </div>
                 @endif
             </div>
 
-            <div class="film-meta-grid">
-                <div class="meta-item">
-                    <strong>Date de sortie</strong>
-                    <span>{{ $film->DateSortieFilm }}</span>
+            <div class="film-info-side">
+
+                <h1 class="film-title-hero">{{ $film->TitreFilm }}</h1>
+
+                <div class="badges-container">
+                    <span class="badge badge-genre">Genre ID: {{ $film->IdGenreFilm }}</span>
+
+                    @if($film->TroisDOuNon)
+                        <span class="badge badge-3d">★ Disponible en 3D</span>
+                    @endif
                 </div>
-                <div class="meta-item">
-                    <strong>Durée</strong>
-                    <span>{{ $film->LongueurFilm }} min</span>
+
+                <div class="film-meta-grid">
+                    <div class="meta-item">
+                        <strong>Date de sortie</strong>
+                        <span>{{ $film->DateSortieFilm }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Durée</strong>
+                        <span>{{ $film->LongueurFilm }} min</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Langue</strong>
+                        <span>{{ $film->LangueFilm }}</span>
+                    </div>
                 </div>
-                <div class="meta-item">
-                    <strong>Langue</strong>
-                    <span>{{ $film->LangueFilm }}</span>
+
+                <div class="synopsis-section">
+                    <h3>Synopsis</h3>
+                    <p class="synopsis-content">
+                        {{ $film->ResumeFilm }}
+                    </p>
                 </div>
+
+                <div class="action-buttons">
+                    <a href="{{ route('films.index') }}" class="btn-back">← Retour aux films</a>
+
+                    {{-- On gère l'affichage des boutons selon qui regarde la page --}}
+                    @auth
+                        @if(Auth::user()->IdTypeRoleUti == 1)
+                            {{-- Boutons pour l'ADMINISTRATEUR --}}
+                            <a href="/films/{{ $film->IdFilm }}/edit" class="btn-edit">Modifier</a>
+                            <form action="/films/{{ $film->IdFilm }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-delete-action">Supprimer</button>
+                            </form>
+                        @else
+                            {{-- Bouton pour l'UTILISATEUR NORMAL --}}
+                            <a href="#" class="btn-reservation" style="background-color: #f39c12; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 10px;">Réserver une place</a>
+                        @endif
+                    @else
+                        {{-- Bouton pour le VISITEUR NON CONNECTÉ --}}
+                        <a href="{{ route('login') }}" class="btn-reservation" style="background-color: #f39c12; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-left: 10px;">Connectez-vous pour réserver</a>
+                    @endauth
+
+                </div>
+
             </div>
-
-            <div class="synopsis-section">
-                <h3>Synopsis</h3>
-                <p class="synopsis-content">
-                    {{ $film->ResumeFilm }}
-                </p>
-            </div>
-
-            <div class="action-buttons">
-                <a href="/films" class="btn-back">← Retour</a>
-
-                <a href="/films/{{ $film->IdFilm }}/edit" class="btn-edit">Modifier</a>
-
-                <form action="/films/{{ $film->IdFilm }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn-delete-action">Supprimer</button>
-                </form>
-            </div>
-
         </div>
-    </div>
-</main>
-
-<footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
-</footer>
-
-</body>
-</html>
+    </main>
+@endsection
