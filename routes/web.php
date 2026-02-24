@@ -28,7 +28,7 @@ Route::get('/', function () {return view('welcome');})->name('home');
 /* 3. Routes Publiques (Lecture uniquement) */
 // Tout le monde peut voir la liste (index) et les détails (show)
 //Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
-//Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
+Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
 
 /* 4. Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
