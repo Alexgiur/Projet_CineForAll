@@ -15,15 +15,21 @@
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
+            <li><a href="/films">Films</a></li>
+
+            {{-- Modification ici --}}
+            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
+
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
-                <li><a href="{{ route('admin.dashboard') }}" style="color: red; font-weight: bold;">Administration</a></li>
+                {{-- Modification ici --}}
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
             @endif
-            <li><a href="#" class="cta-reservation">Réservation</a></li>
 
             <li>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                {{-- Modification ici --}}
+                <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                     @csrf
-                    <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit;">
+                    <button type="submit" class="btn-menu-uniforme">
                         Déconnexion
                     </button>
                 </form>
