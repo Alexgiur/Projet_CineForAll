@@ -9,21 +9,24 @@ use App\Models\Film;
 
 class FilmController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $films = film::all();
         return view('films.index', compact('films'));
     }
     public function create(){
         $genres = DB::table('genre_film')->get();
-            return view('films.create', compact('genres'));
+        return view('films.create', compact('genres'));
     }
 
-    public function show(int $film){
+    public function show(int $film)
+    {
         $film = Film::where('IdFilm', $film)->first();
-            return view('films.show', ['film' => $film]);
+        return view('films.show', ['film' => $film]);
     }
 
-    public function store(){
+    public function store()
+    {
         $validated = request()->validate([
             'titre' => 'required|min:5|max:50',
             'longueur' => 'required|integer|min:30',
@@ -53,17 +56,19 @@ class FilmController extends Controller
         $f->AfficheFilm = request('affiche');
         $f->IdGenreFilm = request('genre');
         $f->save();
-        return redirect('/films/'.$f->IdFilm);
+        return redirect('/films/' . $f->IdFilm);
     }
 
-    public function edit(int $film_id){
+    public function edit(int $film_id)
+    {
         $genres = GenreFilm::get();
         $film = Film::with('genre_film')->where('IdFilm', $film_id)->first();
-            //return view('films.create', ['genres' =>'genres']);
-        return view('films.edit', ['film'=> $film,'genres' => $genres]);
+        //return view('films.create', ['genres' =>'genres']);
+        return view('films.edit', ['film' => $film, 'genres' => $genres]);
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         request()->validate([
             'titre' => 'required|min:5|max:50',
             'longueur' => 'required|integer|min:30',
@@ -85,12 +90,12 @@ class FilmController extends Controller
         $film->AfficheFilm = request('affiche');
         $film->IdGenreFilm = request('genre');
         $film->save();
-        return redirect('/films/'. $film->IdFilm);
+        return redirect('/films/' . $film->IdFilm);
     }
 
-    public function destroy(int $film){
+    public function destroy(int $film)
+    {
         $film = Film::where('IdFilm', $film)->delete();
         return redirect('/films');
     }
-
 }
