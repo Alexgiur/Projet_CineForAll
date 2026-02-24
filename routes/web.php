@@ -24,14 +24,14 @@ Route::get('/', function () {
 /* 2. Routes Administrateur (Uniquement rôle = 1)*/
 Route::middleware(['auth', IsAdmin::class])->group(function () {
     // Génère les routes create, store, edit, update, destroy
-    Route::resource('films', FilmController::class)->except(['index', 'show']);
+    Route::get('films', FilmController::class)->except(['index', 'show']);
     Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
 
 
 /* 3. Routes Publiques (Lecture uniquement) */
 // Tout le monde peut voir la liste (index) et les détails (show)
-Route::resource('films', FilmController::class)->only(['index', 'show']);
+Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
 Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
 
 

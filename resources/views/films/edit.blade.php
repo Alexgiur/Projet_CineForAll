@@ -96,8 +96,13 @@
             </div>
 
             <div class="form-group">
-                <label for="genre">Genre (ID)</label>
-                <input type="number" id="genre" name="genre" value="{{ old('genre', $film->IdGenreFilm) }}">
+                <label for="genre">Genre</label>
+                <select id="genre" name="genre" value="{{ old('genre') }}">
+                    <option value="">--Veuillez choisir une option--</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->IdGenreFilm }}">{{ $genre->LibGenreFilm }}</option>
+                    @endforeach
+                </select>
                 @error('genre')
                 <span class="error-message">{{ $message }}</span>
                 @enderror

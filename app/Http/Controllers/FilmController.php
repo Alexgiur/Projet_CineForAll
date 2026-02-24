@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\GenreFilm;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -57,8 +58,11 @@ class FilmController extends Controller
         return redirect('/films/'.$f->IdFilm);
     }
 
-    public function edit(Film $film){
-        return view('films.edit', compact('film'));
+    public function edit(int $film_id){
+        $genres = GenreFilm::get();
+        $film = Film::with('genre_film')->where('IdFilm', $film_id)->first();
+            //return view('films.create', ['genres' =>'genres']);
+        return view('films.edit', ['film'=> $film,'genres' => $genres]);
     }
 
     public function update(Film $film){
