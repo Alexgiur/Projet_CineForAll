@@ -8,31 +8,28 @@ use App\Http\Controllers\LoginController;
 use App\Http\Middleware\IsAdmin;
 
 /* 1. Page d'accueil */
-Route::get('/', function () {
-    if (Auth::check()) {
-        $user = Auth::user();
-        if ($user->IdTypeRoleUti == 1) {
-            return view('admin.welcomeAdmin');
-        } else {
-            return view('utilisateur.welcomeUti');
-        }
-    }
-    return view('welcome');
-})->name('home');
+
 
 
 /* 2. Routes Administrateur (Uniquement rôle = 1)*/
 Route::middleware(['auth', IsAdmin::class])->group(function () {
     // Génère les routes create, store, edit, update, destroy
+    Route::get('/', function () {return view('welcome');})->name('home');
     Route::get('films', FilmController::class)->except(['index', 'show']);
-    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
+    Route::get('film/{:id}', FilmController::class)->except(['index', 'show']);
+    Route::get('createfilm/{:id}', FilmController::class)->except(['index', 'show']);
+    Route::get('store/film/{:id}', FilmController::class)->except(['index', 'show']);
+    Route::get('editfilm/{:id}', FilmController::class)->except(['index', 'show']);
+    Route::get('update/film/{:id}', FilmController::class)->except(['index', 'show']);
+    Route::get('delete/film/{:id}', FilmController::class)->except(['index', 'show']);
+//    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
 
 
 /* 3. Routes Publiques (Lecture uniquement) */
 // Tout le monde peut voir la liste (index) et les détails (show)
-Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
-Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
+//Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
+//Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
 
 
 /* 4. Authentification */

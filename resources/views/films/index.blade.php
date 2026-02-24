@@ -64,7 +64,7 @@
                  )">
                 <img src="{{ asset($film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
                 <h3>{{ $film->TitreFilm }}</h3>
-                <p>Genre : {{ $film->genre->NomGenre ?? 'N/A' }}</p>
+                <p>Genre : {{ $film->genre_film->LibGenreFilm ?? 'N/A' }}</p>
                 <button class="details-link">Voir détails</button>
             </div>
         @endforeach
