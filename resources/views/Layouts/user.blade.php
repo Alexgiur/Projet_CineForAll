@@ -38,12 +38,5 @@
     @yield('content')
 </main>
 
-<footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
-    <p style="margin-top: 10px;">
-        <a href="{{ route('termes') }}" style="color: white; text-decoration: underline; font-size: 0.9em;">Termes & Conditions</a>
-    </p>
-</footer>
-
 </body>
 </html>

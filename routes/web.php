@@ -21,7 +21,7 @@ Route::get('/', function () {return view('welcome');})->name('home');
     Route::get('/films/{id}/edit', [FilmController::class, 'edit'])->name('films.edit');
     Route::patch('update/film', [FilmController::class, 'update'])->name('films.update');
     Route::delete('destroy/film/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
-//    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
+   Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 //});
 
 
@@ -29,16 +29,6 @@ Route::get('/', function () {return view('welcome');})->name('home');
 // Tout le monde peut voir la liste (index) et les détails (show)
 //Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
 //Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
-//Route::middleware(['auth', IsAdmin::class])->group(function (){
-    Route::get('personnes', [PersonneController::class, 'index'])->name('personnes.index');
-    Route::get('personnes/{id}', [PersonneController::class, 'show'])->name('personnes.show');
-    Route::get('createpersonnes', [PersonneController::class, 'create'])->name('personnes.create');
-    Route::post('store/personnes', [PersonneController::class, 'store'])->name('personnes.store');
-    Route::get('/personnes/{id}/edit', [FilmController::class, 'edit'])->name('personnes.edit');
-    Route::patch('update/film', [PersonneController::class, 'update'])->name('personnes.update');
-    Route::delete('destroy/film/{id}', [PersonneController::class, ])->name('personnes.destroy');
-//});
-
 
 /* 4. Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
