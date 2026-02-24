@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('ResumeFilm');
             $table->string('LangueFilm');
             $table->boolean('TroisDOuNon');
-            $table->string('AfficheFilm');
+            $table->string('AfficheFilm')->nullable();
             //clé étrangère de genre film
             $table->unsignedBigInteger('IdGenreFilm');
             $table->foreign('IdGenreFilm')

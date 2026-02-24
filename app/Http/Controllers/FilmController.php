@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\GenreFilm;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -13,15 +14,13 @@ class FilmController extends Controller
         return view('films.index', compact('films'));
     }
     public function create(){
-        //return view('films.create');
         $genres = DB::table('genre_film')->get();
             return view('films.create', compact('genres'));
     }
 
-    public function show(Film $film){
-        //return view('films.show', compact('film'));
-        $genres = DB::table('genre_film')->get();
-            return view('films.edit',  compact('film', 'genres'));
+    public function show(int $film){
+        $film = Film::where('IdFilm', $film)->first();
+            return view('films.show', ['film' => $film]);
     }
 
     public function store(){
@@ -57,11 +56,14 @@ class FilmController extends Controller
         return redirect('/films/'.$f->IdFilm);
     }
 
-    public function edit(Film $film){
-        return view('films.edit', compact('film'));
+    public function edit(int $film_id){
+        $genres = GenreFilm::get();
+        $film = Film::with('genre_film')->where('IdFilm', $film_id)->first();
+            //return view('films.create', ['genres' =>'genres']);
+        return view('films.edit', ['film'=> $film,'genres' => $genres]);
     }
 
-    public function update(Film $film){
+    public function update(Request $request){
         request()->validate([
             'titre' => 'required|min:5|max:50',
             'longueur' => 'required|integer|min:30',
@@ -72,7 +74,8 @@ class FilmController extends Controller
             'affiche' => 'nullable',
             'genre' => 'required|integer|exists:genre_film,IdGenreFilm',
         ]);
-
+        $idfilm = $request->input("id");
+        $film = Film::where('IdFilm', $idfilm)->first();
         $film->TitreFilm = request('titre');
         $film->LongueurFilm = request('longueur');
         $film->DateSortieFilm = request('datedesortie');
@@ -85,8 +88,8 @@ class FilmController extends Controller
         return redirect('/films/'. $film->IdFilm);
     }
 
-    public function destroy(Film $film){
-        $film->delete();
+    public function destroy(int $film){
+        $film = Film::where('IdFilm', $film)->delete();
         return redirect('/films');
     }
 

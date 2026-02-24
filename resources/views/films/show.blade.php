@@ -1,11 +1,13 @@
-{{-- On choisit le layout dynamiquement selon le rôle et l'état de connexion --}}
+{{-- On choisit le layout dynamiquement selon le rôle et l'état de connexion
 @extends(
     Auth::check()
         ? (Auth::user()->IdTypeRoleUti == 1 ? 'layouts.admin' : 'layouts.user')
         : 'layouts.guest'
 )
-
+ --}}
+@extends('layouts.user')
 @section('content')
+
     <main class="show-section">
         <div class="film-details-card">
 
@@ -25,7 +27,7 @@
                 <h1 class="film-title-hero">{{ $film->TitreFilm }}</h1>
 
                 <div class="badges-container">
-                    <span class="badge badge-genre">Genre ID: {{ $film->IdGenreFilm }}</span>
+                    <span class="badge badge-genre">Genre : {{ $film->genre_film->LibGenreFilm ?? 'N/A' }}</span>
 
                     @if($film->TroisDOuNon)
                         <span class="badge badge-3d">★ Disponible en 3D</span>

@@ -42,7 +42,7 @@
     <div class="form-container">
         <h1>Ajouter un Film</h1>
 
-        <form action="/films" method="POST">
+        <form action="{{route("films.store")}}" method="POST">
             @csrf
 
             <div class="form-group">
@@ -96,7 +96,7 @@
             </div>
 
             <div class="form-group">
-                <label for="genre">Identifiant du Genre (ID)</label>
+                <label for="genre">Identifiant du Genre</label>
                 <select id="genre" name="genre" value="{{ old('genre') }}">
                     <option value="">--Veuillez choisir une option--</option>
                     @foreach($genres as $genre)

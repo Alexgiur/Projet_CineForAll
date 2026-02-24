@@ -8,31 +8,28 @@ use App\Http\Controllers\LoginController;
 use App\Http\Middleware\IsAdmin;
 
 /* 1. Page d'accueil */
-Route::get('/', function () {
-    if (Auth::check()) {
-        $user = Auth::user();
-        if ($user->IdTypeRoleUti == 1) {
-            return view('admin.welcomeAdmin');
-        } else {
-            return view('utilisateur.welcomeUti');
-        }
-    }
-    return view('welcome');
-})->name('home');
+
 
 
 /* 2. Routes Administrateur (Uniquement rôle = 1)*/
 Route::middleware(['auth', IsAdmin::class])->group(function () {
     // Génère les routes create, store, edit, update, destroy
-    Route::resource('films', FilmController::class)->except(['index', 'show']);
-    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
+    Route::get('/', function () {return view('welcome');})->name('home');
+    Route::get('films', [FilmController::class, 'index'])->name('films.index');
+    Route::get('films/{id}', [FilmController::class, 'show'])->name('films.show');
+    Route::get('createfilm', [FilmController::class, 'create'])->name('films.create');
+    Route::post('store/film', [FilmController::class, 'store'])->name('films.store');
+    Route::get('/films/{id}/edit', [FilmController::class, 'edit'])->name('films.edit');
+    Route::patch('update/film', [FilmController::class, 'update'])->name('films.update');
+    Route::delete('destroy/film/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
+//    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
 
 
 /* 3. Routes Publiques (Lecture uniquement) */
 // Tout le monde peut voir la liste (index) et les détails (show)
-Route::resource('films', FilmController::class)->only(['index', 'show']);
-Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
+//Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
+//Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
 
 
 /* 4. Authentification */
@@ -53,7 +50,7 @@ Route::middleware(['auth', IsAdmin::class])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::resource('films', FilmController::class)->except(['index', 'show']);
+    //Route::resource('films', FilmController::class)->except(['index', 'show']);
     Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
 
