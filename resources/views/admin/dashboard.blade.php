@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - CineForAll</title>
+    <title>CineForAll - Dashboard Admin</title>
     <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
@@ -11,34 +11,55 @@
 
 <header class="main-header">
     <div class="logo-container">
-        <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
+        <a href="/">
+            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
+        </a>
     </div>
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
+            <li><a href="{{ route('films.index') }}">Films</a></li>
+            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
+
+            @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
+            @endif
+
             <li>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                     @csrf
-                    <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit;">
-                        Déconnexion
-                    </button>
+                    <button type="submit" class="btn-menu-uniforme">Déconnexion</button>
                 </form>
             </li>
         </ul>
     </nav>
 </header>
 
-<main style="text-align: center; padding: 50px; min-height: 60vh;">
-    <h1>Panneau d'administration</h1>
+<main class="admin-dashboard">
+    <h1 style="color: var(--primary-color); font-size: 3em; margin-bottom: 40px;">Tableau de Bord</h1>
 
-    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 40px;">
-        <a href="{{ route('personnes.index') }}" style="padding: 20px; background: #333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-            Gérer les Personnes
-        </a>
+    <div class="admin-buttons-grid">
 
-        <a href="{{ route('personnes.index', ['filtre' => 'acteurs']) }}" style="padding: 20px; background: #333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-            Gérer les Acteurs
-        </a>
+        <div class="admin-button">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Films</h2>
+            <p style="margin-bottom: 25px; color: #555;">Accédez à la liste complète pour modifier ou supprimer des films, ou ajoutez-en un nouveau.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="{{ route('films.create') }}" class="btn-menu-uniforme" style="width: 80%;">Ajouter un nouveau film</a>
+
+                <a href="{{ route('films.index') }}" class="btn-menu-uniforme" style="width: 80%; background-color: #555 !important;">Liste des films (Modif / Suppr)</a>
+            </div>
+        </div>
+
+        <div class="admin-button">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Personnes</h2>
+            <p style="margin-bottom: 25px; color: #555;">Gestion des acteurs et réalisateurs de la plateforme.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="{{ route('personnes.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux personnes</a>
+            </div>
+        </div>
+
     </div>
 </main>
 

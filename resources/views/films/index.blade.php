@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineForAll - Tous les Films</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="{{ asset('js/filter.js') }}" defer></script>
+    <title>CineForAll - Nos Films</title>
+    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -19,115 +18,133 @@
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="/films" class="active" style="color:var(--primary-color);">Nos Films</a></li>
-            @auth
-                @if(Auth::user()->IdTypeRoleUti == 1)
-                    <a href="/films/create">Ajouter un film</a>
-                @endif
-            @endauth
-            <li></li>
-            <li><a href="#" class="cta-reservation">Réservation</a></li>
-            @guest
-                <li><a href="/login" class="cta-login">Connexion</a></li>
-            @endguest
+            <li><a href="{{ route('films.index') }}">Films</a></li>
+            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
+
+            @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
+            @endif
+
             @auth
                 <li>
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                         @csrf
-                        <button type="submit" class="cta-login">Déconnexion</button>
+                        <button type="submit" class="btn-menu-uniforme">Déconnexion</button>
                     </form>
                 </li>
+            @else
+                <li><a href="{{ route('login') }}" class="btn-menu-uniforme">Connexion</a></li>
             @endauth
         </ul>
     </nav>
 </header>
 
-<main>
-    <section class="films-section">
-        <h1>Notre Catalogue</h1>
-        <p style="margin-bottom: 30px;">Découvrez tous nos films à l'affiche et à venir.</p>
+<main class="films-section">
+    <h2>Notre Catalogue</h2>
 
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Rechercher un film (ex: John Wick)...">
-        </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Rechercher un film..." onkeyup="filterFilms()">
+    </div>
 
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">Tout voir</button>
-            <button class="filter-btn" data-filter="horreur">Horreur</button>
-            <button class="filter-btn" data-filter="action">Action</button>
-            <button class="filter-btn" data-filter="animation">Animation</button>
-            <button class="filter-btn" data-filter="surnaturel">Surnaturel</button>
-        </div>
-
-        <div class="film-list">
-            @if($films->isEmpty())
-                <p>Aucun film disponible pour le moment.</p>
-            @else
-                @foreach($films as $f)
-                    @php
-                        // Récupération du genre (affiche 'Non classé' si vide)
-                        $genreLib = $f->genre_film ? $f->genre_film->LibGenreFilm : 'Non classé';
-                        $genreSlug = strtolower($genreLib);
-                    @endphp
-
-                    <div class="film-card" data-category="{{ $genreSlug }}">
-                        <img src="{{ asset($f->AfficheFilm) }}"
-                             alt="{{ $f->TitreFilm }}"
-                             class="film-trigger"
-                             data-title="{{ $f->TitreFilm }}"
-                             data-genre="{{ $genreLib }}"
-                             data-synopsis="{{ $f->ResumeFilm }}"
-                             data-release="{{ $f->DateSortieFilm }}"
-                             data-duration="{{ $f->LongueurFilm }} min"
-                             data-rating="4.5/5"
-                             data-director="Non spécifié"
-                             data-writer="Non spécifié"
-                             data-actors="Voir détails">
-
-                        <h3>{{ $f->TitreFilm }}</h3>
-                        <p>Genre: {{ $genreLib }}</p>
-
-                        @if($f->TroisDOuNon)
-                            <div style="color: gold; font-weight: bold; margin-top:5px; font-size: 0.9em;">★ En 3D</div>
-                        @endif
-                    </div>
-                @endforeach
-            @endif
-        </div>
-
-        <div id="globalModal" class="modal-overlay">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <div class="modal-body">
-                    <img id="modalImg" src="" alt="Affiche">
-
-                    <div class="modal-info">
-                        <h2 id="modalTitle" style="margin-bottom: 5px;"></h2>
-                        <p id="modalGenre" style="color: var(--primary-color); font-weight:bold; margin-bottom: 15px;"></p>
-
-                        <div class="film-meta-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; font-size: 0.9em; background: #f9f9f9; padding: 10px; border-radius: 5px;">
-                            <div><strong>Date de sortie :</strong> <span id="modalDate"></span></div>
-                            <div><strong>Durée :</strong> <span id="modalDuration"></span></div>
-                            <div><strong>Note :</strong> <span id="modalRating"></span></div>
-                            <div><strong>Réalisateur :</strong> <span id="modalDirector"></span></div>
-                            <div><strong>Scénario :</strong> <span id="modalWriter"></span></div>
-                            <div style="grid-column: span 2;"><strong>Acteurs :</strong> <span id="modalActors"></span></div>
-                        </div>
-
-                        <p id="modalDesc" class="synopsis-text" style="line-height: 1.6; color: #333;"></p>
-
-                        <a href="#" class="cta-reservation" style="display:inline-block; margin-top:15px;">Réserver ma place</a>
-                    </div>
-                </div>
+    <div class="film-list" id="filmList">
+        @foreach($films as $film)
+            <div class="film-card"
+                 data-title="{{ strtolower($film->TitreFilm) }}"
+                 onclick="openModal(
+                    '{{ $film->IdFilm }}',
+                    '{{ addslashes($film->TitreFilm) }}',
+                    '{{ addslashes($film->ResumeFilm) }}',
+                    '{{ asset($film->AfficheFilm) }}',
+                    '{{ $film->DateSortieFilm }}',
+                    '{{ $film->LongueurFilm }}',
+                    '{{ $film->LangueFilm }}',
+                    '{{ $film->genre->NomGenre ?? 'Inconnu' }}',
+                    {{ $film->TroisDOuNon ? 'true' : 'false' }},
+                    {{ (Auth::check() && Auth::user()->IdTypeRoleUti == 1) ? 'true' : 'false' }}
+                 )">
+                <img src="{{ asset($film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
+                <h3>{{ $film->TitreFilm }}</h3>
+                <p>Genre : {{ $film->genre->NomGenre ?? 'N/A' }}</p>
+                <button class="details-link">Voir détails</button>
             </div>
-        </div>
-
-    </section>
+        @endforeach
+    </div>
 </main>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-body" id="modalBody">
+        </div>
+    </div>
+</div>
 
 <footer>
     <p>© 2025 CineForAll - Tous droits réservés.</p>
 </footer>
+
+<script>
+    function openModal(id, titre, resume, affiche, date, duree, langue, genre, is3D, isAdmin) {
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalBody = document.getElementById('modalBody');
+
+        let badge3D = is3D ? '<span class="badge badge-3d">★ Disponible en 3D</span>' : '';
+
+        let adminButtons = '';
+        if (isAdmin) {
+            adminButtons = `
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <a href="/films/${id}/edit" class="btn-menu-uniforme" style="background-color: var(--blue-btn) !important;">Modifier</a>
+                <form action="/films/${id}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
+                    @csrf
+            @method('DELETE')
+            <button type="submit" class="btn-menu-uniforme" style="background-color: var(--red-btn) !important;">Supprimer</button>
+        </form>
+    </div>
+`;
+        }
+
+        modalBody.innerHTML = `
+        <div class="film-details-modal" style="display: flex; gap: 30px; text-align: left;">
+            <img src="${affiche}" alt="${titre}" style="width: 250px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <div style="flex: 1;">
+                <h2 style="color: var(--primary-color); font-family: 'Lilita One'; font-size: 2.5em; margin-bottom: 10px;">${titre}</h2>
+
+                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <span class="badge badge-genre">${genre}</span>
+                    ${badge3D}
+                </div>
+
+                <div class="film-meta-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <div><strong>Sortie :</strong> ${date}</div>
+                    <div><strong>Durée :</strong> ${duree} min</div>
+                    <div><strong>Langue :</strong> ${langue}</div>
+                </div>
+
+                <h3 style="font-family: 'Lilita One'; color: var(--primary-dark);">Synopsis</h3>
+                <p style="line-height: 1.6; margin-bottom: 25px;">${resume}</p>
+
+                <div style="text-align: center;">
+                    <a href="#" class="btn-menu-uniforme" style="padding: 12px 30px; font-size: 1.1em;">Réserver ma place</a>
+                    ${adminButtons}
+                </div>
+            </div>
+        </div>
+    `;
+
+        modalOverlay.classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('modalOverlay')) closeModal();
+    }
+</script>
+
+<script src="{{ asset('Js/filter.js') }}"></script>
 
 </body>
 </html>
