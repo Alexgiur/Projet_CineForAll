@@ -56,3 +56,4 @@ Route::middleware(['auth', IsAdmin::class])->group(function () {
     Route::resource('films', FilmController::class)->except(['index', 'show']);
     Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 });
+
