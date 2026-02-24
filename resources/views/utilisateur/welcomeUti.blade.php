@@ -16,7 +16,6 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="/films">Films</a></li>
-            <li><a href="/personnes">Personnes</a></li>
             <li>Mon compte</li>
             <li><a href="#" class="cta-reservation">Réservation</a></li>
             @guest

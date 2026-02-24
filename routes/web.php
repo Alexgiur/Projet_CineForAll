@@ -45,3 +45,14 @@ Route::post('/register', [LoginController::class, 'register'])->name('register.s
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
+
+
+Route::middleware(['auth', IsAdmin::class])->group(function () {
+
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    Route::resource('films', FilmController::class)->except(['index', 'show']);
+    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
+});
