@@ -63,8 +63,8 @@
                     @auth
                         @if(Auth::user()->IdTypeRoleUti == 1)
                             {{-- Boutons pour l'ADMINISTRATEUR --}}
-                            <a href="/films/{{ $film->IdFilm }}/edit" class="btn-edit">Modifier</a>
-                            <form action="/films/{{ $film->IdFilm }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
+                            <a href="{{route('films.edit', ["id" => $film->IdFilm])}}" class="btn-edit">Modifier</a>
+                            <form action="{{route('films.destroy')}}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-delete-action">Supprimer</button>

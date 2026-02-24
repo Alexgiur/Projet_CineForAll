@@ -20,7 +20,7 @@ Route::get('/', function () {return view('welcome');})->name('home');
     Route::post('store/film', [FilmController::class, 'store'])->name('films.store');
     Route::get('/films/{id}/edit', [FilmController::class, 'edit'])->name('films.edit');
     Route::patch('update/film', [FilmController::class, 'update'])->name('films.update');
-    Route::delete('destroy/film/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
+    Route::delete('destroy/film', [FilmController::class, 'destroy'])->name('films.destroy');
    Route::resource('personnes', PersonneController::class)->except(['index', 'show']);
 //});
 

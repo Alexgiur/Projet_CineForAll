@@ -88,9 +88,11 @@ class FilmController extends Controller
         return redirect('/films/'. $film->IdFilm);
     }
 
-    public function destroy(int $film){
-        $film = Film::where('IdFilm', $film)->delete();
-        return redirect('/films');
+    public function destroy(Request $request){
+        $id = $request->input("id");
+        $film = Film::where('IdFilm', $id)->first();
+        $film->delete();
+        return to_route('films.index');
     }
 
 }

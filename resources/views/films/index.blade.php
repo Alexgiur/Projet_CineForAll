@@ -95,9 +95,10 @@
             adminButtons = `
             <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
                 <a href="/films/${id}/edit" class="btn-menu-uniforme" style="background-color: var(--blue-btn) !important;">Modifier</a>
-                <form action="/films/${id}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
+                <form action="{{route('films.destroy')}}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
                     @csrf
             @method('DELETE')
+                <input hidden name="id" value="${id}">
             <button type="submit" class="btn-menu-uniforme" style="background-color: var(--red-btn) !important;">Supprimer</button>
         </form>
     </div>
