@@ -94,5 +94,5 @@ class FilmController extends Controller
         $film->delete();
         return to_route('films.index');
     }
-
+//test
 }
