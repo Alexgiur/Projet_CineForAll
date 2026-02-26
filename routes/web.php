@@ -17,6 +17,7 @@ Route::get('/', function () {
     }
     return view('welcome');
 })->name('home');
+//test
 
 /* 2. Routes Films */
 Route::get('films', [FilmController::class, 'index'])->name('films.index');
