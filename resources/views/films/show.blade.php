@@ -13,7 +13,7 @@
 
             <div class="film-poster-side">
                 @if($film->AfficheFilm)
-                    <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset($film->AfficheFilm) }}"
+                    <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset('storage/' . $film->AfficheFilm) }}"
                          alt="Affiche {{ $film->TitreFilm }}">
                 @else
                     <div style="height: 100%; display:flex; align-items:center; justify-content:center; background:#ddd; color:#777;">

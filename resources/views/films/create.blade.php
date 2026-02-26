@@ -42,7 +42,7 @@
     <div class="form-container">
         <h1>Ajouter un Film</h1>
 
-        <form action="{{route("films.store")}}" method="POST">
+        <form action="{{route("films.store")}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -88,8 +88,8 @@
             </div>
 
             <div class="form-group">
-                <label for="affiche">URL de l'affiche</label>
-                <input type="text" id="affiche" name="affiche" placeholder="http://..." value="{{ old('affiche') }}">
+                <label for="affiche">Affiche du film</label>
+                <input type="file" id="affiche" name="affiche" accept="image/*">
                 @error('affiche')
                 <span class="error-message">{{ $message }}</span>
                 @enderror
@@ -97,10 +97,10 @@
 
             <div class="form-group">
                 <label for="genre">Identifiant du Genre</label>
-                <select id="genre" name="genre" value="{{ old('genre') }}">
+                <select id="genre" name="genre">
                     <option value="">--Veuillez choisir une option--</option>
                     @foreach($genres as $genre)
-                        <option value="{{ $genre->IdGenreFilm }}">{{ $genre->LibGenreFilm }}</option>
+                        <option value="{{ $genre->IdGenreFilm }}" {{ old('genre') == $genre->IdGenreFilm ? 'selected' : '' }}>{{ $genre->LibGenreFilm }}</option>
                     @endforeach
                 </select>
                 @error('genre')
