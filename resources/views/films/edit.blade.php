@@ -10,26 +10,16 @@
 <body>
 
 <header class="main-header">
-    <div class="logo-container">
-        <a href="/">
-            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
-        </a>
-    </div>
+    <div class="logo-container"><a href="/"><img src="{{ asset('img/logo.jpeg') }}" alt="Logo" class="logo"></a></div>
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
-            <li><a href="/films">Nos Films</a></li>
-            <li><a href="/films/create">Ajouter</a></li>
-            @guest
-                <li><a href="/login" class="cta-login">Connexion</a></li>
-            @endguest
+            <li><a href="{{ route('films.index') }}">Nos Films</a></li>
             @auth
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                         @csrf
-                        <button type="submit" class="cta-login" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit; background: none;">
-                            Déconnexion
-                        </button>
+                        <button type="submit" style="background:none; border:none; cursor:pointer; color:inherit;">Déconnexion</button>
                     </form>
                 </li>
             @endauth
@@ -40,95 +30,68 @@
 <main class="create-section">
     <div class="form-container">
         <h1>Modifier le Film</h1>
-
-        <form action="{{route('films.update')}}" method="POST">
+        <form action="{{ route('films.update', $film->IdFilm) }}" method="POST">
             @csrf
-            @method('PATCH')
-            <input hidden name="id" value="{{$film->IdFilm}}">
+            @method('PUT')
+
             <div class="form-group">
                 <label for="titre">Titre du film</label>
-                <input type="text" id="titre" name="titre" value="{{ old('titre', $film->TitreFilm) }}"
-                       @error('titre') style="border-color: var(--primary-color);" @enderror>
-                @error('titre')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
+                <input type="text" id="titre" name="titre" value="{{ old('titre', $film->TitreFilm) }}" required>
+                @error('titre') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="longueur">Durée (minutes)</label>
-                    <input type="number" id="longueur" name="longueur" value="{{ old('longueur', $film->LongueurFilm) }}">
-                @error('longueur')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
+                <input type="number" id="longueur" name="longueur" value="{{ old('longueur', $film->LongueurFilm) }}" required>
+                @error('longueur') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="datedesortie">Date de sortie</label>
-                <input type="date" id="datedesortie" name="datedesortie" value="{{ old('datedesortie', $film->DateSortieFilm) }}">
-                @error('datedesortie')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
+                <input type="date" id="datedesortie" name="datedesortie" value="{{ old('datedesortie', $film->DateSortieFilm) }}" required>
+                @error('datedesortie') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="resume">Synopsis</label>
-                <textarea id="resume" name="resume"
-                          @error('resume') style="border-color: var(--primary-color);" @enderror>{{ old('resume', $film->ResumeFilm) }}</textarea>
-                @error('resume')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
+                <textarea id="resume" name="resume" required>{{ old('resume', $film->ResumeFilm) }}</textarea>
+                @error('resume') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="langue">Langue</label>
-                <input type="text" id="langue" name="langue" value="{{ old('langue', $film->LangueFilm) }}">
-                @error('langue')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
+                <input type="text" id="langue" name="langue" value="{{ old('langue', $film->LangueFilm) }}" required>
+                @error('langue') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="affiche">URL de l'affiche</label>
                 <input type="text" id="affiche" name="affiche" value="{{ old('affiche', $film->AfficheFilm) }}">
-                @error('affiche')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
             </div>
 
             <div class="form-group">
                 <label for="genre">Genre</label>
-                <select id="genre" name="genre" value="{{ old('genre') }}">
-                    <option value="">--Veuillez choisir une option--</option>
+                <select id="genre" name="genre" required>
                     @foreach($genres as $genre)
-                        <option @if($film->IdGenreFilm == $genre->IdGenreFilm) selected @endif value="{{ $genre->IdGenreFilm }}">{{ $genre->LibGenreFilm }}</option>
+                        <option value="{{ $genre->IdGenreFilm }}" {{ (old('genre', $film->IdGenreFilm) == $genre->IdGenreFilm) ? 'selected' : '' }}>
+                            {{ $genre->LibGenreFilm }}
+                        </option>
                     @endforeach
                 </select>
-                @error('genre')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
+                @error('genre') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group checkbox-group">
-                <input type="checkbox" id="troisD" name="troisD" value="1"
-                    {{ old('troisD', $film->TroisDOuNon) ? 'checked' : '' }}>
-                <label for="troisD" style="margin-bottom: 0; font-weight: normal;">Ce film est en 3D</label>
+                <input type="checkbox" id="troisD" name="troisD" value="1" {{ old('troisD', $film->TroisDOuNon) ? 'checked' : '' }}>
+                <label for="troisD">Disponible en 3D</label>
             </div>
-            @error('troisD')
-            <span class="error-message">{{ $message }}</span>
-            @enderror
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <a href="/films/{{ $film->IdFilm }}" class="btn-submit" style="background-color: #777; text-align:center; text-decoration:none;">Annuler</a>
-                <button name="btnUpdate" type="submit" class="btn-submit">Mettre à jour</button>
+                <a href="{{ route('films.show', $film->IdFilm) }}" class="btn-submit" style="background-color: #777; text-decoration:none; text-align:center;">Annuler</a>
+                <button type="submit" class="btn-submit">Mettre à jour</button>
             </div>
-
         </form>
     </div>
 </main>
-
-<footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
-</footer>
-
 </body>
 </html>
