@@ -54,15 +54,14 @@
                     '{{ $film->IdFilm }}',
                     '{{ addslashes($film->TitreFilm) }}',
                     '{{ addslashes($film->ResumeFilm) }}',
-                    '{{ asset($film->AfficheFilm) }}',
-                    '{{ $film->DateSortieFilm }}',
+                    '{{ asset('storage/' . $film->AfficheFilm) }}', '{{ $film->DateSortieFilm }}',
                     '{{ $film->LongueurFilm }}',
                     '{{ $film->LangueFilm }}',
                     '{{ $film->genre->NomGenre ?? 'Inconnu' }}',
                     {{ $film->TroisDOuNon ? 'true' : 'false' }},
                     {{ (Auth::check() && Auth::user()->IdTypeRoleUti == 1) ? 'true' : 'false' }}
                  )">
-                <img src="{{ asset($film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
+                <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
                 <h3>{{ $film->TitreFilm }}</h3>
                 <p>Genre : {{ $film->genre_film->LibGenreFilm ?? 'N/A' }}</p>
                 <button class="details-link">Voir détails</button>

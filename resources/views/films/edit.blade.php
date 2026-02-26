@@ -30,7 +30,8 @@
 <main class="create-section">
     <div class="form-container">
         <h1>Modifier le Film</h1>
-        <form action="{{ route('films.update', $film->IdFilm) }}" method="POST">
+
+        <form action="{{ route('films.update', $film->IdFilm) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -65,8 +66,9 @@
             </div>
 
             <div class="form-group">
-                <label for="affiche">URL de l'affiche</label>
-                <input type="text" id="affiche" name="affiche" value="{{ old('affiche', $film->AfficheFilm) }}">
+                <label for="affiche">Affiche du film (Laisser vide pour conserver l'actuelle)</label>
+                <input type="file" id="affiche" name="affiche" accept="image/*">
+                @error('affiche') <span class="error-message">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
