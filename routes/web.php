@@ -9,7 +9,23 @@ use App\Http\Middleware\IsAdmin;
 
 /* 1. Page d'accueil */
 
-Route::get('/', function () {return view('welcome');})->name('home');
+Route::get('/', function () {
+    // 1. On vérifie si quelqu'un est connecté
+    if (Auth::check()) {
+
+        // 2. Si c'est un Administrateur (Rôle = 1)
+        if (Auth::user()->IdTypeRoleUti == 1) {
+            return view('admin.welcomeAdmin');
+        }
+
+        // 3. Sinon, c'est un Utilisateur classique
+        return view('utilisateur.welcomeUti');
+    }
+
+    // 4. Si personne n'est connecté (Visiteur)
+    return view('welcome');
+
+})->name('home');
 
 /* 2. Routes Administrateur (Uniquement rôle = 1)*/
 //Route::middleware(['auth', IsAdmin::class])->group(function () {
@@ -30,14 +46,14 @@ Route::get('/', function () {return view('welcome');})->name('home');
 //Route::resource('films', [FilmController::class, 'show'])->only(['index', 'show']);
 //Route::resource('personnes', PersonneController::class)->only(['index', 'show']);
 //Route::middleware(['auth', IsAdmin::class])->group(function (){
-/*    Route::get('personnes', [PersonneController::class, 'index'])->name('personnes.index');
-    Route::get('personnes/{id}', [PersonneController::class, 'show'])->name('personnes.show');
+   Route::get('personnes', [PersonneController::class, 'index'])->name('personnes.index');
+    Route::get('personnes/{$personne}', [PersonneController::class, 'show'])->name('personnes.show');
     Route::get('createpersonnes', [PersonneController::class, 'create'])->name('personnes.create');
     Route::post('store/personnes', [PersonneController::class, 'store'])->name('personnes.store');
-    Route::get('/personnes/{id}/edit', [FilmController::class, 'edit'])->name('personnes.edit');
+    Route::get('/personnes/{personne}/edit', [PersonneController::class, 'edit'])->name('personnes.edit');
     Route::patch('update/film', [PersonneController::class, 'update'])->name('personnes.update');
-    Route::delete('destroy/film/{id}', [PersonneController::class, ])->name('personnes.destroy');
-//});*/
+    Route::delete('destroy/film/{$personne}', [PersonneController::class, ])->name('personnes.destroy');
+//});
 
 
 /* 4. Authentification */

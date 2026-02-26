@@ -38,7 +38,7 @@ class PersonneController extends Controller{
         return redirect('/personnes/'.$p->Idper);
     }
 
-    public function edit(personne $personne){
+    public function edit(Personne $personne){
         return view('personnes.edit', compact('personne'));
     }
 
