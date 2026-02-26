@@ -9,7 +9,23 @@ use App\Http\Middleware\IsAdmin;
 
 /* 1. Page d'accueil */
 
-Route::get('/', function () {return view('welcome');})->name('home');
+Route::get('/', function () {
+    // 1. On vérifie si quelqu'un est connecté
+    if (Auth::check()) {
+
+        // 2. Si c'est un Administrateur (Rôle = 1)
+        if (Auth::user()->IdTypeRoleUti == 1) {
+            return view('admin.welcomeAdmin');
+        }
+
+        // 3. Sinon, c'est un Utilisateur classique
+        return view('utilisateur.welcomeUti');
+    }
+
+    // 4. Si personne n'est connecté (Visiteur)
+    return view('welcome');
+
+})->name('home');
 
 /* 2. Routes Administrateur (Uniquement rôle = 1)*/
 //Route::middleware(['auth', IsAdmin::class])->group(function () {
