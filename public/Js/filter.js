@@ -44,11 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
 
-            const filterValue = this.getAttribute('data-filter');
+            const filterValue = this.getAttribute('data.sql-filter');
 
             cards.forEach(card => {
                 // Si 'all', on montre tout, sinon on compare la catégorie
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                if (filterValue === 'all' || card.getAttribute('data.sql-category') === filterValue) {
                     card.style.display = 'block';
                     // Animation
                     card.style.animation = 'none';
@@ -66,16 +66,16 @@ document.addEventListener('DOMContentLoaded', function () {
     triggers.forEach(trigger => {
         trigger.addEventListener('click', function () {
             modalImg.src = this.src;
-            modalTitle.textContent = this.getAttribute('data-title');
-            modalGenre.textContent = "Genre : " + this.getAttribute('data-genre');
-            modalDesc.textContent = this.getAttribute('data-synopsis');
+            modalTitle.textContent = this.getAttribute('data.sql-title');
+            modalGenre.textContent = "Genre : " + this.getAttribute('data.sql-genre');
+            modalDesc.textContent = this.getAttribute('data.sql-synopsis');
 
-            modalDate.textContent = this.getAttribute('data-release');
-            modalDuration.textContent = this.getAttribute('data-duration');
-            modalRating.textContent = this.getAttribute('data-rating');
-            modalDirector.textContent = this.getAttribute('data-director');
-            modalWriter.textContent = this.getAttribute('data-writer');
-            modalActors.textContent = this.getAttribute('data-actors');
+            modalDate.textContent = this.getAttribute('data.sql-release');
+            modalDuration.textContent = this.getAttribute('data.sql-duration');
+            modalRating.textContent = this.getAttribute('data.sql-rating');
+            modalDirector.textContent = this.getAttribute('data.sql-director');
+            modalWriter.textContent = this.getAttribute('data.sql-writer');
+            modalActors.textContent = this.getAttribute('data.sql-actors');
 
             modal.classList.add('active');
         });

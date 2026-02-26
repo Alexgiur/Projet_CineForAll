@@ -57,7 +57,7 @@
                     '{{ asset('storage/' . $film->AfficheFilm) }}', '{{ $film->DateSortieFilm }}',
                     '{{ $film->LongueurFilm }}',
                     '{{ $film->LangueFilm }}',
-                    '{{ $film->genre->NomGenre ?? 'Inconnu' }}',
+                    '{{ $film->genre->LibGenreFilm ?? 'Inconnu' }}',
                     {{ $film->TroisDOuNon ? 'true' : 'false' }},
                     {{ (Auth::check() && Auth::user()->IdTypeRoleUti == 1) ? 'true' : 'false' }}
                  )">
