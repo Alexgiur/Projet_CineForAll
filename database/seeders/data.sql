@@ -12,7 +12,7 @@ VALUES ('Until Dawn', 105, '2025-04-23', 'Huit amis retournent dans le chalet is
 
 -- Chainsaw Man (Genre: Action - IdGenreFilm = 2)
 INSERT INTO films (TitreFilm, LongueurFilm, DateSortieFilm, ResumeFilm, LangueFilm, TroisDOuNon, AfficheFilm, IdGenreFilm)
-VALUES ('Chainsaw Man', 120, '2025-10-22', 'Denji, un jeune homme pauvre, fusionne avec son chien-démon Pochita pour devenir Chainsaw Man. Il rejoint alors les Devil Hunters pour traquer les démons les plus dangereux.', 'Français', 0, 'affiches/ChainsawMan–LeFilm-L’arc-de-Reze.jpg', 2);
+VALUES ('Chainsaw Man', 120, '2025-10-22', 'Denji, un jeune homme pauvre, fusionne avec son chien-démon Pochita pour devenir Chainsaw Man. Il rejoint alors les Devil Hunters pour traquer les démons les plus dangereux.', 'Français', 0, 'affiches/ChainsawMan–LeFilm-L-arc-de-Reze.jpg', 2);
 
 -- John Wick (Genre: Action - IdGenreFilm = 2)
 INSERT INTO films (TitreFilm, LongueurFilm, DateSortieFilm, ResumeFilm, LangueFilm, TroisDOuNon, AfficheFilm, IdGenreFilm)
