@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\PersonneController;
+use App\Http\Controllers\GenreFilmController;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\IsAdmin;
 
@@ -36,6 +37,9 @@ Route::get('personnes/{personne}', [PersonneController::class, 'show'])->name('p
 Route::get('personnes/{personne}/edit', [PersonneController::class, 'edit'])->name('personnes.edit');
 Route::put('personnes/{personne}', [PersonneController::class, 'update'])->name('personnes.update');
 Route::delete('personnes/{personne}', [PersonneController::class, 'destroy'])->name('personnes.destroy');
+
+/* 4. Routes Genre film */
+Route::resource('genre_film', GenreFilmController::class);
 
 /* 4. Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');

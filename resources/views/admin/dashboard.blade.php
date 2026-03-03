@@ -59,7 +59,10 @@
                 <a href="{{ route('personnes.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux personnes</a>
             </div>
         </div>
+    </div>
 
+    <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+        <a href="{{ route('genre_film.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux genres</a>
     </div>
 </main>
 
