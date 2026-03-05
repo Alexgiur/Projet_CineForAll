@@ -7,13 +7,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonneController;
 use App\Http\Controllers\GenreFilmController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProgrammationController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Middleware\IsAdmin;
 
-/* 1. Page d'accueil */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
-/* 2. Routes Films */
+/* Routes Films */
 Route::get('films', [FilmController::class, 'index'])->name('films.index');
 Route::get('films/create', [FilmController::class, 'create'])->name('films.create');
 Route::post('films', [FilmController::class, 'store'])->name('films.store');
@@ -22,33 +22,37 @@ Route::get('films/{id}/edit', [FilmController::class, 'edit'])->name('films.edit
 Route::put('films/{id}', [FilmController::class, 'update'])->name('films.update');
 Route::delete('films/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
 
-/* 3. Routes Personnes */
-Route::get('personnes', [PersonneController::class, 'index'])->name('personnes.index');
-Route::get('personnes/create', [PersonneController::class, 'create'])->name('personnes.create');
-Route::post('personnes', [PersonneController::class, 'store'])->name('personnes.store');
-Route::get('personnes/{personne}', [PersonneController::class, 'show'])->name('personnes.show');
-Route::get('personnes/{personne}/edit', [PersonneController::class, 'edit'])->name('personnes.edit');
-Route::put('personnes/{personne}', [PersonneController::class, 'update'])->name('personnes.update');
-Route::delete('personnes/{personne}', [PersonneController::class, 'destroy'])->name('personnes.destroy');
+/* Routes Personnes */
+Route::resource('personnes', PersonneController::class);
 
-/* 4. Routes Genre film */
+/* Routes Genre film */
 Route::resource('genre_film', GenreFilmController::class);
 
-/* 4. Authentification */
+/* Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::get('/register', [LoginController::class, 'showRegister'])->name('register');
 Route::post('/register', [LoginController::class, 'register'])->name('register.submit');
 
+/* Espace Utilisateur Connecté (Réservations) */
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // NOUVEAU : Routes pour les réservations
+    Route::get('/mes-reservations', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::get('/reserver/{id}', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/reserver', [ReservationController::class, 'store'])->name('reservations.store');
 });
 
-/* 5. Administration */
+/* Administration */
 Route::middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    Route::get('/admin/programmations', [ProgrammationController::class, 'index'])->name('admin.programmations');
+    Route::post('/admin/programmations', [ProgrammationController::class, 'store'])->name('admin.programmations.store');
+    Route::delete('/admin/programmations/{id}', [ProgrammationController::class, 'destroy'])->name('admin.programmations.destroy');
 });
 
 Route::get('/termes', function () {
