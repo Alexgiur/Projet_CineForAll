@@ -2,47 +2,40 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $table = 'utilisateur';
+    protected $primaryKey = 'IdUtilisateur';
+
+    // CORRECTION : On autorise les vrais noms de colonnes de votre BDD
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'LoginUti',
+        'MdpUti',
+        'IdTypeRoleUti',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
-        'password',
+        'MdpUti',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    // Indique à Laravel que la colonne du mot de passe s'appelle "MdpUti" (et non "password")
+    public function getAuthPassword()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->MdpUti;
+    }
+
+    // Votre relation qui fonctionne
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class, 'effectuer', 'IdUtilisateur', 'IdRes')
+            ->withPivot('IdProg')
+            ->withTimestamps();
     }
 }

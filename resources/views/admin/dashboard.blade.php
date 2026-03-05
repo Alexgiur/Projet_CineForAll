@@ -19,7 +19,7 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
-            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
+            <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservation</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
                 <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
@@ -40,17 +40,18 @@
 
     <div class="admin-buttons-grid">
 
+        {{-- BLOC 1 : FILMS --}}
         <div class="admin-button">
             <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Films</h2>
             <p style="margin-bottom: 25px; color: #555;">Accédez à la liste complète pour modifier ou supprimer des films, ou ajoutez-en un nouveau.</p>
 
             <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
                 <a href="{{ route('films.create') }}" class="btn-menu-uniforme" style="width: 80%;">Ajouter un nouveau film</a>
-
                 <a href="{{ route('films.index') }}" class="btn-menu-uniforme" style="width: 80%; background-color: #555 !important;">Liste des films (Modif / Suppr)</a>
             </div>
         </div>
 
+        {{-- BLOC 2 : PERSONNES --}}
         <div class="admin-button">
             <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Personnes</h2>
             <p style="margin-bottom: 25px; color: #555;">Gestion des acteurs et réalisateurs de la plateforme.</p>
@@ -59,10 +60,27 @@
                 <a href="{{ route('personnes.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux personnes</a>
             </div>
         </div>
-    </div>
 
-    <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-        <a href="{{ route('genre_film.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux genres</a>
+        {{-- BLOC 3 : PROGRAMMATION (Salles & Séances) --}}
+        <div class="admin-button">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Programmation</h2>
+            <p style="margin-bottom: 25px; color: #555;">Gérez les horaires des séances et l'attribution des salles de cinéma.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="{{ route('admin.programmations.index') }}" class="btn-menu-uniforme" style="width: 80%;">Gérer les Séances / Salles</a>
+            </div>
+        </div>
+
+        {{-- BLOC 4 : GENRES (Maintenant intégré à la grille) --}}
+        <div class="admin-button">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Genres</h2>
+            <p style="margin-bottom: 25px; color: #555;">Organisez les catégories de films (Action, Comédie, Horreur, etc.).</p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="{{ route('genre_film.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux genres</a>
+            </div>
+        </div>
+
     </div>
 </main>
 

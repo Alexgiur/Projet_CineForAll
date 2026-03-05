@@ -11,15 +11,15 @@
 
 <header class="main-header">
     <div class="logo-container">
-        <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
+        <a href="/"><img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo"></a>
     </div>
     <nav class="main-nav">
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
 
-            {{-- Tous les boutons utilisent maintenant la même classe CSS btn-menu-uniforme --}}
-            <li><a href="#" class="btn-menu-uniforme">Mes Réservations</a></li>
+            {{-- Le lien pointera maintenant vers votre liste de réservations --}}
+            <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
             <li><a href="#" class="btn-menu-uniforme">Mon Compte</a></li>
 
             <li>
