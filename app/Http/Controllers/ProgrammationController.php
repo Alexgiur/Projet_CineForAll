@@ -26,7 +26,7 @@ class ProgrammationController extends Controller
         // Validation : on vérifie l'existence dans la colonne NumSalle
         $request->validate([
             'IdFilm' => 'required|exists:films,IdFilm',
-            'IdSalle' => 'required|exists:salle,NumSalle',
+            'NumSalle' => 'required|exists:salle',
             'DateProg' => 'required|date',
             'HeureProg' => 'required',
         ]);
@@ -34,7 +34,7 @@ class ProgrammationController extends Controller
         // Insertion : on écrit dans la colonne NumSalle
         Programmation::create([
             'IdFilm'    => $request->IdFilm,
-            'NumSalle'  => $request->IdSalle, // On mappe la valeur du formulaire vers NumSalle
+            'NumSalle'  => $request->NumSalle, // On mappe la valeur du formulaire vers NumSalle
             'DateProg'  => $request->DateProg,
             'HeureProg' => $request->HeureProg,
         ]);
