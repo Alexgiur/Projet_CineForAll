@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('travailler', function (Blueprint $table) {
             //clé étrangère de film
-            $table->unsignedBigInteger('IdFilm');
+            $table->unsignedBigInteger('IdFilm')
+                ->nullable();
             $table->foreign('IdFilm')
                 ->references('IdFilm')
                 ->on('films')
