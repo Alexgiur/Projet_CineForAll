@@ -50,7 +50,8 @@ Route::middleware(['auth', IsAdmin::class])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::get('/admin/programmations', [ProgrammationController::class, 'index'])->name('admin.programmations');
+    // CORRECTION ICI : Ajout de ".index" au nom de la route
+    Route::get('/admin/programmations', [ProgrammationController::class, 'index'])->name('admin.programmations.index');
     Route::post('/admin/programmations', [ProgrammationController::class, 'store'])->name('admin.programmations.store');
     Route::delete('/admin/programmations/{id}', [ProgrammationController::class, 'destroy'])->name('admin.programmations.destroy');
 });
