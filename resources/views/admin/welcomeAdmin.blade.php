@@ -16,17 +16,13 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="/films">Films</a></li>
-
-            {{-- Modification ici --}}
             <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
-                {{-- Modification ici --}}
                 <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
             @endif
 
             <li>
-                {{-- Modification ici --}}
                 <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                     @csrf
                     <button type="submit" class="btn-menu-uniforme">
@@ -49,42 +45,28 @@
     <section class="films-section" id="films-semaine">
         <h2>Films de la semaine</h2>
         <div class="film-list">
-            <div class="film-card">
-                <img src="{{ asset('img/film1.jpeg') }}" alt="Until Dawn">
-                <h3>Until Dawn</h3>
-                <p>Genre: Horreur</p>
-                <a href="#" class="details-link">Réserver</a>
-            </div>
-            <div class="film-card">
-                <img src="{{ asset('img/film2.jpeg') }}" alt="Chainsaw Man">
-                <h3>Chainsaw Man</h3>
-                <p>Genre: Surnaturel</p>
-                <a href="#" class="details-link">Réserver</a>
-            </div>
-            <div class="film-card">
-                <img src="{{ asset('img/film3.jpeg') }}" alt="John Wick">
-                <h3>John Wick</h3>
-                <p>Genre: Action</p>
-                <a href="#" class="details-link">Réserver</a>
-            </div>
+            @foreach($filmsSemaine as $film)
+                <div class="film-card">
+                    @if($film->AfficheFilm)
+                        <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                    @endif
+                    <h3>{{ $film->TitreFilm }}</h3>
+                    <p>Genre: {{ $film->genre_film->LibGenreFilm ?? 'Non spécifié' }}</p>
+                    <a href="{{ route('films.show', $film->IdFilm) }}" class="details-link">Réserver</a>
+                </div>
+            @endforeach
         </div>
     </section>
 
     <section class="films-section" id="films-avenir">
         <h2>Prochainement</h2>
         <div class="film-list">
-            <div class="film-card">
-                <img src="{{ asset('img/film4.jpeg') }}" alt="Scream VI">
-                <h3>Scream VI</h3>
-            </div>
-            <div class="film-card">
-                <img src="{{ asset('img/film5.jpeg') }}" alt="Shrek 5">
-                <h3>Shrek 5</h3>
-            </div>
-            <div class="film-card">
-                <img src="{{ asset('img/film6.jpeg') }}" alt="Avengers">
-                <h3>Avengers Doomsday</h3>
-            </div>
+            @foreach($filmsAvenir as $film)
+                <div class="film-card">
+                    <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                    <h3>{{ $film->TitreFilm }}</h3>
+                </div>
+            @endforeach
         </div>
     </section>
 </main>
