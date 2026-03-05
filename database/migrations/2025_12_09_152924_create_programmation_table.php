@@ -15,11 +15,24 @@ return new class extends Migration
             $table->id('IdProg');
             $table->date('DateProg');
             $table->time('HeureProg');
+
+            // AJOUT : La colonne pour la salle
+            $table->unsignedBigInteger('NumSalle');
+
             $table->unsignedBigInteger('IdFilm');
+
+            // Clé étrangère vers la table des films
             $table->foreign('IdFilm')
                 ->references('IdFilm')
                 ->on('films')
                 ->onDelete('cascade');
+
+            // AJOUT : Clé étrangère vers la table des salles
+            $table->foreign('NumSalle')
+                ->references('NumSalle')
+                ->on('salle')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

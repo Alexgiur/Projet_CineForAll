@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Login;
+use App\Models\User; // <-- Changement ici : On utilise le modèle User unifié
 
 class LoginController extends Controller
 {
@@ -21,7 +21,8 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $user = Login::where('LoginUti', request('email'))->first();
+        // <-- Changement ici : User au lieu de Login
+        $user = User::where('LoginUti', request('email'))->first();
 
         if ($user && Hash::check(request('password'), $user->MdpUti)) {
             Auth::login($user);
@@ -31,13 +32,11 @@ class LoginController extends Controller
         return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
     }
 
-    // Affiche le formulaire d'inscription
     public function showRegister()
     {
         return view('register');
     }
 
-    // Traite l'inscription
     public function register(Request $request)
     {
         $request->validate([
@@ -45,10 +44,11 @@ class LoginController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = Login::create([
+        // <-- Changement ici : User au lieu de Login
+        $user = User::create([
             'LoginUti' => $request->login,
             'MdpUti' => Hash::make($request->password),
-            'IdTypeRoleUti' => 1, // /!\ Vérifiez que l'ID 1 existe dans votre table type_role_uti
+            'IdTypeRoleUti' => 1,
         ]);
 
         Auth::login($user);
