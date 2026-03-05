@@ -3,22 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonneController;
 use App\Http\Controllers\GenreFilmController;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\IsAdmin;
 
 /* 1. Page d'accueil */
-Route::get('/', function () {
-    if (Auth::check()) {
-        if (Auth::user()->IdTypeRoleUti == 1) {
-            return view('admin.welcomeAdmin');
-        }
-        return view('utilisateur.welcomeUti');
-    }
-    return view('welcome');
-})->name('home');
-//test
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 /* 2. Routes Films */
 Route::get('films', [FilmController::class, 'index'])->name('films.index');
