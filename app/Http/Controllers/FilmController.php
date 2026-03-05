@@ -6,7 +6,7 @@ use App\Models\GenreFilm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Film;
-use Illuminate\Support\Facades\Storage; // Ajout important pour gérer les fichiers
+use Illuminate\Support\Facades\Storage;
 
 class FilmController extends Controller
 {
@@ -22,9 +22,15 @@ class FilmController extends Controller
         return view('films.create', compact('genres'));
     }
 
+    /**
+     * Affiche les détails d'un film ainsi que ses séances (programmations)
+     */
     public function show($id)
     {
-        $film = Film::with('genre_film')->findOrFail($id);
+        // MODIFICATION ICI : On charge le genre, mais aussi les séances et leurs salles
+        // Cela permet d'afficher le bouton "Réserver" pour chaque séance existante.
+        $film = Film::with(['genre_film', 'programmations.salle'])->findOrFail($id);
+
         return view('films.show', compact('film'));
     }
 
@@ -37,7 +43,7 @@ class FilmController extends Controller
             'resume' => 'required|min:5|max:250',
             'langue' => 'required|max:20',
             'troisD' => 'nullable',
-            'affiche' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // Validation modifiée pour une image
+            'affiche' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'genre' => 'required|exists:genre_film,IdGenreFilm'
         ]);
 
@@ -50,7 +56,6 @@ class FilmController extends Controller
         $f->TroisDOuNon = $request->has('troisD') ? 1 : 0;
         $f->IdGenreFilm = $request->input('genre');
 
-        // Gestion de l'upload de l'affiche
         if ($request->hasFile('affiche')) {
             $path = $request->file('affiche')->store('affiches', 'public');
             $f->AfficheFilm = $path;
@@ -77,7 +82,7 @@ class FilmController extends Controller
             'resume' => 'required|min:5|max:250',
             'langue' => 'required|max:20',
             'genre' => 'required|exists:genre_film,IdGenreFilm',
-            'affiche' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // Validation modifiée pour une image
+            'affiche' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $film = Film::findOrFail($id);
@@ -89,9 +94,7 @@ class FilmController extends Controller
         $film->TroisDOuNon = $request->has('troisD') ? 1 : 0;
         $film->IdGenreFilm = $request->input('genre');
 
-        // Gestion de l'upload de l'affiche
         if ($request->hasFile('affiche')) {
-            // Supprimer l'ancienne image si elle existe
             if ($film->AfficheFilm && Storage::disk('public')->exists($film->AfficheFilm)) {
                 Storage::disk('public')->delete($film->AfficheFilm);
             }
@@ -109,7 +112,6 @@ class FilmController extends Controller
     {
         $film = Film::findOrFail($id);
 
-        // Supprimer l'image associée lors de la suppression du film
         if ($film->AfficheFilm && Storage::disk('public')->exists($film->AfficheFilm)) {
             Storage::disk('public')->delete($film->AfficheFilm);
         }

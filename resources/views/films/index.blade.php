@@ -19,7 +19,13 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
-            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
+
+            {{-- Lien vers la page récapitulative des réservations de l'utilisateur --}}
+            @auth
+                @if(Auth::user()->IdTypeRoleUti != 1)
+                    <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Mes Réservations</a></li>
+                @endif
+            @endauth
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
                 <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
@@ -54,7 +60,8 @@
                     '{{ $film->IdFilm }}',
                     '{{ addslashes($film->TitreFilm) }}',
                     '{{ addslashes($film->ResumeFilm) }}',
-                    '{{ asset('storage/' . $film->AfficheFilm) }}', '{{ $film->DateSortieFilm }}',
+                    '{{ asset('storage/' . $film->AfficheFilm) }}',
+                    '{{ $film->DateSortieFilm }}',
                     '{{ $film->LongueurFilm }}',
                     '{{ $film->LangueFilm }}',
                     '{{ $film->genre_film->LibGenreFilm ?? 'Inconnu' }}',
@@ -103,6 +110,8 @@
 `;
         }
 
+        // Le bouton "Réserver ma place" redirige maintenant vers la page du film
+        // avec l'ancre #seances-dispo pour descendre directement aux horaires
         modalBody.innerHTML = `
         <div class="film-details-modal" style="display: flex; gap: 30px; text-align: left;">
             <img src="${affiche}" alt="${titre}" style="width: 250px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
@@ -124,7 +133,7 @@
                 <p style="line-height: 1.6; margin-bottom: 25px;">${resume}</p>
 
                 <div style="text-align: center;">
-                    <a href="#" class="btn-menu-uniforme" style="padding: 12px 30px; font-size: 1.1em;">Réserver ma place</a>
+                    <a href="/films/${id}/seances-dispo" class="btn-menu-uniforme" style="padding: 12px 30px; font-size: 1.1em; text-decoration: none;">Réserver ma place</a>
                     ${adminButtons}
                 </div>
             </div>
