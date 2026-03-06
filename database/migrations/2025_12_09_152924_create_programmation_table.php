@@ -20,6 +20,14 @@ return new class extends Migration
                 ->references('IdFilm')
                 ->on('films')
                 ->onDelete('cascade');
+
+            $table->unsignedBigInteger('NumSalle');
+
+            $table->foreign('NumSalle')
+                ->references('NumSalle')
+                ->on('salle')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
