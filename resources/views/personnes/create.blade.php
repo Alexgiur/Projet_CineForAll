@@ -48,6 +48,22 @@
                 <label>Biographie</label>
                 <textarea name="biographie" required placeholder="Minimum 5 caractères...">{{ old('biographie') }}</textarea>
             </div>
+            <div class="form-group">
+                <label>Rôle</label>
+                <select name="role" required
+                        style="width:100%; padding:12px; border:1px solid #ccc; border-radius:5px; font-size:1em;">
+                    <option value="">-- Sélectionner un rôle --</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->IdRoleper }}"
+                            {{ old('role') == $role->IdRoleper ? 'selected' : '' }}>
+                            {{ $role->LibRolePer }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('role')
+                <p style="color: #c0392b; font-size: 0.85em; margin-top: 5px;">{{ $message }}</p>
+                @enderror
+            </div>
             <button type="submit" class="btn-submit">Enregistrer la personne</button>
             <a href="/personnes" style="display:block; text-align:center; margin-top:15px; color:#777;">Retour à la liste</a>
         </form>

@@ -27,58 +27,85 @@ class PersonneController extends Controller {
         $offset = ($currentPage - 1) * $perPage;
 
         // 4. Récupération des données avec skip et take (méthode alternative à paginate)
-        $personnes = $query->skip($offset)->take($perPage)->get();
+        $personnes = $query->with('roles')->skip($offset)->take($perPage)->get();
 
         return view('personnes.index', compact('personnes', 'search', 'currentPage', 'totalPages'));
     }
 
     public function create() {
-        return view('personnes.create');
+        $roles = \App\Models\RolePersonne::all();
+        return view('personnes.create', compact('roles'));
     }
 
-    public function show(personne $personne) {
+    public function show(Personne $personne) {
+        $personne->load('roles');
         return view('personnes.show', compact('personne'));
     }
 
     public function store() {
         request()->validate([
-            'nom' => 'required|min:3|max:50',
-            'prenom' => 'required|min:2|max:50',
-            'datedenaissance' => 'required|date',
-            'nationalite' => 'required|min:5|max:50',
-            'biographie' => 'required|min:5|max:250',
+            'nom'            => 'required|min:3|max:50',
+            'prenom'         => 'required|min:2|max:50',
+            'datedenaissance'=> 'required|date',
+            'nationalite'    => 'required|min:5|max:50',
+            'biographie'     => 'required|min:5|max:250',
+            'role' => 'required|exists:role_personne,IdRoleper',
         ]);
 
-        $p = new Personne;
-        $p->Nomper = request('nom');
-        $p->PrePer = request('prenom');
+        $p = new \App\Models\Personne;
+        $p->Nomper           = request('nom');
+        $p->PrePer           = request('prenom');
         $p->DateNaissancePer = request('datedenaissance');
-        $p->NationalitePer = request('nationalite');
-        $p->BiographiePer = request('biographie');
+        $p->NationalitePer   = request('nationalite');
+        $p->BiographiePer    = request('biographie');
         $p->save();
-        return redirect('/personnes/'.$p->Idper);
+
+        // Insertion dans Travailler sans IdFilm (null car pas encore lié à un film)
+
+        \DB::table('travailler')->insert([
+            'IdPer'     => $p->Idper,
+            'IdRolePer' => request('role'),
+            'IdFilm'    => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+//        dd(request()->all());
+        return redirect('/personnes/' . $p->Idper);
     }
 
     public function edit(Personne $personne) {
-        return view('personnes.edit', compact('personne'));
+        $roles = \App\Models\RolePersonne::all();
+        $personne->load('roles');
+        return view('personnes.edit', compact('personne', 'roles'));
     }
 
-    public function update(personne $personne) {
+    public function update(Personne $personne) {
+
         request()->validate([
-            'nom' => 'required|min:3|max:50',
-            'prenom' => 'required|min:2|max:50',
+            'nom'             => 'required|min:3|max:50',
+            'prenom'          => 'required|min:2|max:50',
             'datedenaissance' => 'required|date',
-            'nationalite' => 'required|min:5|max:50',
-            'biographie' => 'required|min:5|max:250',
+            'nationalite'     => 'required|min:5|max:50',
+            'biographie'      => 'required|min:5|max:250',
+            'role'            => 'required|exists:role_personne,IdRolePer',
         ]);
 
-        $personne->Nomper = request('nom');
-        $personne->PrePer = request('prenom');
+        $personne->Nomper           = request('nom');
+        $personne->PrePer           = request('prenom');
         $personne->DateNaissancePer = request('datedenaissance');
-        $personne->NationalitePer = request('nationalite');
-        $personne->BiographiePer = request('biographie');
+        $personne->NationalitePer   = request('nationalite');
+        $personne->BiographiePer    = request('biographie');
         $personne->save();
-        return redirect('/personnes/'.$personne->Idper);
+        // Mettre à jour le rôle dans Travailler
+        \DB::table('Travailler')
+            ->where('IdPer', $personne->Idper)
+            ->update([
+                'IdRolePer'  => request('role'),
+                'updated_at' => now(),
+            ]);
+
+        return redirect('/personnes/' . $personne->Idper);
     }
 
     public function destroy(Personne $personne) {
