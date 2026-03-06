@@ -66,7 +66,8 @@
             <th>Prénom</th>
             <th>Nom</th>
             <th>Nationalité</th>
-            <th>Actions</th>
+            <th>Role</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -75,6 +76,13 @@
                 <td>{{ $personne->PrePer }}</td>
                 <td>{{ $personne->NomPer }}</td>
                 <td>{{ $personne->NationalitePer }}</td>
+                <td>
+                    @if($personne->roles->isNotEmpty())
+                        {{ $personne->roles->pluck('LibRolePer')->join(', ') }}
+                    @else
+                        <span style="color: #aaa; font-style: italic;">Non renseigné</span>
+                    @endif
+                </td>
                 <td style="display: flex; gap: 10px; justify-content: center;">
                     <a href="/personnes/{{ $personne->Idper }}" class="details-link" style="margin:0;">Voir</a>
                     @auth
