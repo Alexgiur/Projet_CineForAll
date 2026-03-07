@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Personne extends Model{
     protected $table = 'personnes';
     protected $primaryKey = 'Idper';
+    public $timestamps = false;
 
     protected $fillable = [
         'PrePer',
@@ -15,5 +16,15 @@ class Personne extends Model{
         'NationalitePer',
         'BiographiePer',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(
+            \App\Models\RolePersonne::class,
+            'Travailler',
+            'IdPer',
+            'IdRolePer'
+        );
+    }
 
 }

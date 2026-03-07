@@ -24,6 +24,16 @@
                 <strong>Né(e) le</strong>
                 <span>{{ $personne->DateNaissancePer ?? 'Inconnue' }}</span>
             </div>
+            <div class="meta-item">
+                <strong>Rôle</strong>
+                <span>
+            @if($personne->roles->isNotEmpty())
+                        {{ $personne->roles->pluck('LibRolePer')->join(', ') }}
+                    @else
+                        <em style="color: #aaa;">Non renseigné</em>
+                    @endif
+                </span>
+            </div>
         </div>
 
         <div class="synopsis-section">
