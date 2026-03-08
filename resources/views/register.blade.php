@@ -19,17 +19,29 @@
     <div class="bloc-formulaire">
         <h2>Inscription</h2>
 
+        @if($errors->any())
+            <div style="color: red; background: #fee; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+                <strong>Erreur :</strong>
+                <ul style="margin: 5px 0 0 15px;">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('register.submit') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="login">Identifiant :</label>
                 <input type="text" name="login" id="login" value="{{ old('login') }}" required placeholder="Pseudo">
-                @error('login') <span style="color:red">{{ $message }}</span> @enderror
+                @error('login') <span style="color:red; font-size: 0.8em;">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="password">Mot de passe :</label>
                 <input type="password" name="password" id="password" required placeholder="••••••••">
+                @error('password') <span style="color:red; font-size: 0.8em;">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
