@@ -9,6 +9,7 @@ use App\Http\Controllers\GenreFilmController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProgrammationController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\IsAdmin;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -31,8 +32,9 @@ Route::resource('genre_film', GenreFilmController::class);
 /* Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::get('/register', [LoginController::class, 'showRegister'])->name('register');
-Route::post('/register', [LoginController::class, 'register'])->name('register.submit');
+
+Route::get('/register', [RegisterController::class, 'show'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 
 /* Espace Utilisateur Connecté (Réservations) */
 Route::middleware(['auth'])->group(function () {

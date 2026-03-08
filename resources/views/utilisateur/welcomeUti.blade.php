@@ -13,7 +13,9 @@
         <div class="film-list">
             @foreach($filmsSemaine as $film)
                 <div class="film-card">
-                    <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                    @if($film->AfficheFilm)
+                        <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                    @endif
                     <h3>{{ $film->TitreFilm }}</h3>
                     <p>Genre: {{ $film->genre_film->LibGenreFilm ?? 'Non spécifié' }}</p>
                     <a href="{{ route('films.show', $film->IdFilm) }}" class="details-link">Réserver</a>
