@@ -20,7 +20,6 @@
 
             {{-- Le lien pointera maintenant vers votre liste de réservations --}}
             <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
-            <li><a href="#" class="btn-menu-uniforme">Mon Compte</a></li>
 
             <li>
                 <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
@@ -39,7 +38,7 @@
 </main>
 
 <footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
+    <p>© 2026 CineForAll - Tous droits réservés.</p>
     <p style="margin-top: 10px;">
         <a href="{{ route('termes') }}" style="color: white; text-decoration: underline; font-size: 0.9em;">Termes & Conditions</a>
     </p>

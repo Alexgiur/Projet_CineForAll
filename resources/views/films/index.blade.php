@@ -23,7 +23,7 @@
             {{-- Lien vers la page récapitulative des réservations de l'utilisateur --}}
             @auth
                 @if(Auth::user()->IdTypeRoleUti != 1)
-                    <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Mes Réservations</a></li>
+                    <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
                 @endif
             @endauth
 
