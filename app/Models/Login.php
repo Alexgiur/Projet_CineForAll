@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Reservation;
-use App\Models\Note; // Importation nécessaire pour la nouvelle relation
+use App\Models\Note;
 
 class Login extends Authenticatable
 {
@@ -37,12 +37,11 @@ class Login extends Authenticatable
      */
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class, 'effectuer', 'IdUtilisateur', 'IdRes')
-            ->withPivot('IdProg');
+        return $this->belongsToMany(Reservation::class, 'effectuer', 'IdUtilisateur', 'IdRes');
     }
 
     /**
-     * NOUVELLE RELATION : permet de récupérer tous les avis écrits par cet utilisateur
+     * Relation : permet de récupérer tous les avis écrits par cet utilisateur
      */
     public function notes()
     {

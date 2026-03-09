@@ -16,7 +16,7 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="/films">Films</a></li>
-            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
+            <li><a href="/mes-reservations" class="btn-menu-uniforme">Réservation</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
                 <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>

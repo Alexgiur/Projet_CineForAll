@@ -8,9 +8,20 @@
                 Confirmer ma réservation
             </h2>
 
+            {{-- Affichage des erreurs si la validation échoue au lieu de recharger en silence --}}
+            @if ($errors->any())
+                <div style="background: #e74c3c; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <ul style="margin: 0; padding-left: 20px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             {{-- Détails du film et de la séance --}}
             <div style="margin: 20px 0; background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                <h3 style="margin-top: 0; color: #34495e;">{{ $seance->film->TitreFilm }}</h3>
+                <h3 style="margin-top: 0; color: #34495e;">{{ $seance->film->TitreFilm ?? 'Film inconnu' }}</h3>
                 <p style="margin: 5px 0;">
                     <strong> Date :</strong> {{ \Carbon\Carbon::parse($seance->DateProg)->format('d/m/Y') }}
                 </p>
@@ -30,7 +41,7 @@
                 <input type="hidden" name="IdProg" value="{{ $seance->IdProg }}">
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <a href="{{ route('films.show', $seance->IdFilm) }}"
+                    <a href="{{ route('films.show', $seance->IdFilm ?? 1) }}"
                        style="flex: 1; text-align: center; padding: 12px; background: #95a5a6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
                         Annuler
                     </a>
