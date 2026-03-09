@@ -23,7 +23,10 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="/films">Films</a></li>
-            <li><a href="/personnes" style="color:var(--primary-color);">Personnes</a></li>
+            <li><a href="/mes-reservations" class="btn-menu-uniforme">Réservation</a></li>
+            @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme" style="color:var(--primary-color);">Administration</a></li>
+            @endif
             @guest
                 <li><a href="/login" class="cta-login">Connexion</a></li>
             @endguest

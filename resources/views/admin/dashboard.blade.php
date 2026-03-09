@@ -20,7 +20,6 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
             {{-- Ajout du lien vers la liste des cinémas dans le menu --}}
-            <li><a href="{{ route('cinemas.index') }}">Cinémas</a></li>
             <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservation</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
