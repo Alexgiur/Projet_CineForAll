@@ -18,17 +18,16 @@ class ReservationController extends Controller
         $user = Auth::user();
 
         // Récupère les réservations de l'utilisateur via la relation définie dans le modèle User
-        // On suppose que la relation 'reservations' est définie dans le modèle User
         $reservations = $user->reservations()
             ->orderBy('DateDeRes', 'desc')
             ->get();
 
         // Pour chaque réservation, on récupère les détails de la séance (Film + Salle)
-        // en passant par la table pivot 'effectuer'
+        // en utilisant l'IdProg directement présent dans la table réservation
         foreach ($reservations as $res) {
-            if (isset($res->pivot->IdProg)) {
+            if (isset($res->IdProg)) {
                 $res->details = Programmation::with(['film', 'salle'])
-                    ->where('IdProg', $res->pivot->IdProg)
+                    ->where('IdProg', $res->IdProg)
                     ->first();
             }
         }
@@ -42,7 +41,6 @@ class ReservationController extends Controller
     public function create($id)
     {
         // On récupère la séance avec les infos du film et de la salle
-        // Note : On utilise l'ID de la programmation (IdProg)
         $seance = Programmation::with(['film', 'salle'])->findOrFail($id);
 
         return view('reservations.create', compact('seance'));
@@ -53,24 +51,22 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation des données
+        // Validation des données : on vérifie uniquement que la séance existe
         $request->validate([
-            'nb_places' => 'required|integer|min:1|max:10',
-            'IdProg'    => 'required|exists:programmation,IdProg',
+            'IdProg' => 'required|exists:programmation,IdProg',
         ]);
 
         // 1. Création de l'enregistrement dans la table 'reservation'
         $res = new Reservation();
-        $res->NbPlacesRes = $request->nb_places;
-        $res->DateDeRes   = now(); // Utilise la date et l'heure actuelle
+        $res->DateDeRes = now(); // Utilise la date et l'heure actuelle
+        $res->IdProg    = $request->IdProg; // On insère directement l'ID de la programmation
         $res->save();
 
         // 2. Création du lien dans la table pivot 'effectuer'
-        // Cette table fait le lien entre l'Utilisateur, la Réservation et la Séance
+        // Cette table fait le lien entre l'Utilisateur et la Réservation
         DB::table('effectuer')->insert([
             'IdUtilisateur' => Auth::id(),
             'IdRes'         => $res->IdRes, // Id de la réservation fraîchement créée
-            'IdProg'        => $request->IdProg,
             'created_at'    => now(),
             'updated_at'    => now(),
         ]);
