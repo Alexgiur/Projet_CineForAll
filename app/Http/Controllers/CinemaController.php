@@ -8,8 +8,9 @@ use App\Models\Cinema;
 class CinemaController extends Controller
 {
     public function index() {
-        $cinema = Cinema::all();
-        return view('cinema.index', compact('cinema'));
+        // Changement de la variable en $cinemas (pluriel) pour la clarté
+        $cinemas = Cinema::all();
+        return view('cinema.index', compact('cinemas'));
     }
 
     public function create() {
@@ -24,11 +25,13 @@ class CinemaController extends Controller
         ]);
 
         $c = new Cinema;
-        $c->AdresseCine = $request->input('AdresseCinema');
+        // Remplacement de 'AdresseCinema' par 'AdresseCine'
+        $c->AdresseCine = $request->input('AdresseCine');
         $c->CodPostCine = $request->input('CodPostCine');
         $c->VilleCine = $request->input('VilleCine');
         $c->save();
 
+        // Correction du nom de la route (pluriel)
         return redirect()->route('cinemas.show', $c->IdCinema);
     }
 
@@ -40,25 +43,29 @@ class CinemaController extends Controller
         return view('cinema.edit', compact('cinema'));
     }
 
-    public function update(Request $request, $c) {
+    public function update(Request $request, $id) {
         $request->validate([
             'AdresseCine' => 'required|min:5|max:255',
             'CodPostCine' => 'required|min:3|max:5',
             'VilleCine' => 'required|min:3|max:255'
         ]);
-        $c = Cinema::findOrFail($c);
-        $c->AdresseCine = $request->input('AdresseCinema');
+
+        $c = Cinema::findOrFail($id);
+        // Remplacement de 'AdresseCinema' par 'AdresseCine'
+        $c->AdresseCine = $request->input('AdresseCine');
         $c->CodPostCine = $request->input('CodPostCine');
         $c->VilleCine = $request->input('VilleCine');
         $c->save();
 
-        return redirect()->route('cinema.show', $c->IdCinema);
+        // Correction du nom de la route (pluriel)
+        return redirect()->route('cinemas.show', $c->IdCinema);
     }
 
     public function destroy($id) {
         $c = Cinema::findOrFail($id);
         $c->delete();
-        return redirect()->route('cinema.index');
-    }
 
+        // Correction du nom de la route (pluriel)
+        return redirect()->route('cinemas.index');
+    }
 }

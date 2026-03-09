@@ -19,10 +19,12 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
+            {{-- Ajout du lien vers la liste des cinémas dans le menu --}}
+            <li><a href="{{ route('cinemas.index') }}">Cinémas</a></li>
             <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservation</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
-                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme" style="color:var(--primary-color);">Administration</a></li>
             @endif
 
             <li>
@@ -71,13 +73,23 @@
             </div>
         </div>
 
-        {{-- BLOC 4 : GENRES (Maintenant intégré à la grille) --}}
+        {{-- BLOC 4 : GENRES --}}
         <div class="admin-button">
             <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Genres</h2>
             <p style="margin-bottom: 25px; color: #555;">Organisez les catégories de films (Action, Comédie, Horreur, etc.).</p>
 
             <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
                 <a href="{{ route('genre_film.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux genres</a>
+            </div>
+        </div>
+
+        {{-- BLOC 5 : CINÉMAS (Nouveau bloc ajouté) --}}
+        <div class="admin-button">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les Cinémas</h2>
+            <p style="margin-bottom: 25px; color: #555;">Gérez la liste de vos cinémas, leurs adresses et leurs informations.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="{{ route('cinemas.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux cinémas</a>
             </div>
         </div>
 
