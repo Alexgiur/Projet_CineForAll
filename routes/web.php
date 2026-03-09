@@ -9,6 +9,7 @@ use App\Http\Controllers\GenreFilmController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProgrammationController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\CinemaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\IsAdmin;
 
@@ -28,6 +29,8 @@ Route::resource('personnes', PersonneController::class);
 
 /* Routes Genre film */
 Route::resource('genre_film', GenreFilmController::class);
+//Route cinema
+Route::resource('cinemas', CinemaController::class);
 
 /* Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
