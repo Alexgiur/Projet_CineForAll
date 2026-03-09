@@ -15,6 +15,9 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Nos Films</a></li>
+            @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme" style="color:var(--primary-color);">Administration</a></li>
+            @endif
             @auth
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">

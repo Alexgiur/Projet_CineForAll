@@ -19,7 +19,10 @@
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
-            <li><a href="{{ route('cinemas.index') }}" style="color:var(--primary-color);">Cinémas</a></li>
+            <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservation</a></li>
+            @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme" style="color:var(--primary-color);">Administration</a></li>
+            @endif
 
             @auth
                 <li>
