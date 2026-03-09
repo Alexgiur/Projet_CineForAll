@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Salle extends Model
 {
     protected $table = 'salle';
-    // Indispensable : NumSalle est votre clé primaire
     protected $primaryKey = 'NumSalle';
     public $timestamps = true;
 
     protected $fillable = ['NumSalle', 'Capacite', 'IdProg', 'IdCinema'];
+
+    //une salle appartient à un ciné
+    public function cinema()
+    {
+        return $this->belongsTo(Cinema::class, 'IdCinema', 'IdCinema');
+    }
 }

@@ -41,7 +41,7 @@ class ReservationController extends Controller
     public function create($id)
     {
         // On récupère la séance avec les infos du film et de la salle
-        $seance = Programmation::with(['film', 'salle'])->findOrFail($id);
+        $seance = Programmation::with(['film', 'salle.cinema'])->findOrFail($id);
 
         return view('reservations.create', compact('seance'));
     }

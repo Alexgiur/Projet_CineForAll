@@ -54,6 +54,12 @@
                             <td style="padding: 15px;">
                                 n°{{ $res->details->salle->NumSalle ?? 'N/A' }}
                             </td>
+
+                            <td style="padding: 15px;">
+                                <strong>{{ $res->details->salle->cinema->VilleCine ?? 'N/A' }}</strong><br>
+                                <strong>{{ $res->details->salle->cinema->AdresseCine ?? 'N/A' }}</strong><br>
+                                <span style="font-size: 0.9em; color: #7f8c8d;">Salle n°{{ $res->details->salle->NumSalle ?? 'N/A' }}</span>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
