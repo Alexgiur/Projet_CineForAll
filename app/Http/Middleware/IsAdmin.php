@@ -18,7 +18,6 @@ class IsAdmin
         }
 
         // Si ce n'est pas un admin, on lui refuse l'accès avec une erreur 403 (Accès interdit)
-        // (Tu pourrais aussi faire un redirect('/') si tu préfères)
         abort(403, 'Accès refusé. Vous devez être administrateur pour effectuer cette action.');
     }
 }

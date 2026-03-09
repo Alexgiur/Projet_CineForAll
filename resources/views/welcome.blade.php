@@ -29,7 +29,9 @@
         <div class="film-list">
             @foreach($filmsAvenir as $film)
                 <div class="film-card">
-                    <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                    @if($film->AfficheFilm)
+                        <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                    @endif
                     <h3>{{ $film->TitreFilm }}</h3>
                 </div>
             @endforeach

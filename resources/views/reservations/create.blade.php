@@ -12,13 +12,13 @@
             <div style="margin: 20px 0; background: #f8f9fa; padding: 15px; border-radius: 8px;">
                 <h3 style="margin-top: 0; color: #34495e;">{{ $seance->film->TitreFilm }}</h3>
                 <p style="margin: 5px 0;">
-                    <strong>📅 Date :</strong> {{ \Carbon\Carbon::parse($seance->DateProg)->format('d/m/Y') }}
+                    <strong> Date :</strong> {{ \Carbon\Carbon::parse($seance->DateProg)->format('d/m/Y') }}
                 </p>
                 <p style="margin: 5px 0;">
-                    <strong>⏰ Heure :</strong> {{ $seance->HeureProg }}
+                    <strong> Heure :</strong> {{ $seance->HeureProg }}
                 </p>
                 <p style="margin: 5px 0;">
-                    <strong>📍 Salle :</strong> n°{{ $seance->salle->NumSalle ?? 'N/A' }}
+                    <strong> Salle :</strong> n°{{ $seance->salle->NumSalle ?? 'N/A' }}
                 </p>
             </div>
 
@@ -28,13 +28,6 @@
 
                 {{-- On cache l'ID de la séance pour l'envoyer au contrôleur --}}
                 <input type="hidden" name="IdProg" value="{{ $seance->IdProg }}">
-
-                <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <label for="nb_places" style="font-weight: bold;">Nombre de places :</label>
-                    <input type="number" name="nb_places" id="nb_places" min="1" max="10" value="1" required
-                           style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-                    <small style="color: #7f8c8d;">Vous pouvez réserver jusqu'à 10 places maximum.</small>
-                </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <a href="{{ route('films.show', $seance->IdFilm) }}"

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User; // <-- Changement ici : On utilise le modèle User unifié
+use App\Models\Login; // <-- On remet le modèle Login de ta base de données
 
 class LoginController extends Controller
 {
@@ -21,8 +21,8 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // <-- Changement ici : User au lieu de Login
-        $user = User::where('LoginUti', request('email'))->first();
+        // On cherche l'utilisateur avec le modèle Login
+        $user = Login::where('LoginUti', request('email'))->first();
 
         if ($user && Hash::check(request('password'), $user->MdpUti)) {
             Auth::login($user);
@@ -30,30 +30,6 @@ class LoginController extends Controller
         }
 
         return back()->withErrors(['email' => 'Identifiants incorrects.'])->withInput();
-    }
-
-    public function showRegister()
-    {
-        return view('register');
-    }
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'login' => 'required|min:3|unique:utilisateur,LoginUti',
-            'password' => 'required|min:6|confirmed',
-        ]);
-
-        // <-- Changement ici : User au lieu de Login
-        $user = User::create([
-            'LoginUti' => $request->login,
-            'MdpUti' => Hash::make($request->password),
-            'IdTypeRoleUti' => 1,
-        ]);
-
-        Auth::login($user);
-
-        return redirect('/')->with('success', 'Compte créé avec succès !');
     }
 
     public function logout()
