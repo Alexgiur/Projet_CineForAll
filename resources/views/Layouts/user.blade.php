@@ -21,6 +21,10 @@
             {{-- Le lien pointera maintenant vers votre liste de réservations --}}
             <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
 
+            @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
+                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
+            @endif
+
             <li>
                 <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                     @csrf

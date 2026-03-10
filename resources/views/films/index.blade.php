@@ -21,11 +21,8 @@
             <li><a href="{{ route('films.index') }}">Films</a></li>
 
             {{-- Lien vers la page récapitulative des réservations de l'utilisateur --}}
-            @auth
-                @if(Auth::user()->IdTypeRoleUti != 1)
-                    <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
-                @endif
-            @endauth
+            <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
+
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
                 <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
