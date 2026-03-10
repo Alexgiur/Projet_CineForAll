@@ -28,6 +28,10 @@
                 <p style="margin: 5px 0;">
                     <strong> Heure :</strong> {{ $seance->HeureProg }}
                 </p>
+                <p style="margin: 5px 0; color: #e67e22; font-weight: bold;">
+                    📍 Cinéma : {{ $seance->salle->cinema->VilleCine ?? 'Ville inconnue' }}
+                    ({{ $seance->salle->cinema->AdresseCine ?? 'Adresse inconnue' }})
+                </p>
                 <p style="margin: 5px 0;">
                     <strong> Salle :</strong> n°{{ $seance->salle->NumSalle ?? 'N/A' }}
                 </p>

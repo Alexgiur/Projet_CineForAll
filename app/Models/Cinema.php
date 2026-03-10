@@ -15,4 +15,10 @@ class Cinema extends Model
         'CodPostCine',
         'VilleCine',
     ];
+
+    //une salle appartiant à un ciné
+    public function salles()
+    {
+        return $this->hasMany(Salle::class, 'IdCinema', 'IdCinema');
+    }
 }
