@@ -10,8 +10,7 @@ class Programmation extends Model
     protected $primaryKey = 'IdProg';
     public $timestamps = true;
 
-    // Assurez-vous d'utiliser NumSalle ici
-    protected $fillable = ['IdFilm', 'NumSalle', 'DateProg', 'HeureProg'];
+    protected $fillable = ['IdFilm', 'DateProg', 'HeureProg', 'NumSalle'];
 
     public function film()
     {
@@ -20,7 +19,6 @@ class Programmation extends Model
 
     public function salle()
     {
-        // On lie NumSalle (dans programmation) à NumSalle (dans salle)
-        return $this->belongsTo(Salle::class, 'NumSalle', 'NumSalle');
+      return $this->belongsTo(Salle::class, 'NumSalle');
     }
 }
