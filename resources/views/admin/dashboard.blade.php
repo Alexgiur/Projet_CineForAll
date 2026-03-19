@@ -91,14 +91,20 @@
                 <a href="{{ route('cinemas.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux cinémas</a>
             </div>
         </div>
+        <div class="admin-button">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8em;">Gérer les reservations</h2>
+            <p style="margin-bottom: 25px; color: #555;">Annuler ou modifier votre reservation</p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <a href="{{ route('reservations.index') }}" class="btn-menu-uniforme" style="width: 80%;">Accéder aux reservations</a>
+            </div>
+
+    </div>
+    </div>
 
     </div>
 
-    <div style="margin-top: 20px;">
-        <a href="{{ route('reservations.index') }}" class="btn-menu-uniforme" style="background-color: #3498db !important; padding: 12px 25px; font-size: 1.1em; text-decoration: none;">
-             Consulter mes réservations
-        </a>
-    </div>
+
 
 </main>
 
