@@ -15,6 +15,14 @@
     </div>
     <nav class="main-nav">
         <ul>
+
+            <h2 style="color: #991917; border-bottom: 2px solid #f4f4f4; padding-bottom: 10px;">
+                {{-- Affiche le nom/login de l'utilisateur connecté --}}
+                Utilisateur connecté -  {{ Auth::user()->LoginUti }}
+            </h2>
+
+
+
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
 

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" style="max-width: 800px; margin: 40px auto; padding: 20px;">
 
-        <h2 style="color: #2c3e50; border-bottom: 2px solid #f39c12; padding-bottom: 10px;">
+        <h2 style="color: #991917; border-bottom: 2px solid #f39c12; padding-bottom: 10px;">
             {{-- Affiche le nom/login de l'utilisateur connecté --}}
             Mes Réservations - {{ Auth::user()->LoginUti }}
         </h2>
