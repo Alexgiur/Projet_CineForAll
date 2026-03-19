@@ -50,6 +50,10 @@
         <h1 style="color: var(--primary-color); font-family: 'Lilita One', sans-serif; font-size: 2.5em; margin-bottom: 30px;">Détails du Cinéma</h1>
 
         <div style="font-size: 1.2em; color: #444; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+            <strong style="color: #222;">Nom :</strong> {{ $cinema->NomCinema }}
+        </div>
+
+        <div style="font-size: 1.2em; color: #444; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
             <strong style="color: #222;">Adresse :</strong> {{ $cinema->AdresseCine }}
         </div>
 

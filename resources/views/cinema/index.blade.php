@@ -60,6 +60,7 @@
         <table class="custom-table">
             <thead>
             <tr>
+                <th>Nom</th>
                 <th>Adresse</th>
                 <th>Code Postal</th>
                 <th>Ville</th>
@@ -69,6 +70,7 @@
             <tbody>
             @foreach($cinemas as $cinema)
                 <tr>
+                    <td>{{ $cinema->NomCinema }}</td>
                     <td>{{ $cinema->AdresseCine }}</td>
                     <td>{{ $cinema->CodPostCine }}</td>
                     <td>{{ $cinema->VilleCine }}</td>
