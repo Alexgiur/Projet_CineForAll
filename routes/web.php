@@ -29,6 +29,7 @@ Route::resource('personnes', PersonneController::class);
 
 /* Routes Genre film */
 Route::resource('genre_film', GenreFilmController::class);
+
 //Route cinema
 Route::resource('cinemas', CinemaController::class);
 
@@ -47,6 +48,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mes-reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reserver/{id}', [ReservationController::class, 'create'])->name('reservations.create');
     Route::post('/reserver', [ReservationController::class, 'store'])->name('reservations.store');
+
+    // Ajout des routes pour modifier et annuler une réservation
+    Route::get('/mes-reservations/{id}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+    Route::put('/mes-reservations/{id}', [ReservationController::class, 'update'])->name('reservations.update');
+    Route::delete('/mes-reservations/{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 });
 
 /* Administration */
