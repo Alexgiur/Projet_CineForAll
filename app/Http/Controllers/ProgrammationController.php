@@ -6,16 +6,18 @@ use App\Models\Programmation;
 use App\Models\Film;
 use App\Models\Salle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProgrammationController extends Controller
 {
     public function index()
     {
-        $programmations = Programmation::with(['film', 'salle'])
+        $programmations = Programmation::with(['film'])
             ->orderBy('DateProg', 'asc')
             ->get();
 
         $films = Film::all();
+
         $salles = Salle::all();
 
         return view('admin.programmations', compact('programmations', 'films', 'salles'));
@@ -26,17 +28,18 @@ class ProgrammationController extends Controller
         // Validation : on vérifie l'existence dans la colonne NumSalle
         $request->validate([
             'IdFilm' => 'required|exists:films,IdFilm',
-            // 'NumSalle' => 'required|exists:salle',
+             'NumSalle' => 'required|exists:salle',
             'DateProg' => 'required|date',
             'HeureProg' => 'required',
         ]);
 
+
         // Insertion : on écrit dans la colonne NumSalle
         Programmation::create([
             'IdFilm'    => $request->IdFilm,
-            // 'NumSalle'  => $request->NumSalle, // On mappe la valeur du formulaire vers NumSalle
             'DateProg'  => $request->DateProg,
             'HeureProg' => $request->HeureProg,
+            'NumSalle' => $request->NumSalle,
         ]);
 
         return redirect()->back()->with('success', 'La séance a été ajoutée avec succès !');
