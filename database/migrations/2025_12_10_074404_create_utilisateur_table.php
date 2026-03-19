@@ -21,6 +21,7 @@ return new class extends Migration
                 ->on('type_role_uti')
                 ->onDelete('cascade');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

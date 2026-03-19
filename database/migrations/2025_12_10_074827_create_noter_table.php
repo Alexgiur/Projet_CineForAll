@@ -23,9 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('IdUtilisateur');
             $table->foreign('IdUtilisateur')
                 ->references('IdUtilisateur')
-                ->on('Utilisateurs')
+                ->on('utilisateur')
                 ->onDelete('cascade');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
