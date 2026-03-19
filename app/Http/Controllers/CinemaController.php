@@ -19,6 +19,7 @@ class CinemaController extends Controller
 
     public function store(Request $request) {
         $request->validate([
+            'NomCinema' => 'required',
             'AdresseCine' => 'required|min:5|max:255',
             'CodPostCine' => 'required|min:3|max:5',
             'VilleCine' => 'required|min:3|max:255'
@@ -26,6 +27,7 @@ class CinemaController extends Controller
 
         $c = new Cinema;
         // Remplacement de 'AdresseCinema' par 'AdresseCine'
+        $c->NomCinema = $request->input('NomCinema');
         $c->AdresseCine = $request->input('AdresseCine');
         $c->CodPostCine = $request->input('CodPostCine');
         $c->VilleCine = $request->input('VilleCine');
@@ -45,6 +47,7 @@ class CinemaController extends Controller
 
     public function update(Request $request, $id) {
         $request->validate([
+            'NomCinema' => 'required',
             'AdresseCine' => 'required|min:5|max:255',
             'CodPostCine' => 'required|min:3|max:5',
             'VilleCine' => 'required|min:3|max:255'
@@ -52,6 +55,7 @@ class CinemaController extends Controller
 
         $c = Cinema::findOrFail($id);
         // Remplacement de 'AdresseCinema' par 'AdresseCine'
+        $c->NomCinema = $request->input('NomCinema');
         $c->AdresseCine = $request->input('AdresseCine');
         $c->CodPostCine = $request->input('CodPostCine');
         $c->VilleCine = $request->input('VilleCine');

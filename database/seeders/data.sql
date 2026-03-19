@@ -341,26 +341,26 @@ VALUES ('bob@gmail.com', '$2y$10$PoImmK/2qmiPiQX0qdX3v.tsrqesVxGQU2IySvM5v28PNUB
 
 
 -- ------------------------ cinema ------------------------------------------------------------------------
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('17 Rue Dr Bouchut', '69003', 'Lyon');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('PATHE', '17 Rue Dr Bouchut', '69003', 'Lyon');
 
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('7 place de la rotonde', '75001', 'Paris');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('PATHE', '7 place de la rotonde', '75001', 'Paris');
 
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('12 Rue Yvonne Jean-Haffen', '35000', 'Rennes');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('UGC', '12 Rue Yvonne Jean-Haffen', '35000', 'Rennes');
 
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('13-15 Rue Georges Bonnac', '33000', 'Bordeaux');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('PATHE', '13-15 Rue Georges Bonnac', '33000', 'Bordeaux');
 
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('36 Av. du Prado', '13006', 'Marseille');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('UGC', '36 Av. du Prado', '13006', 'Marseille');
 
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('3 Rue des Francs-Bourgeois', '67000', 'Strasbourg');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('PATHE', '3 Rue des Francs-Bourgeois', '67000', 'Strasbourg');
 
-INSERT INTO Cinema (AdresseCine, CodPostCine, VilleCine)
-VALUES ('40 Rue de Béthune', '59800', 'Lille');
+INSERT INTO Cinema (NomCinema, AdresseCine, CodPostCine, VilleCine)
+VALUES ('MEGARAMA', '40 Rue de Béthune', '59800', 'Lille');
 
 -- ------------------------ Programmation ------------------------------------------------------------------------
 -- Programmations pour Until Dawn (IdFilm = 1)
