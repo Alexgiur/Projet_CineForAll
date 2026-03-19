@@ -43,6 +43,14 @@
 </header>
 
 <main class="films-section">
+    {{-- Affichage de l'utilisateur connecté s'il est authentifié --}}
+    @if(Auth::check())
+        <h2 style="color: #991917; border-bottom: 2px solid #f4f4f4; padding-bottom: 10px;">
+            {{-- Affiche le nom/login de l'utilisateur connecté --}}
+            Utilisateur connecté -  {{ Auth::user()->LoginUti }}
+        </h2>
+    @endif
+
     <h2>Notre Catalogue</h2>
 
     <div class="search-container">
