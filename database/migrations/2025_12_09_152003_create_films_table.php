@@ -27,6 +27,7 @@ return new class extends Migration
                 ->on('genre_film')
                 ->onDelete('cascade');
             $table->timestamps();
+           $table->engine = 'InnoDB';
         });
 
     }

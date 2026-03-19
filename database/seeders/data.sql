@@ -364,40 +364,40 @@ VALUES ('40 Rue de Béthune', '59800', 'Lille');
 
 -- ------------------------ Programmation ------------------------------------------------------------------------
 -- Programmations pour Until Dawn (IdFilm = 1)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2025-04-25', '14:00:00', 1, 1);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2025-04-25', '14:00:00', 1);
 
 -- Programmations pour Chainsaw Man (IdFilm = 2)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2025-10-24', '15:30:00', 2, 2);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2025-10-24', '15:30:00', 2);
 
 -- Programmations pour John Wick (IdFilm = 3)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2025-06-14', '16:00:00', 3,3);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2025-06-14', '16:00:00', 3);
 
 -- Programmations pour Scream VI (IdFilm = 4)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2023-03-30', '14:30:00', 4, 5);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2023-03-30', '14:30:00', 4);
 
 -- Programmations pour Shrek 5 (IdFilm = 5)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2026-06-12', '13:00:00', 5, 4);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2026-06-12', '13:00:00', 5);
 
 -- Programmations pour Avengers: Doomsday (IdFilm = 6)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2026-05-03', '18:00:00', 6, 6);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2026-05-03', '18:00:00', 6);
 
 -- Programmations pour Spider-Man: New Generation (IdFilm = 7)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2018-11-08', '14:30:00', 7, 7);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2018-11-08', '14:30:00', 7);
 
 -- Programmations pour The Conjuring: Last Rites (IdFilm = 8)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2025-09-17', '19:00:00', 8, 8);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2025-09-17', '19:00:00', 8);
 
 -- Programmations pour Gladiator II (IdFilm = 9)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2025-11-19', '19:30:00', 9, 5);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2025-11-19', '19:30:00', 9);
 
 -- Programmations pour Beetlejuice Beetlejuice (IdFilm = 10)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2024-09-15', '16:00:00', 10, 4);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2024-09-15', '16:00:00', 10);
 
 -- Programmations pour Vice-Versa 2 (IdFilm = 11)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2024-07-26', '13:30:00', 11, 6);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2024-07-26', '13:30:00', 11);
 
 -- Programmations pour Mission: Impossible - The Final Reckoning (IdFilm = 12)
-INSERT INTO programmation (DateProg, HeureProg, IdFilm, NumSalle) VALUES ('2025-05-28', '21:30:00', 12, 2);
+INSERT INTO programmation (DateProg, HeureProg, IdFilm) VALUES ('2025-05-28', '21:30:00', 12);
 
 -- ------------------------ salle ------------------------------------------------------------------------
 INSERT INTO salle (NumSalle, Capacite, IdProg, IdCinema) VALUES
@@ -456,15 +456,15 @@ INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2023-03-30 10:00:00', 11);
 INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2023-03-30 20:30:00', 12);
 
 -- Réservations pour la programmation 13 (Shrek 5 - 2026-06-12 13:00)
-INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-08 14:45:00', 13);
-INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-10 09:30:00', 13);
+-- INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-08 14:45:00', 13);
+-- INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-10 09:30:00', 13);
 
 -- Réservations pour la programmation 14 (Shrek 5 - 2026-06-12 15:30)
-INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-11 18:20:00', 14);
+-- INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-11 18:20:00', 14);
 
 -- Réservations pour la programmation 15 (Shrek 5 - 2026-06-13 11:00)
-INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-12 16:00:00', 15);
-INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-12 21:15:00', 15);
+-- INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-12 16:00:00', 15);
+-- INSERT INTO Reservation (DateDeRes, IdProg) VALUES ('2026-06-12 21:15:00', 15);
 
 -- ------------------------ effectuer ------------------------------------------------------------------------
 -- Utilisateur Bob (IdUtilisateur = 1) effectue plusieurs réservations
