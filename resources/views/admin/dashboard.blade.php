@@ -93,6 +93,13 @@
         </div>
 
     </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{{ route('reservations.index') }}" class="btn-menu-uniforme" style="background-color: #3498db !important; padding: 12px 25px; font-size: 1.1em; text-decoration: none;">
+             Consulter mes réservations
+        </a>
+    </div>
+
 </main>
 
 <footer>
