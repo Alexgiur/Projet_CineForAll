@@ -21,12 +21,12 @@ return new class extends Migration
                 ->on('films')
                 ->onDelete('cascade');
 
-/*            $table->unsignedBigInteger('NumSalle');*/
-/*
+            $table->unsignedBigInteger('NumSalle');
+
             $table->foreign('NumSalle')
                 ->references('NumSalle')
                 ->on('salle')
-                ->onDelete('cascade');*/
+                ->onDelete('cascade');
 
             $table->timestamps();
             $table->engine = 'InnoDB';
