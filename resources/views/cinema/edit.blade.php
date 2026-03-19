@@ -45,6 +45,11 @@
             @method('PUT')
 
             <div class="form-group">
+                <label for="NomCinema">Nom</label>
+                <input type="text" id="NomCinema" name="NomCinema" value="{{ $cinema->NomCinema }}" required>
+            </div>
+
+            <div class="form-group">
                 <label for="AdresseCine">Adresse</label>
                 <input type="text" id="AdresseCine" name="AdresseCine" value="{{ $cinema->AdresseCine }}" required>
             </div>

@@ -43,6 +43,11 @@
             @csrf
 
             <div class="form-group">
+                <label for="NomCinema">Nom</label>
+                <input type="text" id="NomCinema" name="NomCinema" placeholder="Saisir le nom" required>
+            </div>
+
+            <div class="form-group">
                 <label for="AdresseCine">Adresse</label>
                 <input type="text" id="AdresseCine" name="AdresseCine" placeholder="Saisir l'adresse" required>
             </div>
