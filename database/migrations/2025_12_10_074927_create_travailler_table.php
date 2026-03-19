@@ -29,10 +29,11 @@ return new class extends Migration
             $table->unsignedBigInteger('IdPer');
             $table->foreign('IdPer')
                 ->references('IdPer')
-                ->on('personne')
+                ->on('personnes')
                 ->onDelete('cascade');
 
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('IdRoleper');
             $table->string('LibRolePer');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

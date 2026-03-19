@@ -20,6 +20,7 @@ return new class extends Migration
                 ->on('programmation')
                 ->onDelete('cascade');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('IdUtilisateur');
             $table->foreign('IdUtilisateur')
                 ->references('IdUtilisateur')
-                ->on('Utilisateurs')
+                ->on('Utilisateur')
                 ->onDelete('cascade');
             //clé étrangère de reservation
             $table->unsignedBigInteger('IdRes');
@@ -25,6 +25,7 @@ return new class extends Migration
                 ->on('reservation')
                 ->onDelete('cascade');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 

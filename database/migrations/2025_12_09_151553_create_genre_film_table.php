@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('IdGenreFilm');
             $table->string('LibGenreFilm');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
