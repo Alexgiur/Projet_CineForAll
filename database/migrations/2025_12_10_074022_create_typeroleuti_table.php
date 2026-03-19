@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cinema', function (Blueprint $table) {
-            $table->id('IdCinema');
-            $table->string('AdresseCine');
-            $table->string('CodPostCine');
-            $table->string('VilleCine');
+        Schema::create('type_role_uti', function (Blueprint $table) {
+            $table->id('IdTypeRoleUti');
+            $table->string('LibRoleUti');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cinema');
+        Schema::dropIfExists('type_role_uti');
     }
 };

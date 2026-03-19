@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('NationalitePer');
             $table->string('BiographiePer');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
