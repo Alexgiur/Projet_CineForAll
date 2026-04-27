@@ -39,18 +39,23 @@
             </div>
 
             <div class="form-group">
-                <label>Rôle</label>
-                <select name="role" required
-                        style="width:100%; padding:12px; border:1px solid #ccc; border-radius:5px; font-size:1em;">
-                    <option value="">-- Sélectionner un rôle --</option>
-                    @foreach($roles as $role)
-                        <option value="{{ $role->IdRoleper }}"
-                            {{ $personne->roles->contains('IdRoleper', $role->IdRoleper) ? 'selected' : '' }}>
+                <label>Rôle(s)</label>
+                @foreach($roles as $role)
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <input
+                            type="checkbox"
+                            name="roles[]"
+                            id="role_{{ $role->IdRoleper }}"
+                            value="{{ $role->IdRoleper }}"
+                            {{-- Coche les rôles déjà associés à la personne --}}
+                            {{ $personne->roles->contains('IdRoleper', $role->IdRoleper) ? 'checked' : '' }}
+                        >
+                        <label for="role_{{ $role->IdRoleper }}" style="margin-bottom: 0; font-weight: normal;">
                             {{ $role->LibRolePer }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('role')
+                        </label>
+                    </div>
+                @endforeach
+                @error('roles')
                 <p style="color: #c0392b; font-size: 0.85em; margin-top: 5px;">{{ $message }}</p>
                 @enderror
             </div>

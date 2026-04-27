@@ -49,18 +49,22 @@
                 <textarea name="biographie" required placeholder="Minimum 5 caractères...">{{ old('biographie') }}</textarea>
             </div>
             <div class="form-group">
-                <label>Rôle</label>
-                <select name="role" required
-                        style="width:100%; padding:12px; border:1px solid #ccc; border-radius:5px; font-size:1em;">
-                    <option value="">-- Sélectionner un rôle --</option>
-                    @foreach($roles as $role)
-                        <option value="{{ $role->IdRoleper }}"
-                            {{ old('role') == $role->IdRoleper ? 'selected' : '' }}>
+                <label>Rôles</label>
+                @foreach($roles as $role)
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <input
+                            type="checkbox"
+                            name="roles[]"
+                            id="role_{{ $role->IdRoleper }}"
+                            value="{{ $role->IdRoleper }}"
+                            {{ in_array($role->IdRoleper, old('roles', [])) ? 'checked' : '' }}
+                        >
+                        <label for="role_{{ $role->IdRoleper }}" style="margin-bottom: 0; font-weight: normal;">
                             {{ $role->LibRolePer }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('role')
+                        </label>
+                    </div>
+                @endforeach
+                @error('roles')
                 <p style="color: #c0392b; font-size: 0.85em; margin-top: 5px;">{{ $message }}</p>
                 @enderror
             </div>

@@ -24,7 +24,7 @@ class Personne extends Model{
             'Travailler',
             'IdPer',
             'IdRolePer'
-        );
+        )->distinct();
     }
 
 }
