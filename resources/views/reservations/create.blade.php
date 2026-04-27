@@ -44,8 +44,14 @@
                 {{-- On cache l'ID de la séance pour l'envoyer au contrôleur --}}
                 <input type="hidden" name="IdProg" value="{{ $seance->IdProg }}">
                 <div style="margin-top: 15px;">
+                    {{-- affiche nb places dispo --}}
+                    <p style="margin: 0 0 10px 0; color: #27ae60; font-weight: bold; background: #e8f8f5; padding: 10px; border-radius: 5px; text-align: center;">
+                        Places disponibles : {{ $seance->placesRestantes() }} / {{ $seance->salle->Capacite }}
+                    </p>
+
                     <label for="NbPlaces" style="font-weight: bold; color: #34495e;">Nombre de places :</label>
-                    <input type="number" name="NbPlaces" id="NbPlaces" value="1" min="1" max="10"
+                    {{-- on bloque le max avec la méthode du modèle --}}
+                    <input type="number" name="NbPlaces" id="NbPlaces" value="1" min="1" max="{{ $seance->placesRestantes() }}"
                            style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-top: 5px;" required>
                 </div>
 
