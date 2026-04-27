@@ -43,6 +43,12 @@
                     @endforeach
                 </select>
 
+                <div style="margin-top: 15px;">
+                    <label for="NbPlaces" style="font-weight: bold; color: #34495e;">Modifier le nombre de places :</label>
+                    <input type="number" name="NbPlaces" id="NbPlaces" value="{{ $reservation->NbPlaces }}" min="1" max="10"
+                           style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-top: 5px;" required>
+                </div>
+
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <a href="{{ route('reservations.index') }}"
                        style="flex: 1; text-align: center; padding: 12px; background: #95a5a6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">

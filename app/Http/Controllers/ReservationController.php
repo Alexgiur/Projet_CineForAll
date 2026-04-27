@@ -50,11 +50,13 @@ class ReservationController extends Controller
     {
         $request->validate([
             'IdProg' => 'required|exists:programmation,IdProg',
+            'NbPlaces' => 'required|integer|min:1',
         ]);
 
         $res = new Reservation();
         $res->DateDeRes = now();
         $res->IdProg    = $request->IdProg;
+        $res->NbPlaces  = $request->NbPlaces;
         $res->save();
 
         DB::table('effectuer')->insert([
@@ -106,7 +108,8 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(['IdProg' => 'required|exists:programmation,IdProg']);
+        $request->validate(['IdProg' => 'required|exists:programmation,IdProg',
+                            'NbPlaces' => 'required|integer|min:1']);
 
         $reservation = Reservation::findOrFail($id);
         $isOwner = DB::table('effectuer')->where('IdRes', $id)->where('IdUtilisateur', Auth::id())->exists();
@@ -121,6 +124,7 @@ class ReservationController extends Controller
         }
 
         $reservation->IdProg = $request->IdProg;
+        $reservation->NbPlaces = $request->NbPlaces;
         $reservation->DateDeRes = now();
         $reservation->save();
 
