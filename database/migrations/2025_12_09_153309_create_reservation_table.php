@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('IdRes');
             $table->date('DateDeRes');
             $table->unsignedBigInteger('IdProg');
+            $table->integer('NbPlaces')->default(1);
             $table->foreign('IdProg')
                 ->references('IdProg')
                 ->on('programmation')

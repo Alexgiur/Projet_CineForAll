@@ -43,6 +43,11 @@
 
                 {{-- On cache l'ID de la séance pour l'envoyer au contrôleur --}}
                 <input type="hidden" name="IdProg" value="{{ $seance->IdProg }}">
+                <div style="margin-top: 15px;">
+                    <label for="NbPlaces" style="font-weight: bold; color: #34495e;">Nombre de places :</label>
+                    <input type="number" name="NbPlaces" id="NbPlaces" value="1" min="1" max="10"
+                           style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-top: 5px;" required>
+                </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <a href="{{ route('films.show', $seance->IdFilm ?? 1) }}"

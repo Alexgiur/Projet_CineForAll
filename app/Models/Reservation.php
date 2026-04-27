@@ -18,6 +18,7 @@ class Reservation extends Model
     // Les champs que l'on autorise à remplir
     protected $fillable = [
         'DateDeRes',
-        'IdProg'
+        'IdProg',
+        'NbPlaces'
     ];
 }
