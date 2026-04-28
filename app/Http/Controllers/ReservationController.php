@@ -53,6 +53,14 @@ class ReservationController extends Controller
             'NbPlaces' => 'required|integer|min:1',
         ]);
 
+        $seance = Programmation::findOrFail($request->IdProg);
+
+        if ($request->NbPlaces > $seance->placesRestantes()) {
+            return back()
+                ->withErrors(['NbPlaces' => "Désolé, il ne reste que {$seance->placesRestantes()} places disponibles"])
+                ->withInput();
+        }
+
         $res = new Reservation();
         $res->DateDeRes = now();
         $res->IdProg    = $request->IdProg;
@@ -121,6 +129,14 @@ class ReservationController extends Controller
         $dateHeureSeance = \Carbon\Carbon::parse($seanceActuelle->DateProg . ' ' . $seanceActuelle->HeureProg);
         if ($dateHeureSeance->isPast()) {
             return redirect()->route('reservations.index')->with('error', 'Impossible de modifier une réservation passée.');
+        }
+
+        $nouvelleSeance = Programmation::findOrFail($request->IdProg);
+
+        if ($request->NbPlaces > $nouvelleSeance->placesRestantes($id)) {
+            return back()
+                ->withErrors(['NbPlaces' => "Impossible : il ne reste que {$nouvelleSeance->placesRestantes($id)} places pour cette séance."])
+                ->withInput();
         }
 
         $reservation->IdProg = $request->IdProg;
