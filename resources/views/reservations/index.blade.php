@@ -32,6 +32,7 @@
                         <th style="padding: 15px; color: #34495e;">Réservé le</th>
                         <th style="padding: 15px; color: #34495e;">Film</th>
                         <th style="padding: 15px; color: #34495e;">Date et Heure</th>
+                        <th style="padding: 15px; color: #34495e;">Places</th>
                         <th style="padding: 15px; color: #34495e;">Lieu</th>
                         <th style="padding: 15px; color: #34495e; text-align: center;">Actions</th>
                     </tr>
@@ -54,10 +55,16 @@
                                 @endif
                             </td>
 
+                            <td style="padding: 15px; text-align: center;">
+                                <strong>{{ $res->NbPlaces }}</strong>
+                            </td>
+
                             <td style="padding: 15px;">
                                 <strong>{{ $res->details->salle->cinema->VilleCine ?? 'N/A' }}</strong><br>
                                 <span style="font-size: 0.9em; color: #7f8c8d;">Salle n°{{ $res->details->salle->NumSalle ?? 'N/A' }}</span>
                             </td>
+
+
 
                             {{-- BOUTONS D'ACTION AVEC VERIFICATION DE LA DATE --}}
                             <td style="padding: 15px; text-align: center; display: flex; gap: 10px; justify-content: center;">

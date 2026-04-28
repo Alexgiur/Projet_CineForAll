@@ -50,11 +50,21 @@ class ReservationController extends Controller
     {
         $request->validate([
             'IdProg' => 'required|exists:programmation,IdProg',
+            'NbPlaces' => 'required|integer|min:1',
         ]);
+
+        $seance = Programmation::findOrFail($request->IdProg);
+
+        if ($request->NbPlaces > $seance->placesRestantes()) {
+            return back()
+                ->withErrors(['NbPlaces' => "Désolé, il ne reste que {$seance->placesRestantes()} places disponibles"])
+                ->withInput();
+        }
 
         $res = new Reservation();
         $res->DateDeRes = now();
         $res->IdProg    = $request->IdProg;
+        $res->NbPlaces  = $request->NbPlaces;
         $res->save();
 
         DB::table('effectuer')->insert([
@@ -106,7 +116,8 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(['IdProg' => 'required|exists:programmation,IdProg']);
+        $request->validate(['IdProg' => 'required|exists:programmation,IdProg',
+                            'NbPlaces' => 'required|integer|min:1']);
 
         $reservation = Reservation::findOrFail($id);
         $isOwner = DB::table('effectuer')->where('IdRes', $id)->where('IdUtilisateur', Auth::id())->exists();
@@ -120,7 +131,16 @@ class ReservationController extends Controller
             return redirect()->route('reservations.index')->with('error', 'Impossible de modifier une réservation passée.');
         }
 
+        $nouvelleSeance = Programmation::findOrFail($request->IdProg);
+
+        if ($request->NbPlaces > $nouvelleSeance->placesRestantes($id)) {
+            return back()
+                ->withErrors(['NbPlaces' => "Impossible : il ne reste que {$nouvelleSeance->placesRestantes($id)} places pour cette séance."])
+                ->withInput();
+        }
+
         $reservation->IdProg = $request->IdProg;
+        $reservation->NbPlaces = $request->NbPlaces;
         $reservation->DateDeRes = now();
         $reservation->save();
 

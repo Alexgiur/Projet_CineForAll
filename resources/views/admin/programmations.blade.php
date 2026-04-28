@@ -67,15 +67,26 @@
                     @endforeach
                 </select>
             </div>
+            <div>
+                <label style="font-weight: bold;">Cinema :</label>
+                <select name="IdCinema" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                    <option value="">-- Sélectionner un cinema --</option>
+                    @foreach(App\Models\Cinema::all() as $cinema)
+                        <option value="{{ $cinema->VilleCine }}">Cinema {{ $cinema->VilleCine }}</option>
+                    @endforeach
+
+                </select>
+            </div>
 
             <div>
                 <label style="font-weight: bold;">Salle :</label>
-                {{--<select name="NumSalle" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <select name="NumSalle" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
                     <option value="">-- Sélectionner une salle --</option>
-                    @foreach($salles as $salle)
-                        <option value="{{ $salle->NumSalle }}">Salle n°{{ $salle->NumSalle }} ({{ $salle->Capacite }} places)</option>
+                    @foreach(App\Models\Salle::all() as $salle)
+                        <option value="{{ $salle->NumSalle }}">Salle {{ $salle->NumSalle }}</option>
                     @endforeach
-                </select>--}}
+
+                </select>
             </div>
 
             <div>

@@ -10,8 +10,7 @@ class Programmation extends Model
     protected $primaryKey = 'IdProg';
     public $timestamps = true;
 
-    // Assurez-vous d'utiliser NumSalle ici
-    protected $fillable = ['IdFilm', 'NumSalle', 'DateProg', 'HeureProg'];
+    protected $fillable = ['IdFilm', 'DateProg', 'HeureProg', 'NumSalle'];
 
     public function film()
     {
@@ -20,7 +19,23 @@ class Programmation extends Model
 
     public function salle()
     {
-        // On lie NumSalle (dans programmation) à NumSalle (dans salle)
-        return $this->belongsTo(Salle::class, 'NumSalle', 'NumSalle');
+      return $this->belongsTo(Salle::class, 'NumSalle');
+    }
+
+    public function placesRestantes($idReservationAExclure = null)
+    {
+        //prépare la requête pour compter les places réservées pour la séance
+        $query = \App\Models\Reservation::where('IdProg', $this->IdProg);
+
+        //zi on est en train de modifier une réservation, on ne compte pas les places
+        if ($idReservationAExclure) {
+            $query->where('IdRes', '!=', $idReservationAExclure);
+        }
+
+        //on fait la somme
+        $placesReservees = $query->sum('NbPlaces');
+
+        //on retourne la capacité de la salle - les places réservées
+        return $this->salle->Capacite - $placesReservees;
     }
 }

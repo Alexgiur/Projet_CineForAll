@@ -44,12 +44,13 @@ class PersonneController extends Controller {
 
     public function store() {
         request()->validate([
-            'nom'            => 'required|min:3|max:50',
-            'prenom'         => 'required|min:2|max:50',
-            'datedenaissance'=> 'required|date',
-            'nationalite'    => 'required|min:5|max:50',
-            'biographie'     => 'required|min:5|max:250',
-            'role' => 'required|exists:role_personne,IdRoleper',
+            'nom'             => 'required|min:3|max:50',
+            'prenom'          => 'required|min:2|max:50',
+            'datedenaissance' => 'required|date',
+            'nationalite'     => 'required|min:5|max:50',
+            'biographie'      => 'required|min:5|max:250',
+            'roles'           => 'required|array', // Ajout d'une vérification que c'est bien un tableau
+            'roles.*'         => 'required|exists:role_personne,IdRoleper', // Correction : 'roles.*' au lieu de 'role.*'
         ]);
 
         $p = new \App\Models\Personne;
@@ -60,17 +61,19 @@ class PersonneController extends Controller {
         $p->BiographiePer    = request('biographie');
         $p->save();
 
-        // Insertion dans Travailler sans IdFilm (null car pas encore lié à un film)
+        // Insertion dans Travailler
+        if (request()->has('roles')) {
+            foreach (request('roles') as $roleId) {
+                \DB::table('Travailler')->insert([
+                    'IdPer'      => $p->Idper,
+                    'IdRolePer'  => $roleId,
+                    'IdFilm'     => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
-        \DB::table('travailler')->insert([
-            'IdPer'     => $p->Idper,
-            'IdRolePer' => request('role'),
-            'IdFilm'    => null,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-//        dd(request()->all());
         return redirect('/personnes/' . $p->Idper);
     }
 
@@ -88,7 +91,8 @@ class PersonneController extends Controller {
             'datedenaissance' => 'required|date',
             'nationalite'     => 'required|min:5|max:50',
             'biographie'      => 'required|min:5|max:250',
-            'role'            => 'required|exists:role_personne,IdRolePer',
+            'roles'           => 'required|array',
+            'roles.*'         => 'required|exists:role_personne,IdRolePer', // Correction ici aussi
         ]);
 
         $personne->Nomper           = request('nom');
@@ -97,13 +101,33 @@ class PersonneController extends Controller {
         $personne->NationalitePer   = request('nationalite');
         $personne->BiographiePer    = request('biographie');
         $personne->save();
-        // Mettre à jour le rôle dans Travailler
+
+        // supprime les rôles de base (non liés à des films)
         \DB::table('Travailler')
             ->where('IdPer', $personne->Idper)
-            ->update([
-                'IdRolePer'  => request('role'),
-                'updated_at' => now(),
-            ]);
+            ->whereNull('IdFilm')
+            ->delete();
+
+        // insère les nouveaux rôles cochés
+        if (request()->has('roles')) {
+            foreach (request('roles') as $roleId) {
+                // Vérifie que ce rôle n'existe pas déjà (via un film)
+                $dejaPresent = \DB::table('Travailler')
+                    ->where('IdPer', $personne->Idper)
+                    ->where('IdRolePer', $roleId)
+                    ->exists();
+
+                if (!$dejaPresent) {
+                    \DB::table('travailler')->insert([
+                        'IdPer'      => $personne->Idper,
+                        'IdRolePer'  => $roleId,
+                        'IdFilm'     => null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+        }
 
         return redirect('/personnes/' . $personne->Idper);
     }
