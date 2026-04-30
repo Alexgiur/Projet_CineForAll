@@ -1,4 +1,6 @@
-@extends('layouts.guest')
+@extends('Layouts.guest')
+
+@section('title', 'Bienvenue - CineForAll')
 
 @section('content')
     <section class="hero-section">

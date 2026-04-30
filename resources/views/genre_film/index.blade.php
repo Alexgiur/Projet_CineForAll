@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineForAll - Genres de film</title>
-    <link rel="stylesheet" href="{{ asset('Css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+@extends('Layouts.admin')
+
+@section('title', 'CineForAll - Genres de film')
+
+@section('content')
     <style>
         .genre-table-container {
             max-width: 800px;
@@ -73,34 +70,12 @@
             font-style: italic;
         }
     </style>
-</head>
-<body>
 
-<header class="main-header">
-    <div class="logo-container">
-        <a href="/"><img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo"></a>
-    </div>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="{{ route('films.index') }}">Films</a></li>
-            <li><a href="#" class="btn-menu-uniforme">Réservation</a></li>
-            <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
-            <li>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
-                    @csrf
-                    <button type="submit" class="btn-menu-uniforme">Déconnexion</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-<main>
     <div class="genre-table-container">
 
         <div class="genre-table-header">
             <h1 style="color: var(--primary-color); font-size: 2.5em;">Genres de film</h1>
+            <!-- La route est déjà dynamique -->
             <a href="{{ route('genre_film.create') }}" class="btn-menu-uniforme">+ Ajouter un genre</a>
         </div>
 
@@ -148,11 +123,4 @@
         </div>
 
     </div>
-</main>
-
-<footer>
-    <p>© 2025 CineForAll - Tous droits réservés.</p>
-</footer>
-
-</body>
-</html>
+@endsection

@@ -1,5 +1,7 @@
 @extends('Layouts.user')
 
+@section('title', 'CineForAll - Mes Réservations')
+
 @section('content')
     <div class="container" style="max-width: 900px; margin: 40px auto; padding: 20px;">
 
@@ -63,8 +65,6 @@
                                 <strong>{{ $res->details->salle->cinema->VilleCine ?? 'N/A' }}</strong><br>
                                 <span style="font-size: 0.9em; color: #7f8c8d;">Salle n°{{ $res->details->salle->NumSalle ?? 'N/A' }}</span>
                             </td>
-
-
 
                             {{-- BOUTONS D'ACTION AVEC VERIFICATION DE LA DATE --}}
                             <td style="padding: 15px; text-align: center; display: flex; gap: 10px; justify-content: center;">
