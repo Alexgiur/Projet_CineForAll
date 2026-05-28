@@ -1,7 +1,9 @@
 @extends('Layouts.user')
 
+@section('title', 'CineForAll - Modifier ma réservation')
+
 @section('content')
-    <main class="container" style="max-width: 600px; margin: 40px auto; padding: 20px;">
+    <div class="container" style="max-width: 600px; margin: 40px auto; padding: 20px;">
 
         <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             <h2 style="color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
@@ -62,5 +64,5 @@
                 </div>
             </form>
         </div>
-    </main>
+    </div>
 @endsection
