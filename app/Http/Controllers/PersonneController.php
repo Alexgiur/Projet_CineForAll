@@ -64,7 +64,7 @@ class PersonneController extends Controller {
         // Insertion dans Travailler
         if (request()->has('roles')) {
             foreach (request('roles') as $roleId) {
-                \DB::table('Travailler')->insert([
+                \DB::table('travailler')->insert([
                     'IdPer'      => $p->Idper,
                     'IdRolePer'  => $roleId,
                     'IdFilm'     => null,
@@ -103,7 +103,7 @@ class PersonneController extends Controller {
         $personne->save();
 
         // supprime les rôles de base (non liés à des films)
-        \DB::table('Travailler')
+        \DB::table('travailler')
             ->where('IdPer', $personne->Idper)
             ->whereNull('IdFilm')
             ->delete();
@@ -112,7 +112,7 @@ class PersonneController extends Controller {
         if (request()->has('roles')) {
             foreach (request('roles') as $roleId) {
                 // Vérifie que ce rôle n'existe pas déjà (via un film)
-                $dejaPresent = \DB::table('Travailler')
+                $dejaPresent = \DB::table('travailler')
                     ->where('IdPer', $personne->Idper)
                     ->where('IdRolePer', $roleId)
                     ->exists();

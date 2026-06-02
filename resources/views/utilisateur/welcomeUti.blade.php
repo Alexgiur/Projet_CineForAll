@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('Layouts.user')
 
 @section('content')
     <section class="hero-section">
@@ -14,11 +14,11 @@
             @foreach($filmsSemaine as $film)
                 <div class="film-card">
                     @if($film->AfficheFilm)
-                        <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                        <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
                     @endif
                     <h3>{{ $film->TitreFilm }}</h3>
                     <p>Genre: {{ $film->genre_film->LibGenreFilm ?? 'Non spécifié' }}</p>
-                    <a href="{{ route('films.show', $film->IdFilm) }}" class="details-link">Réserver</a>
+                    <a href="{{ url('/films/' . $film->IdFilm) }}" class="details-link">Réserver</a>
                 </div>
             @endforeach
         </div>
@@ -30,7 +30,7 @@
             @foreach($filmsAvenir as $film)
                 <div class="film-card">
                     @if($film->AfficheFilm)
-                        <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
+                        <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
                     @endif
                     <h3>{{ $film->TitreFilm }}</h3>
                 </div>

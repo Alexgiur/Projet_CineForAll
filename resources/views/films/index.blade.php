@@ -11,42 +11,37 @@
 
 <header class="main-header">
     <div class="logo-container">
-        <a href="/">
+        <a href="{{ url('/') }}">
             <img src="{{ asset('img/logo.jpeg') }}" alt="Logo CineForAll" class="logo">
         </a>
     </div>
     <nav class="main-nav">
         <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="{{ route('films.index') }}">Films</a></li>
-
-            {{-- Lien vers la page récapitulative des réservations de l'utilisateur --}}
-            <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
-
+            <li><a href="{{ url('/') }}">Accueil</a></li>
+            <li><a href="{{ url('/films') }}">Films</a></li>
+            <li><a href="{{ url('/mes-reservations') }}" class="btn-menu-uniforme">Réservations</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
-                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
+                <li><a href="{{ url('/admin') }}" class="btn-menu-uniforme">Administration</a></li>
             @endif
 
             @auth
                 <li>
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
+                    <form action="{{ url('/logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                         @csrf
                         <button type="submit" class="btn-menu-uniforme">Déconnexion</button>
                     </form>
                 </li>
             @else
-                <li><a href="{{ route('login') }}" class="btn-menu-uniforme">Connexion</a></li>
+                <li><a href="{{ url('/login') }}" class="btn-menu-uniforme">Connexion</a></li>
             @endauth
         </ul>
     </nav>
 </header>
 
 <main class="films-section">
-    {{-- Affichage de l'utilisateur connecté s'il est authentifié --}}
     @if(Auth::check())
         <h2 style="color: #991917; border-bottom: 2px solid #f4f4f4; padding-bottom: 10px;">
-            {{-- Affiche le nom/login de l'utilisateur connecté --}}
             Utilisateur connecté -  {{ Auth::user()->LoginUti }}
         </h2>
     @endif
@@ -65,7 +60,7 @@
                     '{{ $film->IdFilm }}',
                     '{{ addslashes($film->TitreFilm) }}',
                     '{{ addslashes($film->ResumeFilm) }}',
-                    '{{ asset('storage/' . $film->AfficheFilm) }}',
+                    '{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset('storage/' . $film->AfficheFilm) }}',
                     '{{ $film->DateSortieFilm }}',
                     '{{ $film->LongueurFilm }}',
                     '{{ $film->LangueFilm }}',
@@ -73,7 +68,7 @@
                     {{ $film->TroisDOuNon ? 'true' : 'false' }},
                     {{ (Auth::check() && Auth::user()->IdTypeRoleUti == 1) ? 'true' : 'false' }}
                  )">
-                <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
+                <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset('storage/' . $film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
                 <h3>{{ $film->TitreFilm }}</h3>
                 <p>Genre : {{ $film->genre_film->LibGenreFilm ?? 'N/A' }}</p>
                 <button class="details-link">Voir détails</button>
@@ -105,17 +100,16 @@
         if (isAdmin) {
             adminButtons = `
             <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-                <a href="/films/${id}/edit" class="btn-menu-uniforme" style="background-color: var(--blue-btn) !important;">Modifier</a>
-                <form action="/films/${id}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
-                    @csrf
-            @method('DELETE')
-            <button type="submit" class="btn-menu-uniforme" style="background-color: var(--red-btn) !important;">Supprimer</button>
-        </form>
-    </div>
-`;
+                <a href="{{ url('/films') }}/${id}/edit" class="btn-menu-uniforme" style="background-color: var(--blue-btn) !important;">Modifier</a>
+                <form action="{{ url('/films') }}/${id}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce film ?');" style="display:inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn-menu-uniforme" style="background-color: var(--red-btn) !important;">Supprimer</button>
+                </form>
+            </div>
+            `;
         }
 
-        // CORRECTION ICI : Remplacement du "/" par un "#" devant seances-dispo
         modalBody.innerHTML = `
         <div class="film-details-modal" style="display: flex; gap: 30px; text-align: left;">
             <img src="${affiche}" alt="${titre}" style="width: 250px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
@@ -137,7 +131,7 @@
                 <p style="line-height: 1.6; margin-bottom: 25px;">${resume}</p>
 
                 <div style="text-align: center;">
-                    <a href="/films/${id}#seances-dispo" class="btn-menu-uniforme" style="padding: 12px 30px; font-size: 1.1em; text-decoration: none;">Réserver ma place</a>
+                    <a href="{{ url('/films') }}/${id}#seances-dispo" class="btn-menu-uniforme" style="padding: 12px 30px; font-size: 1.1em; text-decoration: none;">Réserver ma place</a>
                     ${adminButtons}
                 </div>
             </div>

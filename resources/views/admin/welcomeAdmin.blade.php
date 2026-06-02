@@ -15,23 +15,21 @@
     <nav class="main-nav">
         <ul>
 
-
             <h2 style="color: #991917; border-bottom: 2px solid #f4f4f4; padding-bottom: 10px;">
                 {{-- Affiche le nom/login de l'utilisateur connecté --}}
                 Utilisateur connecté -  {{ Auth::user()->LoginUti }}
             </h2>
 
-
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/films">Films</a></li>
-            <li><a href="/mes-reservations" class="btn-menu-uniforme">Réservation</a></li>
+            <li><a href="{{ url('/') }}">Accueil</a></li>
+            <li><a href="{{ url('/films') }}">Films</a></li>
+            <li><a href="{{ url('/mes-reservations') }}" class="btn-menu-uniforme">Réservation</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)
-                <li><a href="{{ route('admin.dashboard') }}" class="btn-menu-uniforme">Administration</a></li>
+                <li><a href="{{ url('/admin') }}" class="btn-menu-uniforme">Administration</a></li>
             @endif
 
             <li>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
+                <form action="{{ url('/logout') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
                     @csrf
                     <button type="submit" class="btn-menu-uniforme">
                         Déconnexion
@@ -56,11 +54,12 @@
             @foreach($filmsSemaine as $film)
                 <div class="film-card">
                     @if($film->AfficheFilm)
+                        {{-- Correction appliquée ici avec 'storage/' --}}
                         <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
                     @endif
                     <h3>{{ $film->TitreFilm }}</h3>
                     <p>Genre: {{ $film->genre_film->LibGenreFilm ?? 'Non spécifié' }}</p>
-                    <a href="{{ route('films.show', $film->IdFilm) }}" class="details-link">Réserver</a>
+                    <a href="{{ url('/films/' . $film->IdFilm) }}" class="details-link">Réserver</a>
                 </div>
             @endforeach
         </div>
@@ -72,6 +71,7 @@
             @foreach($filmsAvenir as $film)
                 <div class="film-card">
                     @if($film->AfficheFilm)
+                        {{-- Correction appliquée ici aussi avec 'storage/' --}}
                         <img src="{{ asset('storage/' . $film->AfficheFilm) }}" alt="{{ $film->TitreFilm }}">
                     @endif
                     <h3>{{ $film->TitreFilm }}</h3>

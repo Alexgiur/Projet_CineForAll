@@ -62,11 +62,10 @@
                                         </small>
                                     </div>
 
-                                    {{-- MODIFICATION MAJEURE : On a enlevé le blocage de l'admin. TOUT LE MONDE voit le bouton de réservation ! --}}
                                     @auth
-                                        <a href="{{ route('reservations.create', $seance->IdProg) }}" class="btn-reservation" style="background-color: #f39c12; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Réserver cette séance</a>
+                                        <a href="{{ url('/reserver/' . $seance->IdProg) }}" class="btn-reservation" style="background-color: #f39c12; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Réserver cette séance</a>
                                     @else
-                                        <a href="{{ route('login') }}" class="btn-reservation" style="background-color: #34495e; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9em;">Connectez-vous pour réserver</a>
+                                        <a href="{{ url('/login') }}" class="btn-reservation" style="background-color: #34495e; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9em;">Connectez-vous pour réserver</a>
                                     @endauth
                                 </div>
                             @endforeach
@@ -77,7 +76,7 @@
                 </div>
 
                 <div class="action-buttons" style="margin-top: 40px; display: flex; gap: 10px;">
-                    <a href="{{ route('films.index') }}" class="btn-back" style="padding: 10px 20px; border: 1px solid #ccc; border-radius: 5px; text-decoration: none; color: #333;">← Retour aux films</a>
+                    <a href="{{ url('/films') }}" class="btn-back" style="padding: 10px 20px; border: 1px solid #ccc; border-radius: 5px; text-decoration: none; color: #333;">← Retour aux films</a>
                 </div>
             </div>
         </div>

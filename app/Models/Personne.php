@@ -21,7 +21,7 @@ class Personne extends Model{
     {
         return $this->belongsToMany(
             \App\Models\RolePersonne::class,
-            'Travailler',
+            'travailler',
             'IdPer',
             'IdRolePer'
         )->distinct();

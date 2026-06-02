@@ -22,15 +22,9 @@ class FilmController extends Controller
         return view('films.create', compact('genres'));
     }
 
-    /**
-     * Affiche les détails d'un film ainsi que ses séances (programmations)
-     */
     public function show($id)
     {
-        // MODIFICATION ICI : On charge le genre, mais aussi les séances et leurs salles
-        // Cela permet d'afficher le bouton "Réserver" pour chaque séance existante.
         $film = Film::with(['genre_film', 'programmations.salle'])->findOrFail($id);
-
         return view('films.show', compact('film'));
     }
 
@@ -63,7 +57,7 @@ class FilmController extends Controller
 
         $f->save();
 
-        return redirect()->route('films.show', $f->IdFilm);
+        return redirect(url('/films/' . $f->IdFilm));
     }
 
     public function edit($id)
@@ -105,7 +99,7 @@ class FilmController extends Controller
 
         $film->save();
 
-        return redirect()->route('films.show', $film->IdFilm);
+        return redirect(url('/films/' . $film->IdFilm));
     }
 
     public function destroy($id)
@@ -117,6 +111,6 @@ class FilmController extends Controller
         }
 
         $film->delete();
-        return redirect()->route('films.index');
+        return redirect(url('/films'));
     }
 }

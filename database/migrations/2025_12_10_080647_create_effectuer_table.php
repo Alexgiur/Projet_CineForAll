@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('IdUtilisateur');
             $table->foreign('IdUtilisateur')
                 ->references('IdUtilisateur')
-                ->on('Utilisateur')
+                ->on('utilisateur')
                 ->onDelete('cascade');
             //clé étrangère de reservation
             $table->unsignedBigInteger('IdRes');

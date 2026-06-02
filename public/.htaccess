@@ -4,6 +4,7 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /P2026/ABOODI/public/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('IdCinema');
             $table->foreign('IdCinema')
                 ->references('IdCinema')
-                ->on('Cinema')
+                ->on('cinema')
                 ->onDelete('cascade');
             $table->timestamps();
             $table->engine = 'InnoDB';
