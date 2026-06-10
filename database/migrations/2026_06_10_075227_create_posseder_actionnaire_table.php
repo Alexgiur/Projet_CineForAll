@@ -13,17 +13,12 @@ return new class extends Migration
     {
         Schema::create('posseder_actionnaire', function (Blueprint $table) {
                 $table->id();
-
-
                 $table->Integer('cinema_id');
                 $table->Integer('idActionnaire');
-
                 $table->foreign('cinema_id')
                     ->references('id')->on('cinemas');
-
                 $table->foreign('idActionnaire')
                     ->references('idActionnaire')->on('actionnaire');
-
             $table->timestamps();
         });
     }

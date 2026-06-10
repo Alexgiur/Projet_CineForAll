@@ -64,6 +64,7 @@
                 <th>Adresse</th>
                 <th>Code Postal</th>
                 <th>Ville</th>
+                <th>Actionnaires</th>
                 <th style="text-align: center;">Actions</th>
             </tr>
             </thead>
@@ -74,6 +75,17 @@
                     <td>{{ $cinema->AdresseCine }}</td>
                     <td>{{ $cinema->CodPostCine }}</td>
                     <td>{{ $cinema->VilleCine }}</td>
+
+                    <td>
+                        @if($cinema->actionnaires->isEmpty())
+                            <span style="color: #6c757d; font-style: italic; font-size: 0.9em;">Aucun</span>
+                        @else
+                            @foreach($cinema->actionnaires as $actionnaire)
+                                <span class="btn-menu-uniforme">{{ $actionnaire->PrenomActionnaire }} {{ $actionnaire->NomActionnaire }}</span>
+                            @endforeach
+                        @endif
+                    </td>
+
                     <td>
                         <div class="table-actions">
                             <a href="/cinemas/{{$cinema->IdCinema}}" class="btn-menu-uniforme" style="padding: 6px 12px; font-size: 0.9em; background-color: var(--blue-btn);">Voir</a>

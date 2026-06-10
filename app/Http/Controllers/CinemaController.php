@@ -8,8 +8,8 @@ use App\Models\Cinema;
 class CinemaController extends Controller
 {
     public function index() {
-        // Changement de la variable en $cinemas (pluriel) pour la clarté
-        $cinemas = Cinema::all();
+
+        $cinemas = Cinema::with('actionnaires')->get();
         return view('cinema.index', compact('cinemas'));
     }
 
