@@ -1,12 +1,15 @@
 {{-- On force le même design (menu) pour tout le monde, même l'admin ! --}}
 @extends(Auth::check() ? 'Layouts.user' : 'Layouts.guest')
 
+@section('title', 'CineForAll - ' . $film->TitreFilm)
+
 @section('content')
-    <main class="show-section">
+    <div class="show-section">
         <div class="film-details-card">
 
             <div class="film-poster-side">
                 @if($film->AfficheFilm)
+                    <!-- L'utilisation de asset() est déjà bonne ici -->
                     <img src="{{ Str::startsWith($film->AfficheFilm, 'http') ? $film->AfficheFilm : asset('storage/' . $film->AfficheFilm) }}" alt="Affiche {{ $film->TitreFilm }}">
                 @else
                     <div style="height: 100%; display:flex; align-items:center; justify-content:center; background:#ddd; color:#777; border-radius: 12px;">
@@ -53,17 +56,17 @@
                             @foreach($film->programmations as $seance)
                                 <div class="seance-item" style="background: #f8f9fa; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e9ecef;">
                                     <div>
-                                        <span style="font-weight: bold; color: #2c3e50;">
-                                            {{ \Carbon\Carbon::parse($seance->DateProg)->format('d/m/Y') }}
-                                        </span> à
+                                    <span style="font-weight: bold; color: #2c3e50;">
+                                        {{ \Carbon\Carbon::parse($seance->DateProg)->format('d/m/Y') }}
+                                    </span> à
                                         <span style="font-weight: bold; color: #e67e22;">{{ $seance->HeureProg }}</span><br>
                                         <small style="color: #666;">
                                             Salle n°{{ $seance->salle->NumSalle ?? 'N/A' }}
                                         </small>
                                     </div>
 
-                                    {{-- MODIFICATION MAJEURE : On a enlevé le blocage de l'admin. TOUT LE MONDE voit le bouton de réservation ! --}}
                                     @auth
+                                        <!-- Route dynamique pour réserver -->
                                         <a href="{{ route('reservations.create', $seance->IdProg) }}" class="btn-reservation" style="background-color: #f39c12; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Réserver cette séance</a>
                                     @else
                                         <a href="{{ route('login') }}" class="btn-reservation" style="background-color: #34495e; color: #fff; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-size: 0.9em;">Connectez-vous pour réserver</a>
@@ -77,9 +80,10 @@
                 </div>
 
                 <div class="action-buttons" style="margin-top: 40px; display: flex; gap: 10px;">
+                    <!-- Route dynamique de retour -->
                     <a href="{{ route('films.index') }}" class="btn-back" style="padding: 10px 20px; border: 1px solid #ccc; border-radius: 5px; text-decoration: none; color: #333;">← Retour aux films</a>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 @endsection
