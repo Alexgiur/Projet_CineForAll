@@ -15,6 +15,7 @@ class Personne extends Model{
         'DateNaissancePer',
         'NationalitePer',
         'BiographiePer',
+        'SexPer'
     ];
 
     public function roles()

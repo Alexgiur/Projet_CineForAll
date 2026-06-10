@@ -519,4 +519,21 @@ INSERT INTO Noter (IdFilm, IdUtilisateur, Note) VALUES (11, 1, 5);
 -- Mission: Impossible (IdFilm = 12) - Note: 5/5
 INSERT INTO Noter (IdFilm, IdUtilisateur, Note) VALUES (12, 1, 5);
 
+-- ------------------------ Actionnaires ------------------------------------------------------------------------
+INSERT INTO actionnaire (NomActionnaire, PrenomActionnaire) VALUES
+('Dupont', 'Alice'),
+('Martin', 'Bob'),
+('Durand', 'Charlie'),
+('Lefevre', 'Diane'),
+('Moreau', 'Eve');
 
+-- ------------------------ Posséder (Table Pivot) --------------------------------------------------------------
+-- 2 actionnaires pour chaque cinéma (Il y a 7 cinémas dans le fichier)
+INSERT INTO posseder_actionnaire (cinema_id, idActionnaire) VALUES
+(1, 1), (1, 2), -- Cinéma 1 (PATHE Lyon) possédé par Alice et Bob
+(2, 2), (2, 3), -- Cinéma 2 (PATHE Paris) possédé par Bob et Charlie
+(3, 3), (3, 4), -- Cinéma 3 (UGC Rennes) possédé par Charlie et Diane
+(4, 4), (4, 5), -- Cinéma 4 (PATHE Bordeaux) possédé par Diane et Eve
+(5, 5), (5, 1), -- Cinéma 5 (UGC Marseille) possédé par Eve et Alice
+(6, 1), (6, 3), -- Cinéma 6 (PATHE Strasbourg) possédé par Alice et Charlie
+(7, 2), (7, 4); -- Cinéma 7 (MEGARAMA Lille) possédé par Bob et Diane

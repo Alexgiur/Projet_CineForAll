@@ -49,6 +49,7 @@ class PersonneController extends Controller {
             'datedenaissance' => 'required|date',
             'nationalite'     => 'required|min:5|max:50',
             'biographie'      => 'required|min:5|max:250',
+            'SexePer' => 'nullable|string',
             'roles'           => 'required|array', // Ajout d'une vérification que c'est bien un tableau
             'roles.*'         => 'required|exists:role_personne,IdRoleper', // Correction : 'roles.*' au lieu de 'role.*'
         ]);
@@ -59,6 +60,7 @@ class PersonneController extends Controller {
         $p->DateNaissancePer = request('datedenaissance');
         $p->NationalitePer   = request('nationalite');
         $p->BiographiePer    = request('biographie');
+        $personne->SexePer = $request->SexePer;
         $p->save();
 
         // Insertion dans Travailler

@@ -26,7 +26,9 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ route('films.index') }}">Films</a></li>
 
-            {{-- Le lien pointera maintenant vers votre liste de réservations --}}
+            <li><a href="{{ route('personnes.index') }}">Personnes</a></li>
+
+
             <li><a href="{{ route('reservations.index') }}" class="btn-menu-uniforme">Réservations</a></li>
 
             @if(Auth::check() && Auth::user()->IdTypeRoleUti == 1)

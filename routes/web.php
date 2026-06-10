@@ -13,6 +13,7 @@ use App\Http\Controllers\CinemaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\IsAdmin;
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* Routes Films */
@@ -24,6 +25,7 @@ Route::get('films/{id}/edit', [FilmController::class, 'edit'])->name('films.edit
 Route::put('films/{id}', [FilmController::class, 'update'])->name('films.update');
 Route::delete('films/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
 
+
 /* Routes Personnes */
 Route::resource('personnes', PersonneController::class);
 
@@ -32,6 +34,8 @@ Route::resource('genre_film', GenreFilmController::class);
 
 //Route cinema
 Route::resource('cinemas', CinemaController::class);
+
+
 
 /* Authentification */
 Route::get('/login', [LoginController::class, 'show'])->name('login');
